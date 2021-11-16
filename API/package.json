@@ -1,0 +1,19 @@
+{
+	"name": "topquizz-api",
+	"version": "1.0.0",
+	"description": "Topquizz API REST",
+	"main": "app.js",
+	"scripts": {
+		"dev": "nodemon app.js"
+	},
+	"author": "SnaKi",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"mongoose": "^6.0.13"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15"
+	}
+}
