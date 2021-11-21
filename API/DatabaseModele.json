@@ -1,0 +1,43 @@
+{
+	"user": {
+		"_id": "ObjectId",
+		"nickName": "String",
+		"hashPassword": "String",
+		"email": "String",
+		"totalScore": "Integer",
+		"Score": [
+			{
+				"themeID": "ObjectId",
+				"score": "Integer"
+			}
+		]
+	},
+	"Theme": {
+		"_id": "ObjectId",
+		"imageID": "ObjectId",
+		"title": "String",
+		"description": "String",
+		"questionNB": "Integer"
+	},
+	"Question": {
+		"_id": "ObjectId",
+		"themeID": "ObjectId",
+		"imageID": "ObjectId",
+		"description": "String",
+		"createdBy": "ObjectId",
+		"answerList": ["String"],
+		"Validation": {
+			"totalUpVote": "Integer",
+			"upVoteByUsers": ["ObjectId"],
+			"totalDownVote": "Integer",
+			"downVoteByUsers": ["ObjectId"]
+		}
+	},
+	"Image": {
+		"_id": "ObjectId",
+		"filename": "String",
+		"chunkSize": "Integer",
+		"uploadDate": "Date",
+		"length": "Integer"
+	}
+}
