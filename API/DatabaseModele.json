@@ -1,11 +1,11 @@
 {
-	"user": {
+	"User": {
 		"_id": "ObjectId",
 		"nickName": "String",
 		"hashPassword": "String",
 		"email": "String",
 		"totalScore": "Integer",
-		"Score": [
+		"score": [
 			{
 				"themeID": "ObjectId",
 				"score": "Integer"
@@ -26,7 +26,7 @@
 		"description": "String",
 		"createdBy": "ObjectId",
 		"answerList": ["String"],
-		"Validation": {
+		"validation": {
 			"totalUpVote": "Integer",
 			"upVoteByUsers": ["ObjectId"],
 			"totalDownVote": "Integer",
