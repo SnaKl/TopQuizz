@@ -37,11 +37,4 @@
 <string name="lastScore">"\nYour best score is "</string>
 <string name="tryAgain">" points, do you want try again ?"</string>
 <string name="enterPseudo">"Please enter a pseudo !"</string>
-<string name="create_account_text">Create an account</string>
-<string name="validate">Validate</string>
-<string name="welcome_text">Welcome to TopQuiz ! What is your name ?</string>
-<string name="username_hint">Username</string>
-<string name="mail_hint">E-mail</string>
-<string name="password_hint">Password</string>
-<string name="confirm_password_hint">Confirm password</string>
 </resources>
