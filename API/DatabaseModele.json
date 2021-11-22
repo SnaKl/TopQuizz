@@ -4,27 +4,28 @@
 		"nickName": "String",
 		"hashPassword": "String",
 		"email": "String",
+		"signUpDate": "Date",
 		"totalScore": "Integer",
 		"score": [
 			{
-				"themeID": "ObjectId",
-				"score": "Integer"
+				"_themeID": "ObjectId",
+				"points": "Integer"
 			}
 		]
 	},
 	"Theme": {
 		"_id": "ObjectId",
-		"imageID": "ObjectId",
+		"_imageID": "ObjectId",
 		"title": "String",
 		"description": "String",
 		"questionNB": "Integer"
 	},
 	"Question": {
 		"_id": "ObjectId",
-		"themeID": "ObjectId",
-		"imageID": "ObjectId",
+		"_themeID": "ObjectId",
+		"_imageID": "ObjectId",
 		"description": "String",
-		"createdBy": "ObjectId",
+		"_createdBy": "ObjectId",
 		"answerList": ["String"],
 		"validation": {
 			"totalUpVote": "Integer",
