@@ -89,13 +89,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="16dp"
+                android:layout_margin="34dp"
                 android:backgroundTint="#4000A6"
                 android:paddingLeft="40dp"
                 android:paddingTop="10dp"
                 android:paddingRight="40dp"
                 android:paddingBottom="10dp"
-                android:text="@string/validate"
+                android:text="@string/create_account_text"
+                android:background="@drawable/container_dark_button"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
     </LinearLayout>
