@@ -44,4 +44,7 @@
     <string name="mail_hint">E-mail</string>
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm password</string>
+    <string name="login_text">Login</string>
+    <string name="connection">Connection</string>
+    <string name="login_welcome_text">Welcome to TopQuizz, the FI\'s favourite app to test your general culture !</string>
 </resources>

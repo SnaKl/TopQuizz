@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/background_basic_gradient">
     <TextView
-        android:id="@+id/create_account_textview_title"
+        android:id="@+id/login_textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="42dp"
@@ -21,29 +21,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="45dp">
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="45dp">
         <TextView
-            android:id="@+id/create_account_textview_create_account"
+            android:id="@+id/login_textview_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/create_account_text"
+            android:text="@string/login_text"
             android:textColor="@color/colorWhite"
             android:textSize="24dp" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
             android:background="@drawable/container_card"
             android:elevation="4dp">
 
+            <TextView
+                android:id="@+id/login_textview_welcome_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="12dp"
+                android:padding="8dp"
+                android:textColor="@color/colorBlack"
+                android:text="@string/login_welcome_text"
+                android:textSize="20dp" />
+
             <EditText
-                android:id="@+id/create_account_username"
+                android:id="@+id/login_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/container_edit_text"
                 android:elevation="8dp"
@@ -51,18 +64,7 @@
                 android:padding="24dp"
                 android:visibility="visible" />
             <EditText
-                android:id="@+id/create_account_mail"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/mail_hint"
-                android:background="@drawable/container_edit_text"
-                android:padding="24dp"
-                android:elevation="8dp"/>
-            <EditText
-                android:id="@+id/create_account_password"
+                android:id="@+id/login_password"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,31 +74,36 @@
                 android:background="@drawable/container_edit_text"
                 android:padding="24dp"
                 android:elevation="8dp"/>
-            <EditText
-                android:id="@+id/create_account_confirm_password"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/confirm_password_hint"
-                android:background="@drawable/container_edit_text"
-                android:padding="24dp"
-                android:elevation="8dp"/>
 
             <Button
-                android:id="@+id/create_account_button_validate"
+                android:id="@+id/login_button_connection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="16dp"
-                android:backgroundTint="#4000A6"
+                android:layout_margin="24dp"
                 android:paddingLeft="40dp"
                 android:paddingTop="10dp"
                 android:paddingRight="40dp"
                 android:paddingBottom="10dp"
-                android:text="@string/validate"
-                android:textColor="@color/colorWhite" />
+                android:text="@string/connection"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/container_dark_button"
+                android:elevation="8dp"
+                />
         </LinearLayout>
+        <Button
+            android:id="@+id/login_button_create_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="10dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="10dp"
+            android:text="@string/create_account_text"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/container_light_button"
+            android:elevation="8dp" />
     </LinearLayout>
 </LinearLayout>
