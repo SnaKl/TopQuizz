@@ -47,4 +47,10 @@
     <string name="login_text">Connexion</string>
     <string name="connection">Se connecter</string>
     <string name="login_welcome_text">Bienvenue sur TopQuizz, l\'application préférée des FI pour tester votre culture générale !</string>
+    <string name="menu_text">Que veux-tu faire ?</string>
+    <string name="choose_theme">Choisir un thème</string>
+    <string name="my_account">Mon compte</string>
+    <string name="leaderboard">Classement</string>
+    <string name="create_quiz">Créer un quiz</string>
+    <string name="validate_quiz">Valider quiz</string>
 </resources>

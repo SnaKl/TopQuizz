@@ -47,4 +47,10 @@
     <string name="login_text">Login</string>
     <string name="connection">Connection</string>
     <string name="login_welcome_text">Welcome to TopQuizz, the FI\'s favourite app to test your general culture !</string>
+    <string name="menu_text">What do you want to do?</string>
+    <string name="choose_theme">Choose a theme</string>
+    <string name="my_account">My account</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="create_quiz">Create a quiz</string>
+    <string name="validate_quiz">Validate quizzes</string>
 </resources>
