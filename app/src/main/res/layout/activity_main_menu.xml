@@ -59,16 +59,17 @@
                     android:textSize="24dp" />
             </LinearLayout>
         </LinearLayout>
-        <RelativeLayout
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:rowCount="2"
+            android:columnCount="2"
+            android:layout_marginTop="34dp"
             android:orientation="horizontal"
             android:layout_gravity="fill_horizontal">
             <LinearLayout
                 android:id="@+id/menu_button_account"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:background="@drawable/container_card"
@@ -95,9 +96,8 @@
 
             <LinearLayout
                 android:id="@+id/menu_button_leaderboard"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_gravity="end"
                 android:background="@drawable/container_card"
                 android:elevation="8dp"
@@ -122,20 +122,13 @@
                     android:textColor="@color/colorTeal"
                     android:textSize="18dp" />
             </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="34dp"
-            android:orientation="horizontal"
-            android:layout_gravity="fill_horizontal">
             <LinearLayout
                 android:id="@+id/menu_button_create_quizz"
-                android:layout_alignParentLeft="true"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:background="@drawable/container_card"
+                android:layout_marginTop="20dp"
                 android:elevation="8dp"
                 android:padding="16dp"
                 android:orientation="vertical">
@@ -159,12 +152,12 @@
 
             <LinearLayout
                 android:id="@+id/menu_button_validate_quiz"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_gravity="end"
                 android:background="@drawable/container_card"
                 android:elevation="8dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -185,6 +178,6 @@
                     android:textColor="@color/colorOrangeLight"
                     android:textSize="18dp" />
             </LinearLayout>
-        </RelativeLayout>
+        </GridLayout>
     </LinearLayout>
 </LinearLayout>
