@@ -167,7 +167,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_approval"
+                    android:src="@drawable/ic_tick"
                     android:tint="@color/colorOrangeLight" />
                 <TextView
                     android:layout_width="wrap_content"
