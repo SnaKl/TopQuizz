@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const { randomBytes, pbkdf2Sync } = require('crypto');
+import { Schema, model } from 'mongoose';
+import { randomBytes, pbkdf2Sync } from 'crypto';
 const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema(
@@ -41,4 +41,4 @@ UserSchema.methods.validPassword = function (string) {
 	return this.password === password;
 };
 
-module.exports = model('Users', UserSchema);
+export default model('Users', UserSchema);

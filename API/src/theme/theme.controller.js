@@ -1,31 +1,31 @@
 import { Router } from 'express';
 var router = Router();
-import User from './user.model.js';
+import Theme from './theme.model';
 
 /**
- * @route GET api/users
- * @desc    users route
+ * @route GET api/themes
+ * @desc    themes route
  * @access  Private
  */
 router
 	.route('/')
 	.get((req, res) => {
-		res.send('get all users');
+		res.send('get all themes');
 	})
 	.post((req, res) => {
-		res.send('Create user');
+		res.send('Create theme');
 	});
 
 router
-	.route('/:nickName')
+	.route('/:title')
 	.get((req, res) => {
-		res.send('get user');
+		res.send('get theme by title');
 	})
 	.put((req, res) => {
-		res.send('update user');
+		res.send('update theme');
 	})
 	.delete((req, res) => {
-		res.send('delete user');
+		res.send('delete theme');
 	});
 
 export default router;

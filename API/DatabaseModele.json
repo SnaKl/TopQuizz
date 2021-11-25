@@ -36,9 +36,11 @@
 	},
 	"Image": {
 		"_id": "ObjectId",
-		"filename": "String",
-		"chunkSize": "Integer",
 		"uploadDate": "Date",
-		"length": "Integer"
+		"name": "String",
+		"img": {
+			"data": "Buffer",
+			"contentType": "String"
+		}
 	}
 }

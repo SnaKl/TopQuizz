@@ -7,12 +7,12 @@ const QuestionSchema = new Schema(
 		_imageID: { type: ObjectId, ref: 'Image' },
 		description: { type: String },
 		_createdBy: { type: ObjectId, ref: 'User' },
-		answerList: ['String'],
+		answerList: [{ type: String, required: true }],
 		Validation: {
-			totalUpVote: 'Integer',
-			upVoteByUsers: ['ObjectId'],
-			totalDownVote: 'Integer',
-			downVoteByUsers: ['ObjectId'],
+			totalUpVote: { type: Number, default: 0 },
+			upVoteByUsers: [{ type: ObjectId, ref: 'User' }],
+			totalDownVote: { type: Number, default: 0 },
+			downVoteByUsers: [{ type: ObjectId, ref: 'User' }],
 		},
 	},
 	{
