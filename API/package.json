@@ -2,19 +2,36 @@
 	"name": "topquizz-api",
 	"version": "1.0.0",
 	"description": "Topquizz API REST",
-	"main": "app.js",
+	"main": "./src/app.js",
 	"scripts": {
-		"start": "node app.js",
-		"dev": "nodemon app.js"
+		"build": "babel src -d dist",
+		"start": "npm run build && node dist/server.js",
+		"dev": "nodemon --exec node_modules/.bin/babel-node ./src/server.js",
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
 	},
 	"author": "SnaKi",
 	"license": "ISC",
 	"dependencies": {
+		"@types/jest": "^27.0.3",
 		"dotenv": "^10.0.0",
+		"esm": "^3.2.25",
 		"express": "^4.17.1",
 		"mongoose": "^6.0.13"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.15"
+		"@babel/cli": "^7.16.0",
+		"@babel/core": "^7.16.0",
+		"@babel/node": "^7.16.0",
+		"@babel/preset-env": "^7.16.4",
+		"babel-cli": "^6.26.0",
+		"babel-jest": "^27.3.1",
+		"babel-preset-env": "^1.7.0",
+		"expect-more-jest": "^5.4.0",
+		"jest": "^27.3.1",
+		"jest-extended": "^1.1.0",
+		"jest-json-schema": "^6.0.0",
+		"nodemon": "^2.0.15",
+		"superagent": "^6.1.0",
+		"supertest": "^6.1.6"
 	}
 }
