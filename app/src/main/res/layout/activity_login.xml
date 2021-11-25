@@ -42,7 +42,7 @@
             android:elevation="4dp">
 
             <TextView
-                android:id="@+id/login_textview_welcome_text"
+                android:id="@+id/login_greeting_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -53,7 +53,7 @@
                 android:textSize="20dp" />
 
             <EditText
-                android:id="@+id/login_username"
+                android:id="@+id/login_username_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -64,7 +64,7 @@
                 android:padding="24dp"
                 android:visibility="visible" />
             <EditText
-                android:id="@+id/login_password"
+                android:id="@+id/login_password_input"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,10 +73,11 @@
                 android:hint="@string/password_hint"
                 android:background="@drawable/container_edit_text"
                 android:padding="24dp"
-                android:elevation="8dp"/>
+                android:elevation="8dp"
+                android:inputType="textPassword"/>
 
             <Button
-                android:id="@+id/login_button_connection"
+                android:id="@+id/login_connection_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

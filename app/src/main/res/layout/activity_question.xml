@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.neves.topquiz.controller.MainActivity"
+    tools:context="com.neves.topquiz.controller.GameActivity"
     android:orientation="vertical"
     android:background="@drawable/background_basic_gradient">
 
@@ -14,8 +14,6 @@
         android:layout_height="wrap_content"
         android:textSize="38dp"
         android:layout_gravity="center"
-        android:layout_marginTop="28dp"
-        android:padding="8dp"
         android:text="Question #"
         android:textColor="@color/colorWhite" />
 
@@ -39,7 +37,7 @@
             android:id="@+id/question_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:textColor="@color/colorWhite"
             android:textSize="22dp"

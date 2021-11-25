@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_question);
 
         System.out.println("GameActivity::onCreate()");
 
@@ -107,11 +107,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = true;
 
-        mQuestionTextView = (TextView) findViewById(R.id.activity_game_question_text);
-        mAnswerButton1 = (Button) findViewById(R.id.activity_game_answer1_btn);
-        mAnswerButton2 = (Button) findViewById(R.id.activity_game_answer2_btn);
-        mAnswerButton3 = (Button) findViewById(R.id.activity_game_answer3_btn);
-        mAnswerButton4 = (Button) findViewById(R.id.activity_game_answer4_btn);
+        mQuestionTextView = (TextView) findViewById(R.id.question_question);
+        mAnswerButton1 = (Button) findViewById(R.id.question_answer1);
+        mAnswerButton2 = (Button) findViewById(R.id.question_answer2);
+        mAnswerButton3 = (Button) findViewById(R.id.question_answer3);
+        mAnswerButton4 = (Button) findViewById(R.id.question_answer4);
 
         mAnswerButton1.setOnClickListener(this);
         mAnswerButton2.setOnClickListener(this);
@@ -334,45 +334,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         switch (numQuestion) {
             case 0:
                 if (reponse) {
-                    mAnswerButton1.setBackgroundColor(getColor(R.color.colorGreen));
+                    mAnswerButton1.setBackground(getDrawable(R.drawable.container_answer_button_correct));
                 } else {
-                    mAnswerButton1.setBackgroundColor(getColor(R.color.colorRed));
-                    mAnswerButton1.setTextColor(getColor(R.color.colorPrimaryDark));
+                    mAnswerButton1.setBackground(getDrawable(R.drawable.container_answer_button_wrong));
                 }
                 break;
             case 1:
                 if (reponse) {
-                    mAnswerButton2.setBackgroundColor(getColor(R.color.colorGreen));
+                    mAnswerButton2.setBackground(getDrawable(R.drawable.container_answer_button_correct));
                 } else {
-                    mAnswerButton2.setBackgroundColor(getColor(R.color.colorRed));
-                    mAnswerButton2.setTextColor(getColor(R.color.colorPrimaryDark));
+                    mAnswerButton2.setBackground(getDrawable(R.drawable.container_answer_button_wrong));
                 }
                 break;
             case 2:
                 if (reponse) {
-                    mAnswerButton3.setBackgroundColor(getColor(R.color.colorGreen));
+                    mAnswerButton3.setBackground(getDrawable(R.drawable.container_answer_button_correct));
                 } else {
-                    mAnswerButton3.setBackgroundColor(getColor(R.color.colorRed));
-                    mAnswerButton3.setTextColor(getColor(R.color.colorPrimaryDark));
+                    mAnswerButton3.setBackground(getDrawable(R.drawable.container_answer_button_wrong));
                 }
                 break;
             case 3:
                 if (reponse) {
-                    mAnswerButton4.setBackgroundColor(getColor(R.color.colorGreen));
+                    mAnswerButton4.setBackground(getDrawable(R.drawable.container_answer_button_correct));
                 } else {
-                    mAnswerButton4.setBackgroundColor(getColor(R.color.colorRed));
-                    mAnswerButton4.setTextColor(getColor(R.color.colorPrimaryDark));
+                    mAnswerButton4.setBackground(getDrawable(R.drawable.container_answer_button_wrong));
                 }
                 break;
             case 4:
-                mAnswerButton1.setBackgroundColor(getColor(R.color.colorWhite));
-                mAnswerButton2.setBackgroundColor(getColor(R.color.colorWhite));
-                mAnswerButton3.setBackgroundColor(getColor(R.color.colorWhite));
-                mAnswerButton4.setBackgroundColor(getColor(R.color.colorWhite));
-                mAnswerButton1.setTextColor(getColor(R.color.colorAccent));
-                mAnswerButton2.setTextColor(getColor(R.color.colorAccent));
-                mAnswerButton3.setTextColor(getColor(R.color.colorAccent));
-                mAnswerButton4.setTextColor(getColor(R.color.colorAccent));
+                mAnswerButton1.setBackground(getDrawable(R.drawable.container_answer_button));
+                mAnswerButton2.setBackground(getDrawable(R.drawable.container_answer_button));
+                mAnswerButton3.setBackground(getDrawable(R.drawable.container_answer_button));
+                mAnswerButton4.setBackground(getDrawable(R.drawable.container_answer_button));
                 break;
         }
     }
