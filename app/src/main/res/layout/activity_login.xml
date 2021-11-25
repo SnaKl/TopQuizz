@@ -62,7 +62,8 @@
                 android:padding="8dp"
                 android:text="@string/login_welcome_text"
                 android:textColor="@color/colorBlack"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                />
 
             <EditText
                 android:id="@+id/login_username_input"
@@ -74,7 +75,9 @@
                 android:elevation="8dp"
                 android:hint="@string/username_hint"
                 android:padding="24dp"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorHint" />
 
             <EditText
                 android:id="@+id/login_password_input"
@@ -87,7 +90,9 @@
                 android:elevation="8dp"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
-                android:padding="24dp" />
+                android:padding="24dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorHint"/>
 
             <Button
                 android:id="@+id/login_connection_btn"

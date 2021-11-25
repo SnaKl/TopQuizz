@@ -14,4 +14,5 @@
     <color name="colorOrangeLight">#D9A70B</color>
     <color name="colorCorrect">#56D35B</color>
     <color name="colorWrong">#CC2424</color>
+    <color name="colorHint">#888888</color>
 </resources>
