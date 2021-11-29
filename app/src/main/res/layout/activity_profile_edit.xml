@@ -11,6 +11,7 @@
         android:id="@+id/profile_picture_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,15 +25,16 @@
             android:scaleType="centerCrop"
             android:src="@drawable/iv_default_profile"
             app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
+
         <ImageButton
             android:id="@+id/edit_profile_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
-            android:scaleType="centerCrop"
-            android:layout_gravity="bottom|right"
             android:elevation="10dp"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_modify" />
 
     </FrameLayout>
