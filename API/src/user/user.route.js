@@ -1,31 +1,53 @@
 import { Router } from 'express';
 var router = Router();
-import User from './user.model.js';
+import * as UserController from './user.controller';
+import Validator from '../middleware/validator';
+import * as UserValidator from './user.validator';
 
 /**
  * @route GET api/users
  * @desc    users route
  * @access  Private
  */
-router
-	.route('/')
-	.get((req, res) => {
-		res.send('get all users');
-	})
-	.post((req, res) => {
-		res.send('Create user');
-	});
+router.get('/', UserController.getUser);
 
-router
-	.route('/:nickName')
-	.get((req, res) => {
-		res.send('get user');
-	})
-	.put((req, res) => {
-		res.send('update user');
-	})
-	.delete((req, res) => {
-		res.send('delete user');
-	});
+router.put(
+	'/',
+	UserValidator.updateUser(),
+	Validator,
+	UserController.updateUser,
+);
+
+router.post(
+	'/',
+	UserValidator.createUser(),
+	Validator,
+	UserController.createUser,
+);
+
+router.delete('/', UserController.deleteUser);
+
+router.get('/all', UserController.getUsers);
+
+router.get(
+	'/:nickname',
+	UserValidator.getUserByNickname(),
+	Validator,
+	UserController.getUserByNickname,
+);
+
+router.put(
+	'/:nickname',
+	UserValidator.updateUserByNickname(),
+	Validator,
+	UserController.updateUserByNickname,
+);
+
+router.delete(
+	'/:nickname',
+	UserValidator.deleteUserByNickname(),
+	Validator,
+	UserController.deleteUserByNickname,
+);
 
 export default router;

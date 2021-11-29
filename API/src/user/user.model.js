@@ -5,7 +5,7 @@ const ObjectId = Schema.Types.ObjectId;
 const UserSchema = new Schema(
 	{
 		nickName: { type: String, required: true, unique: true },
-		password: { type: String, required: true },
+		password: { type: String, select: false, required: true },
 		salt: { type: String },
 		email: { type: String, required: true, unique: true },
 		totalScore: { type: Number, default: 0 },
@@ -41,4 +41,4 @@ UserSchema.methods.validPassword = function (string) {
 	return this.password === password;
 };
 
-export default model('Users', UserSchema);
+export default model('User', UserSchema, 'User');
