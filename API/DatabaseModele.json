@@ -1,8 +1,9 @@
 {
 	"User": {
 		"_id": "ObjectId",
-		"nickName": "String",
-		"hashPassword": "String",
+		"nickname": "String",
+		"password": "String",
+		"salt": "String",
 		"email": "String",
 		"signUpDate": "Date",
 		"totalScore": "Integer",

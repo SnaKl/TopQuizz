@@ -4,7 +4,7 @@ const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema(
 	{
-		nickName: { type: String, required: true, unique: true },
+		nickname: { type: String, required: true, unique: true },
 		password: { type: String, select: false, required: true },
 		salt: { type: String },
 		email: { type: String, required: true, unique: true },
