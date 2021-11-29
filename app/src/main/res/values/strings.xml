@@ -42,6 +42,7 @@
     <string name="welcome_text">Welcome to TopQuiz ! What is your name ?</string>
     <string name="username_hint">Username</string>
     <string name="mail_hint">E-mail</string>
+    <string name="confirm_mail_hint">Confirm the e-mail</string>
     <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm password</string>
     <string name="login_text">Login</string>

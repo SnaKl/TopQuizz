@@ -42,6 +42,7 @@
     <string name="welcome_text">Bienvenue dans top quiz ! Quel est ton prénom ?</string>
     <string name="username_hint">Username</string>
     <string name="mail_hint">E-mail</string>
+    <string name="confirm_mail_hint">Confirmer l\'e-mail</string>
     <string name="password_hint">Mot de passe</string>
     <string name="confirm_password_hint">Confirmer mot de passe</string>
     <string name="login_text">Connexion</string>
