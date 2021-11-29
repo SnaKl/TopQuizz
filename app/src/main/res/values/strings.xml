@@ -54,4 +54,5 @@
     <string name="create_quiz">Create a quiz</string>
     <string name="validate_quiz">Validate quizzes</string>
     <string name="answers_title">ANSWERS</string>
+    <string name="themes_title">THÈMES</string>
 </resources>
