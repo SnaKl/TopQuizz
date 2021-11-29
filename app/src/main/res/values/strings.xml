@@ -31,7 +31,7 @@
     <string name="badAnswer">Mauvaise réponse !</string>
     <string name="congrats">Bravo!</string>
     <string name="messageScore">"Votre score est de "</string>
-    <string name="points">" points."</string>
+    <string name="points">points</string>
     <string name="OKbutton">OK</string>
     <string name="welcome">"Hello, "</string>
     <string name="lastScore">"\nYour best score is "</string>

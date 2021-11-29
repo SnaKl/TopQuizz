@@ -29,8 +29,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 30
 }
 
 dependencies {
