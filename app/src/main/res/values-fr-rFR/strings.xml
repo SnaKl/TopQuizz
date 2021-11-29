@@ -56,4 +56,7 @@
     <string name="validate_quiz">Valider quiz</string>
     <string name="answers_title">RÉPONSES</string>
     <string name="themes_title">THÈMES</string>
+    <string name="leaderboard_title">LEADERBOARD</string>
+    <string name="general_title">Général</string>
+    <string name="themes">Thèmes</string>
 </resources>
