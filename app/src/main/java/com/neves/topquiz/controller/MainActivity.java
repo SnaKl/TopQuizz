@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         this.configureToolbar();
 
         System.out.println("MainActivity::onCreate()");
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         mUser = new User("", 0);
         users = new ArrayList<User>();
         mPreferences = getPreferences(MODE_PRIVATE);
-        mGreetingText = (TextView) findViewById(R.id.activity_main_greeting_txt);
-        mNameInput = (EditText) findViewById(R.id.activity_main_name_input);
-        mPlayButton = (Button) findViewById(R.id.activity_main_play_btn);
+        mGreetingText = (TextView) findViewById(R.id.login_greeting_txt);
+        mNameInput = (EditText) findViewById(R.id.login_username_input);
+        mPlayButton = (Button) findViewById(R.id.login_connection_btn);
         mPlayButton.setEnabled(false);
 
         greetUser();
@@ -68,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mPlayButton.setEnabled(s.toString().length() != 0);
                 if (s.toString().length() != 0) {
-                    mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
+                    //mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
                     String fulltext = getString(R.string.welcome) + mNameInput.getText().toString()
                             + getString(R.string.lastScore) + "0"
                             + getString(R.string.tryAgain);
                     mGreetingText.setText(fulltext);
                 } else {
-                    mPlayButton.setBackgroundColor(getColor(R.color.colorRed));
+                    //mPlayButton.setBackgroundColor(getColor(R.color.colorRed));
                     String fulltext = getString(R.string.welcome) + "\n" + getString(R.string.enterPseudo);
                     mGreetingText.setText(fulltext);
                 }
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 mNameInput.setText(mUser.getFirstName());
                 mNameInput.setSelection(mUser.getFirstName().length());
                 mPlayButton.setEnabled(true);
-                mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
+                //mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
             }
         } else {
             //Log.d("test", "USER vide");

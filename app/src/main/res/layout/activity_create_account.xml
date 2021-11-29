@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.neves.topquiz.controller.MainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background_basic_gradient">
+
+    <TextView
+        android:id="@+id/create_account_textview_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:text="@string/app_name"
+        android:textColor="@color/colorWhite"
+        android:textSize="42dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="45dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/create_account_textview_create_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/create_account_text"
+            android:textColor="@color/colorWhite"
+            android:textSize="24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/container_card"
+            android:elevation="4dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/create_account_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/container_edit_text"
+                android:elevation="8dp"
+                android:hint="@string/username_hint"
+                android:padding="24dp"
+                android:visibility="visible"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorHint"
+                />
+
+            <EditText
+                android:id="@+id/create_account_mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/container_edit_text"
+                android:elevation="8dp"
+                android:hint="@string/mail_hint"
+                android:padding="24dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorHint"/>
+
+            <EditText
+                android:id="@+id/create_account_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/container_edit_text"
+                android:elevation="8dp"
+                android:hint="@string/password_hint"
+                android:padding="24dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorHint"/>
+
+            <EditText
+                android:id="@+id/create_account_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/container_edit_text"
+                android:elevation="8dp"
+                android:hint="@string/confirm_password_hint"
+                android:padding="24dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorHint"/>
+
+            <Button
+                android:id="@+id/create_account_button_validate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="34dp"
+                android:background="@drawable/container_dark_button"
+                android:backgroundTint="#4000A6"
+                android:paddingLeft="40dp"
+                android:paddingTop="10dp"
+                android:paddingRight="40dp"
+                android:paddingBottom="10dp"
+                android:text="@string/create_account_text"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
