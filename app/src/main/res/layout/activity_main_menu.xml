@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_play" />
+                    app:srcCompat="@drawable/ic_play" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_account"
+                    app:srcCompat="@drawable/ic_account"
                     android:tint="@color/colorPrimaryLight" />
 
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_leaderboard"
+                    app:srcCompat="@drawable/ic_leaderboard"
                     android:tint="@color/colorTeal" />
 
                 <TextView
@@ -156,7 +156,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_create"
+                    app:srcCompat="@drawable/ic_create"
                     android:tint="@color/colorYellowDark" />
 
                 <TextView
@@ -186,7 +186,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_tick"
+                    app:srcCompat="@drawable/ic_tick"
                     android:tint="@color/colorOrangeLight" />
 
                 <TextView
