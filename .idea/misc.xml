@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/background_basic_gradient.xml" value="0.22606837606837607" />
+        <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/background_inverted_basic_gradient.xml" value="0.4683760683760684" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/card_container.xml" value="0.2876068376068376" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/container_answer_button.xml" value="0.22606837606837607" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/container_answer_button_correct.xml" value="0.22606837606837607" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/container_dark_button.xml" value="1.446875" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/container_light_button.xml" value="0.4722222222222222" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/container_semi_card.xml" value="0.47136752136752136" />
+        <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/container_semi_card_reversed.xml" value="0.4683760683760684" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/edit_text_container.xml" value="0.2876068376068376" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/gradient_background.xml" value="0.35052083333333334" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/ic_account.xml" value="0.2876068376068376" />
