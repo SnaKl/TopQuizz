@@ -1,5 +1,5 @@
-import db from './db.js';
-import app from './app.js';
+import db from './config/db';
+import app from './app';
 
 db.connect();
 db.mongoose.connection.once('open', () => {
