@@ -26,7 +26,7 @@ const UserSchema = new Schema(
 UserSchema.methods.setPassword = function (string) {
 	// Creating a unique salt for a particular user
 	this.salt = randomBytes(16).toString('hex');
-	console.log(string);
+
 	// Hashing user's salt and password with 1000 iterations,
 	this.password = pbkdf2Sync(string, this.salt, 1000, 64, 'sha512').toString(
 		'hex',

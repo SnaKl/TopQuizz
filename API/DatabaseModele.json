@@ -12,7 +12,8 @@
 				"_themeID": "ObjectId",
 				"points": "Integer"
 			}
-		]
+		],
+		"token": "String"
 	},
 	"Theme": {
 		"_id": "ObjectId",
