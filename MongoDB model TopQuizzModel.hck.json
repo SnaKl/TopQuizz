@@ -1,0 +1,254 @@
+{
+    "modelName": "TopQuizzModel",
+    "collections": [
+        {
+            "collectionName": "User",
+            "type": "object",
+            "properties": [
+                {
+                    "name": "nickName",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "52409e70-50fc-11ec-b7be-0f95ed8b732f",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    }
+                },
+                {
+                    "name": "hashPassword",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "6079abd0-50fc-11ec-b7be-0f95ed8b732f",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    }
+                },
+                {
+                    "name": "email",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "string",
+                    "GUID": "7009bdb0-50fc-11ec-b7be-0f95ed8b732f",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    }
+                },
+                {
+                    "name": "_id",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "objectId",
+                    "GUID": "76b496d0-50fc-11ec-b7be-0f95ed8b732f",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    }
+                },
+                {
+                    "name": "signUpDate",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "date",
+                    "primaryKey": false,
+                    "GUID": "a698dfa0-50fc-11ec-b7be-0f95ed8b732f",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    }
+                },
+                {
+                    "name": "totalScore",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "numeric",
+                    "GUID": "c8d95630-50fc-11ec-b7be-0f95ed8b732f",
+                    "error": {
+                        "name": false,
+                        "code": false
+                    }
+                },
+                {
+                    "name": "score",
+                    "hackoladeMeta": {},
+                    "isActivated": true,
+                    "type": "array",
+                    "properties": [
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "objectId",
+                            "GUID": "84057c30-50fe-11ec-b7be-0f95ed8b732f",
+                            "arrayItem": true,
+                            "arrayParentType": "array",
+                            "displayName": "_themeID",
+                            "error": {}
+                        },
+                        {
+                            "hackoladeMeta": {},
+                            "isActivated": true,
+                            "type": "numeric",
+                            "GUID": "a321a850-50fe-11ec-b7be-0f95ed8b732f",
+                            "arrayItem": true,
+                            "arrayParentType": "array",
+                            "displayName": "points",
+                            "error": {}
+                        }
+                    ],
+                    "additionalItems": true,
+                    "GUID": "79a35ce0-50fd-11ec-b7be-0f95ed8b732f",
+                    "error": {}
+                }
+            ],
+            "definitions": {
+                "type": "definitions",
+                "properties": [],
+                "GUID": "e9656d60-50f9-11ec-b7be-0f95ed8b732f"
+            },
+            "isActivated": true,
+            "additionalProperties": false,
+            "validationLevel": "Off",
+            "validationAction": "Warn",
+            "storageEngineName": "WiredTiger",
+            "collectionUsers": [],
+            "indexes": [],
+            "collation": {},
+            "sharding": {
+                "unique": true,
+                "collation": "null"
+            },
+            "GUID": "e964f830-50f9-11ec-b7be-0f95ed8b732f",
+            "bucketId": "70fdb770-50f8-11ec-b7be-0f95ed8b732f",
+            "id": "_id"
+        }
+    ],
+    "buckets": [
+        {
+            "name": "Database",
+            "type": "bucket",
+            "collectionIds": [
+                "e964f830-50f9-11ec-b7be-0f95ed8b732f"
+            ],
+            "backgroundColor": {
+                "r": 216,
+                "g": 0,
+                "b": 115,
+                "a": 1
+            },
+            "show": true,
+            "isActivated": true,
+            "GUID": "70fdb770-50f8-11ec-b7be-0f95ed8b732f"
+        }
+    ],
+    "views": [],
+    "relationships": [],
+    "users": [],
+    "diagramViews": [],
+    "idToNameHashTable": {
+        "70fdb770-50f8-11ec-b7be-0f95ed8b732f": "Database",
+        "e964f830-50f9-11ec-b7be-0f95ed8b732f": "User",
+        "52409e70-50fc-11ec-b7be-0f95ed8b732f": "nickName",
+        "6079abd0-50fc-11ec-b7be-0f95ed8b732f": "hashPassword",
+        "7009bdb0-50fc-11ec-b7be-0f95ed8b732f": "email",
+        "76b496d0-50fc-11ec-b7be-0f95ed8b732f": "_id",
+        "a698dfa0-50fc-11ec-b7be-0f95ed8b732f": "signUpDate",
+        "c8d95630-50fc-11ec-b7be-0f95ed8b732f": "totalScore",
+        "79a35ce0-50fd-11ec-b7be-0f95ed8b732f": "score",
+        "79a46e52-50fd-11ec-b7be-0f95ed8b732f": "$ref",
+        "79a46e50-50fd-11ec-b7be-0f95ed8b732f": "$id",
+        "79a46e51-50fd-11ec-b7be-0f95ed8b732f": "$db"
+    },
+    "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "42c34e10-50f8-11ec-b7be-0f95ed8b732f"
+    },
+    "polyglotDefinitions": {
+        "type": "polyglotDefinitions",
+        "properties": [],
+        "GUID": "42c34e12-50f8-11ec-b7be-0f95ed8b732f"
+    },
+    "externalDefinitions": {
+        "type": "externalDefinitions",
+        "properties": [],
+        "GUID": "42c34e11-50f8-11ec-b7be-0f95ed8b732f"
+    },
+    "sources": [],
+    "decorativeSymbols": [],
+    "dbVersion": "v4.4",
+    "dbVendor": "MongoDB",
+    "appTarget": "MONGODB",
+    "creationTS": "2021-11-29T09:39:34.383Z",
+    "GUID": "42c2fff0-50f8-11ec-b7be-0f95ed8b732f",
+    "isLineageEnabled": false,
+    "hackoladeMeta": {
+        "validationErrors": {
+            "modelName": false
+        }
+    },
+    "author": "Emily Renard",
+    "version": "1.0.0",
+    "lastModifTS": "2021-11-29T21:30:11.460Z",
+    "persistenceSchemaVersion": "5",
+    "isCreatedByPlugin": true,
+    "pluginInformation": {
+        "pluginEngineVersion": "1.0.0"
+    },
+    "applicationInformation": {
+        "version": "5.2.12"
+    },
+    "settings": {
+        "centralPane": {
+            "dbLevel": {
+                "erd": [
+                    {
+                        "GUID": "e964f830-50f9-11ec-b7be-0f95ed8b732f",
+                        "x": 115.00000000000023,
+                        "y": 110.66666666666661,
+                        "width": 220,
+                        "height": 195,
+                        "color": {
+                            "hex": "#9c28b1"
+                        }
+                    }
+                ],
+                "buckets": [
+                    {
+                        "x": 75.00000000000023,
+                        "y": 70.66666666666661,
+                        "GUID": "70fdb770-50f8-11ec-b7be-0f95ed8b732f"
+                    }
+                ],
+                "collapsedNodes": [],
+                "activeRelationship": "",
+                "activeRelationshipFields": {
+                    "childField": [],
+                    "parentField": []
+                },
+                "selectedCollections": [],
+                "displayColorPicker": false,
+                "graphView": {
+                    "erd": [],
+                    "buckets": [],
+                    "decorativeSymbols": [],
+                    "forceLayout": true,
+                    "defaultLinkLength": 300
+                },
+                "diagramViews": [],
+                "decorativeSymbols": [],
+                "nestedCollectionsLayout": "horizontal",
+                "options": []
+            },
+            "collectionLevel": {},
+            "changed": false
+        },
+        "dtDiagram": {
+            "collapsedNodes": [],
+            "shouldDistributeCollections": false
+        }
+    }
+}
