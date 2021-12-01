@@ -2,7 +2,10 @@ import User from './user.model';
 import * as UserService from './user.service';
 
 export async function getUsers(req, res) {
-	const users = await UserService.findUsers();
+	const users = await UserService.findUser(
+		{},
+		'nickname totalScore signUpDate',
+	);
 	res.send(users);
 }
 
@@ -17,10 +20,10 @@ export async function createUser(req, res) {
 	try {
 		const { nickname, email, password } = req.body;
 
-		if (await UserService.findUser({ nickname }))
+		if (await UserService.findUser({ nickname }, 'id', 1))
 			return res.status(400).json({ msg: 'Nickname is already used' });
 
-		if (await UserService.findUser({ email }))
+		if (await UserService.findUser({ email }, 'id', 1))
 			return res.status(400).json({ msg: 'Email is already used' });
 
 		let user = new User({
@@ -44,7 +47,11 @@ export async function deleteUser(req, res) {
 }
 
 export async function getUserByNickname(req, res) {
-	const user = await UserService.findUser({ nickname: req.params.nickname });
+	const user = await UserService.findUser(
+		{ nickname: req.params.nickname },
+		'nickname totalScore signUpDate',
+		1,
+	);
 	res.send(user);
 }
 

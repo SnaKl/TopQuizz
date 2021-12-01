@@ -1,10 +1,7 @@
 import User from './user.model';
 
-export function findUser(query, select = false) {
-	if (select) return User.findOne(query).select(select);
-	return User.findOne(query).select;
-}
-
-export async function findUsers() {
-	return User.find({});
+export async function findUser(query, select = '', limit = 0) {
+	const result = await User.find(query).select(select).limit(limit);
+	if (limit === 1) return result[0];
+	return result;
 }

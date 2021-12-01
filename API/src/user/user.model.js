@@ -6,7 +6,7 @@ const UserSchema = new Schema(
 	{
 		nickname: { type: String, required: true, unique: true },
 		password: { type: String, select: false, required: true },
-		salt: { type: String },
+		salt: { type: String, select: false },
 		email: { type: String, required: true, unique: true },
 		totalScore: { type: Number, default: 0 },
 		signUpDate: { type: Date, default: Date.now },
@@ -16,6 +16,7 @@ const UserSchema = new Schema(
 				points: Number,
 			},
 		],
+		jwtToken: String,
 	},
 	{
 		versionKey: false,
