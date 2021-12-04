@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_basic_gradient"
@@ -51,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/first_winner"
+        android:id="@+id/leaderboard_firstWinner_lt"
         android:layout_width="50dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
@@ -60,10 +59,10 @@
         app:layout_constraintTop_toBottomOf="@+id/leaderboard_themes_btn">
 
         <ImageView
-            android:id="@+id/first_winner_crown"
+            android:id="@+id/leaderboard_firstWinner_crownIcon_siv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/first_winner_profile_picture"
+            app:layout_constraintBottom_toTopOf="@+id/leaderboard_firstWinner_profilePic_siv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,7 +70,7 @@
             app:tint="@color/colorYellowDark" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/first_winner_profile_picture"
+            android:id="@+id/leaderboard_firstWinner_profilePic_siv"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -83,24 +82,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/first_winner_crown"
+            app:layout_constraintTop_toBottomOf="@+id/leaderboard_firstWinner_crownIcon_siv"
             app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/second_winner"
+        android:id="@+id/leaderboard_secondWinner_lt"
         android:layout_width="40dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/first_winner"
-        app:layout_constraintEnd_toStartOf="@+id/first_winner"
+        app:layout_constraintBottom_toBottomOf="@+id/leaderboard_firstWinner_lt"
+        app:layout_constraintEnd_toStartOf="@+id/leaderboard_firstWinner_lt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/first_winner">
+        app:layout_constraintTop_toTopOf="@+id/leaderboard_firstWinner_lt">
 
         <ImageView
-            android:id="@+id/second_winner_crown"
+            android:id="@+id/leaderboard_secondWinner_crownIcon_siv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/second_winner_profile_picture"
+            app:layout_constraintBottom_toTopOf="@+id/leaderboard_secondWinner_profilePic_siv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -108,7 +107,7 @@
             app:tint="@color/colorHint" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/second_winner_profile_picture"
+            android:id="@+id/leaderboard_secondWinner_profilePic_siv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -120,24 +119,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/second_winner_crown"
+            app:layout_constraintTop_toBottomOf="@+id/leaderboard_secondWinner_crownIcon_siv"
             app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/third_winner"
+        android:id="@+id/leaderboard_thirdWinner_lt"
         android:layout_width="40dp"
         android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/first_winner"
+        app:layout_constraintBottom_toBottomOf="@+id/leaderboard_firstWinner_lt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/first_winner"
-        app:layout_constraintTop_toTopOf="@+id/first_winner">
+        app:layout_constraintStart_toEndOf="@+id/leaderboard_firstWinner_lt"
+        app:layout_constraintTop_toTopOf="@+id/leaderboard_firstWinner_lt">
 
         <ImageView
-            android:id="@+id/third_winner_crown"
+            android:id="@+id/leaderboard_thirdWinner_crownIcon_siv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/third_winner_profile_picture"
+            app:layout_constraintBottom_toTopOf="@+id/leaderboard_thirdWinner_profilePic_siv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -145,7 +144,7 @@
             app:tint="@color/colorBronze" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/third_winner_profile_picture"
+            android:id="@+id/leaderboard_thirdWinner_profilePic_siv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -157,7 +156,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/third_winner_crown"
+            app:layout_constraintTop_toBottomOf="@+id/leaderboard_thirdWinner_crownIcon_siv"
             app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -170,21 +169,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_winner">
-
-        <Spinner
-            android:id="@+id/themes_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/leaderboard_firstWinner_lt">
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/leaderboard_playerPositions_sv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
@@ -199,11 +187,12 @@
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player1_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_1"
+                        android:id="@+id/leaderboard_position1_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -215,7 +204,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_1"
+                        android:id="@+id/leaderboard_profilePicture1_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -226,12 +215,12 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/iv_default_profile"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_1"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position1_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_1"
+                        android:id="@+id/leaderboard_name1_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -249,15 +238,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/colorHint" />
+                    android:background="@color/colorHint"
+                    android:orientation="horizontal" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player2_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_2"
+                        android:id="@+id/leaderboard_position2_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -269,7 +260,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_2"
+                        android:id="@+id/leaderboard_profilePicture2_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -280,12 +271,12 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/iv_default_profile_2"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_2"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position2_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_2"
+                        android:id="@+id/leaderboard_name2_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -305,12 +296,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player3_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_3"
+                        android:id="@+id/leaderboard_position3_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -322,7 +314,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_3"
+                        android:id="@+id/leaderboard_profilePicture3_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -333,12 +325,12 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/iv_default_profile_3"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_3"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position3_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_3"
+                        android:id="@+id/leaderboard_name3_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -358,12 +350,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player4_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_4"
+                        android:id="@+id/leaderboard_position4_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -375,7 +368,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_4"
+                        android:id="@+id/leaderboard_profilePicture4_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -385,12 +378,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_4"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position4_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_4"
+                        android:id="@+id/leaderboard_name4_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -410,12 +403,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player5_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_5"
+                        android:id="@+id/leaderboard_position5_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -427,7 +421,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_5"
+                        android:id="@+id/leaderboard_profilePicture5_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -437,12 +431,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_5"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position5_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_5"
+                        android:id="@+id/leaderboard_name5_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -462,12 +456,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player6_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_6"
+                        android:id="@+id/leaderboard_position6_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -479,7 +474,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_6"
+                        android:id="@+id/leaderboard_profilePicture6_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -489,12 +484,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_6"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position6_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_6"
+                        android:id="@+id/leaderboard_name6_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -514,12 +509,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player7_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_7"
+                        android:id="@+id/leaderboard_position7_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -531,7 +527,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_7"
+                        android:id="@+id/leaderboard_profilePicture7_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -541,12 +537,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_7"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position7_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_7"
+                        android:id="@+id/leaderboard_name7_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -566,12 +562,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player8_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_8"
+                        android:id="@+id/leaderboard_position8_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -583,7 +580,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_8"
+                        android:id="@+id/leaderboard_profilePicture8_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -593,12 +590,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_8"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position8_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_8"
+                        android:id="@+id/leaderboard_name8_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -618,12 +615,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player9_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_9"
+                        android:id="@+id/leaderboard_position9_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -635,7 +633,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_9"
+                        android:id="@+id/leaderboard_profilePicture9_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -645,12 +643,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_9"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position9_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_9"
+                        android:id="@+id/leaderboard_name9_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -670,12 +668,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player10_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_10"
+                        android:id="@+id/leaderboard_position10_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -687,7 +686,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_10"
+                        android:id="@+id/leaderboard_profilePicture10_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -697,12 +696,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_10"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position10_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_10"
+                        android:id="@+id/leaderboard_name10_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -722,12 +721,13 @@
                     android:background="@color/colorHint" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/leaderboard_player11_lt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/leaderboard_position_11"
+                        android:id="@+id/leaderboard_position11_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -739,7 +739,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profile_picture_11"
+                        android:id="@+id/leaderboard_profilePicture11_siv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
@@ -749,12 +749,12 @@
                         android:focusable="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position_11"
+                        app:layout_constraintStart_toEndOf="@+id/leaderboard_position11_tv"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
                     <TextView
-                        android:id="@+id/name_11"
+                        android:id="@+id/leaderboard_name11_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"

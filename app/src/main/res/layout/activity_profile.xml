@@ -2,14 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_basic_gradient"
     android:orientation="vertical">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profile_picture"
+        android:id="@+id/profile_picture_siv"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -19,22 +18,22 @@
         android:focusable="true"
         android:scaleType="centerCrop"
         android:src="@drawable/iv_default_profile"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/profile_form_lt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ProfileAppearanceOverlay" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/nb_points_layout"
+        android:id="@+id/profile_nbPoints_lt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_picture">
+        app:layout_constraintTop_toBottomOf="@id/profile_picture_siv">
 
         <TextView
-            android:id="@+id/nb_points_textview"
+            android:id="@+id/profile_nbPoints_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -44,7 +43,7 @@
             android:textSize="34dp" />
 
         <TextView
-            android:id="@+id/points_title"
+            android:id="@+id/profile_pointsTxt_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -56,7 +55,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/profile_form_lt"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -65,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nb_points_layout">
+        app:layout_constraintTop_toBottomOf="@+id/profile_nbPoints_lt">
 
         <ImageButton
             android:layout_width="32dp"
@@ -80,7 +79,7 @@
             app:srcCompat="@drawable/ic_modify" />
 
         <TextView
-            android:id="@+id/username_tv"
+            android:id="@+id/profile_username_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -111,7 +110,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/email_tv"
+            android:id="@+id/profile_mail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -141,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_username_input" />
 
         <TextView
-            android:id="@+id/password_tv"
+            android:id="@+id/profile_password_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -171,8 +170,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_mail_input"
             android:inputType="textPassword"/>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@ android:orientation="vertical"
 tools:context="com.neves.topquiz.controller.GameActivity">
 
 <TextView
-    android:id="@+id/question_textview_title"
+    android:id="@+id/validate_question_title_tv"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -19,13 +19,13 @@ tools:context="com.neves.topquiz.controller.GameActivity">
     android:textColor="@color/colorWhite"
     android:textSize="24dp"
     android:textStyle="bold"
-    app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+    app:layout_constraintBottom_toTopOf="@+id/validate_question_imageAndQuestion_lt"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/accept_button"
+        android:id="@+id/validate_question_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autoSizeTextType="uniform"
@@ -35,8 +35,8 @@ tools:context="com.neves.topquiz.controller.GameActivity">
         android:text="✓"
         android:textAllCaps="false"
         android:textColor="@color/colorBlack"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/question_textview_title"
+        app:layout_constraintBottom_toTopOf="@+id/validate_question_imageAndQuestion_lt"
+        app:layout_constraintEnd_toStartOf="@+id/validate_question_title_tv"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,132 +52,132 @@ tools:context="com.neves.topquiz.controller.GameActivity">
         android:text="X"
         android:textAllCaps="false"
         android:textColor="@color/colorBlack"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/validate_question_imageAndQuestion_lt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/question_textview_title"
+        app:layout_constraintStart_toEndOf="@+id/validate_question_title_tv"
         app:layout_constraintTop_toTopOf="parent" />
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/constraintLayout2"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginStart="32dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginEnd="32dp"
-    android:elevation="16dp"
-    app:layout_constraintBottom_toTopOf="@+id/AnswerLayout"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/question_textview_title">
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/question_image"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/validate_question_imageAndQuestion_lt"
         android:layout_width="0dp"
-        android:layout_height="210dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/iv_office"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:elevation="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/validate_question_answers_lt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/ImageHalfAppearanceOverlay" />
+        app:layout_constraintTop_toBottomOf="@+id/validate_question_title_tv">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/container_semi_card_reversed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/question_image"
-        app:layout_constraintStart_toStartOf="@+id/question_image"
-        app:layout_constraintTop_toBottomOf="@+id/question_image">
-
-        <TextView
-            android:id="@+id/question_question"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/validate_question_image_siv"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"
-            android:text="Pam convinces which coworker that he's being recruited by the CIA?"
-            android:textColor="@color/colorWhite"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="210dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/iv_office"
+            app:layout_constraintBottom_toTopOf="@+id/validate_question_questionFrame_lt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ImageHalfAppearanceOverlay" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/validate_question_questionFrame_lt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/container_semi_card_reversed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/validate_question_image_siv"
+            app:layout_constraintStart_toStartOf="@+id/validate_question_image_siv"
+            app:layout_constraintTop_toBottomOf="@+id/validate_question_image_siv">
+
+            <TextView
+                android:id="@+id/validate_question_question_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="Pam convinces which coworker that he's being recruited by the CIA?"
+                android:textColor="@color/colorWhite"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
 
-<com.google.android.flexbox.FlexboxLayout
-    android:id="@+id/AnswerLayout"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:flexDirection="column"
-    app:justifyContent="space_around"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-    app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-    <Button
-        android:id="@+id/question_answer1"
-        android:layout_width="match_parent"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/validate_question_answers_lt"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/container_answer_button"
-        android:elevation="16dp"
-        android:padding="12dp"
-        android:text="Michael"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack" />
+        app:flexDirection="column"
+        app:justifyContent="space_around"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/validate_question_imageAndQuestion_lt"
+        app:layout_constraintStart_toStartOf="@+id/validate_question_imageAndQuestion_lt"
+        app:layout_constraintTop_toBottomOf="@+id/validate_question_imageAndQuestion_lt">
 
-    <Button
-        android:id="@+id/question_answer2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/container_answer_button"
-        android:elevation="16dp"
-        android:padding="12dp"
-        android:text="Dwight"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack" />
+        <Button
+            android:id="@+id/validate_question_answer1_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_answer_button"
+            android:elevation="16dp"
+            android:padding="12dp"
+            android:text="Michael"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack" />
 
-    <Button
-        android:id="@+id/question_answer3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/container_answer_button"
-        android:elevation="16dp"
-        android:padding="12dp"
-        android:text="Ryan"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack" />
+        <Button
+            android:id="@+id/validate_question_answer2_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_answer_button"
+            android:elevation="16dp"
+            android:padding="12dp"
+            android:text="Dwight"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack" />
 
-    <Button
-        android:id="@+id/question_answer4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:autoSizeTextType="uniform"
-        android:background="@drawable/container_answer_button"
-        android:elevation="16dp"
-        android:padding="12dp"
-        android:text="Jim"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack" />
-</com.google.android.flexbox.FlexboxLayout>
+        <Button
+            android:id="@+id/validate_question_answer3_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_answer_button"
+            android:elevation="16dp"
+            android:padding="12dp"
+            android:text="Ryan"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/validate_question_answer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_answer_button"
+            android:elevation="16dp"
+            android:padding="12dp"
+            android:text="Jim"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack" />
+    </com.google.android.flexbox.FlexboxLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

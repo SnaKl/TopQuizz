@@ -107,11 +107,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = true;
 
-        mQuestionTextView = (TextView) findViewById(R.id.question_question);
-        mAnswerButton1 = (Button) findViewById(R.id.question_answer1);
-        mAnswerButton2 = (Button) findViewById(R.id.question_answer2);
-        mAnswerButton3 = (Button) findViewById(R.id.question_answer3);
-        mAnswerButton4 = (Button) findViewById(R.id.question_answer4);
+        mQuestionTextView = (TextView) findViewById(R.id.question_question_tv);
+        mAnswerButton1 = (Button) findViewById(R.id.question_answer1_btn);
+        mAnswerButton2 = (Button) findViewById(R.id.question_answer2_btn);
+        mAnswerButton3 = (Button) findViewById(R.id.question_answer3_btn);
+        mAnswerButton4 = (Button) findViewById(R.id.question_answer4_btn);
 
         mAnswerButton1.setOnClickListener(this);
         mAnswerButton2.setOnClickListener(this);

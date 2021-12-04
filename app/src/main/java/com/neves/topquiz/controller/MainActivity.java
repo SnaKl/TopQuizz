@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mUser = new User("", 0);
         users = new ArrayList<User>();
         mPreferences = getPreferences(MODE_PRIVATE);
-        mGreetingText = (TextView) findViewById(R.id.login_greeting_txt);
+        mGreetingText = (TextView) findViewById(R.id.login_greetingTxt_tv);
         mNameInput = (EditText) findViewById(R.id.login_username_input);
         mPlayButton = (Button) findViewById(R.id.login_connection_btn);
         mPlayButton.setEnabled(false);

@@ -2,14 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_basic_gradient"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/answer_recap_mainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -21,15 +20,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxLayout"
+        android:id="@+id/answer_recap_noteLayout_lt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/answer_recap_mainTitle">
 
         <TextView
-            android:id="@+id/number_correct_answers"
+            android:id="@+id/answer_recap_numberOfCorrectAnswers_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -38,7 +37,7 @@
             android:textSize="42dp" />
 
         <TextView
-            android:id="@+id/slash_score"
+            android:id="@+id/answer_recap_slashNote_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -47,7 +46,7 @@
             android:textSize="42dp" />
 
         <TextView
-            android:id="@+id/number_questions"
+            android:id="@+id/answer_recap_numberOfQuestions_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -65,10 +64,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexboxLayout">
+        app:layout_constraintTop_toBottomOf="@+id/answer_recap_noteLayout_lt">
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexboxLayout2"
+            android:id="@+id/answer_recap_pointsLayout_lt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -77,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/answer_recap_plus_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+"
@@ -85,7 +84,7 @@
                 android:textSize="30dp" />
 
             <TextView
-                android:id="@+id/number_points"
+                android:id="@+id/answer_recap_numberOfPoints_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="80"
@@ -116,13 +115,13 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flexboxLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/answer_recap_pointsLayout_lt">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="match_parent">
                 <Button
-                    android:id="@+id/question_1"
+                    android:id="@+id/answer_recap_question1Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -137,7 +136,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_2"
+                    android:id="@+id/answer_recap_question2Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -153,7 +152,7 @@
                     android:textColor="@color/colorBlack" />
 
                 <Button
-                    android:id="@+id/question_3"
+                    android:id="@+id/answer_recap_question3Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -168,7 +167,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_4"
+                    android:id="@+id/answer_recap_question4Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -183,7 +182,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_5"
+                    android:id="@+id/answer_recap_question5Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -198,7 +197,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_6"
+                    android:id="@+id/answer_recap_question6Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -213,7 +212,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_7"
+                    android:id="@+id/answer_recap_question7Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -228,7 +227,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_8"
+                    android:id="@+id/answer_recap_question8Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -243,7 +242,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_9"
+                    android:id="@+id/answer_recap_question9Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -258,7 +257,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
                 <Button
-                    android:id="@+id/question_10"
+                    android:id="@+id/answer_recap_question10Result_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
