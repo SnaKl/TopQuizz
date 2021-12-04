@@ -59,4 +59,5 @@
     <string name="leaderboard_title">LEADERBOARD</string>
     <string name="general_title">General</string>
     <string name="themes">Themes</string>
+    <string name="validate_themes_title">Quiz to validate</string>
 </resources>
