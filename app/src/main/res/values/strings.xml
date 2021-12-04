@@ -60,4 +60,9 @@
     <string name="general_title">General</string>
     <string name="themes">Themes</string>
     <string name="validate_themes_title">Quiz to validate</string>
+    <string name="create_question_title">New question</string>
+    <string name="option1">Option 1</string>
+    <string name="option2">Option 2</string>
+    <string name="option3">Option 3</string>
+    <string name="option4">Option 4</string>
 </resources>
