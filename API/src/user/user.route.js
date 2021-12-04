@@ -5,6 +5,8 @@ import Validator from '../middleware/validator';
 import * as UserValidator from './user.validator';
 import Auth from '../middleware/auth';
 
+import upload from '../middleware/upload';
+
 /**
  * @route GET api/users
  * @desc    users route
@@ -14,9 +16,10 @@ router.get('/', Auth, UserController.getUser);
 
 router.put(
 	'/',
+	Auth,
 	UserValidator.updateUser(),
 	Validator,
-	Auth,
+	upload('userAvatar'),
 	UserController.updateUser,
 );
 
@@ -33,25 +36,26 @@ router.get('/all', UserController.getUsers);
 
 router.get(
 	'/:nickname',
+	Auth,
 	UserValidator.getUserByNickname(),
 	Validator,
-	Auth,
 	UserController.getUserByNickname,
 );
 
 router.put(
 	'/:nickname',
+	Auth,
 	UserValidator.updateUserByNickname(),
 	Validator,
-	Auth,
+	upload('userAvatar'),
 	UserController.updateUserByNickname,
 );
 
 router.delete(
 	'/:nickname',
+	Auth,
 	UserValidator.deleteUserByNickname(),
 	Validator,
-	Auth,
 	UserController.deleteUserByNickname,
 );
 

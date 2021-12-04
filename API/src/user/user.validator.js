@@ -42,7 +42,8 @@ export const UserValidator = {
 		)
 		.withMessage(
 			'Password have at least one uppercase letter, one lowercase letter, one number and one special character',
-		),
+		)
+		.optional(),
 
 	bodyEmail: body('email').isEmail().normalizeEmail(),
 	optionalBodyEmail: body('email').isEmail().normalizeEmail().optional(),
@@ -54,7 +55,7 @@ export const UserValidator = {
 export function updateUser() {
 	return [
 		UserValidator.optionalBodyEmail,
-		UserValidator.optionalBodyPassword,
+		// UserValidator.optionalBodyPassword,
 	];
 }
 export function createUser() {

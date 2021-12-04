@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { randomBytes, pbkdf2Sync, crypto } from 'crypto';
+import { randomBytes, pbkdf2Sync } from 'crypto';
 const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema(
@@ -7,6 +7,7 @@ const UserSchema = new Schema(
 		nickname: { type: String, required: true, unique: true },
 		password: { type: String, select: false, required: true },
 		salt: { type: String, select: false },
+		jwtToken: String,
 		email: { type: String, required: true, unique: true },
 		totalScore: { type: Number, default: 0 },
 		signUpDate: { type: Date, default: Date.now },
@@ -16,7 +17,7 @@ const UserSchema = new Schema(
 				points: Number,
 			},
 		],
-		jwtToken: String,
+		avatar: String,
 	},
 	{
 		versionKey: false,
@@ -41,6 +42,16 @@ UserSchema.methods.validPassword = function (string) {
 	);
 
 	return this.password === password;
+};
+
+UserSchema.methods.setTotalScore = function () {
+	var totalScore = 0;
+
+	for (const score of this.Score) {
+		totalScore += score.points;
+	}
+
+	return totalScore;
 };
 
 export default model('User', UserSchema, 'User');

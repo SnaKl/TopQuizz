@@ -1,11 +1,19 @@
+import fs from 'fs';
+import fsPromises from 'fs/promises';
+
+import { serverUrl } from '../server';
+
 import User from './user.model';
 import * as UserService from './user.service';
+
+import _ from 'lodash';
 
 export async function getUsers(req, res) {
 	const users = await UserService.findUser(
 		{},
 		'nickname totalScore signUpDate',
 	);
+
 	res.send(users);
 }
 
@@ -13,7 +21,54 @@ export async function getUser(req, res) {
 	res.send('getUser not implemented');
 }
 export async function updateUser(req, res) {
-	res.send('updateUser not implemented');
+	var requestParams = _.pick(req.body, ['email']);
+	var update = requestParams;
+
+	if (req.file) {
+		// récupération du fichier télécharger
+		let file = req.file;
+
+		// récupération de l'avatar de l'utilisateur
+		let user = await UserService.findUser(
+			{ nickname: req.user.nickname },
+			'avatar',
+			1,
+		);
+		user = user.toObject();
+
+		if (user.avatar) {
+			const path =
+				'public/uploads' +
+				user.avatar.slice(serverUrl.length, user.avatar.length);
+
+			try {
+				// supprime l'ancien avatar
+				await fsPromises.unlink(path);
+			} catch (error) {
+				// supprime le fichié téléchargé
+				fs.unlinkSync(file.path);
+				//suprime
+				await UserService.updateUser(
+					{ nickname: req.user.nickname },
+					{ $unset: { avatar: true } },
+				);
+				return res.status(500).send('Server error');
+			}
+		}
+
+		const url =
+			'http://localhost:3000' + file.path.slice(14, file.path.length);
+
+		//ajouter l'avatar
+		update.avatar = url;
+	}
+
+	const newUser = await UserService.updateUser(
+		{ nickname: req.user.nickname },
+		{ $set: update },
+	);
+
+	res.json(newUser);
 }
 
 export async function createUser(req, res) {
