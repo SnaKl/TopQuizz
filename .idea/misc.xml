@@ -29,9 +29,10 @@
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/ic_play_icon.xml" value="0.2876068376068376" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/drawable/ic_tick.xml" value="0.47136752136752136" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout-land/activity_login.xml" value="0.33" />
-        <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_answer_recap.xml" value="0.5" />
+        <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_answer_recap.xml" value="0.33" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_create_account.xml" value="0.22" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_create_question.xml" value="0.5" />
+        <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_create_theme.xml" value="0.33" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_game.xml" value="0.2743589743589744" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_leaderboard_general.xml" value="0.5" />
         <entry key="..\:/Documents/ESIEE/E4/TopQuizz/app/src/main/res/layout/activity_leaderboard_theme.xml" value="0.4551282051282051" />

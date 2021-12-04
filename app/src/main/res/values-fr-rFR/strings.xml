@@ -65,4 +65,8 @@
     <string name="option2">Choix 2</string>
     <string name="option3">Choix 3</string>
     <string name="option4">Choix 4</string>
+    <string name="create_theme_mainTitle">Création d\'un quiz</string>
+    <string name="theme">Thème</string>
+    <string name="AddQuestion">+ Ajouter une question</string>
+    <string name="SubmitQuiz">Soumettre le quiz</string>
 </resources>
