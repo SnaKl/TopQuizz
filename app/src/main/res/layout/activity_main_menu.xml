@@ -10,27 +10,27 @@
     android:background="@drawable/background_basic_gradient">
 
     <TextView
-        android:id="@+id/menu_title"
+        android:id="@+id/main_menu_mainTitle_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="8sp"
         android:gravity="center"
-        android:padding="8dp"
+        android:padding="8sp"
         android:text="@string/menu_text"
         android:textColor="@color/colorWhite"
-        android:textSize="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_menu_choices_lt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/main_menu_choices_lt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32sp"
+        android:layout_marginEnd="32sp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,28 +38,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/menu_button_choose_theme"
+            android:id="@+id/main_menu_chooseTheme_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/container_card"
-            android:elevation="8dp"
-            android:padding="10dp">
+            android:elevation="8sp"
+            android:padding="10sp"
+            android:focusable="true">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:padding="4dp">
+                android:padding="4sp">
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="10sp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_play" />
+                    app:srcCompat="@drawable/ic_play" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
                     android:gravity="center"
                     android:text="@string/choose_theme"
                     android:textColor="@color/colorRedOrange"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -76,28 +77,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="fill_horizontal"
-            android:layout_marginTop="34dp"
+            android:layout_marginTop="34sp"
             android:columnCount="2"
             android:orientation="horizontal"
             android:rowCount="2">
 
             <LinearLayout
-                android:id="@+id/menu_button_account"
-                android:layout_width="140dp"
+                android:id="@+id/main_menu_account_btn"
+                android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:background="@drawable/container_card"
-                android:elevation="8dp"
+                android:elevation="8sp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16sp"
+                android:focusable="true">
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="10sp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_account"
+                    app:srcCompat="@drawable/ic_account"
                     android:tint="@color/colorPrimaryLight" />
 
                 <TextView
@@ -107,26 +109,27 @@
                     android:gravity="center"
                     android:text="@string/my_account"
                     android:textColor="@color/colorPrimaryLight"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/menu_button_leaderboard"
-                android:layout_width="140dp"
+                android:id="@+id/main_menu_leaderboard_btn"
+                android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:background="@drawable/container_card"
-                android:elevation="8dp"
+                android:elevation="8sp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16sp"
+                android:focusable="true">
 
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="10sp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_leaderboard"
+                    app:srcCompat="@drawable/ic_leaderboard"
                     android:tint="@color/colorTeal" />
 
                 <TextView
@@ -136,27 +139,28 @@
                     android:gravity="center"
                     android:text="@string/leaderboard"
                     android:textColor="@color/colorTeal"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/menu_button_create_quizz"
-                android:layout_width="140dp"
+                android:id="@+id/main_menu_createQuiz_btn"
+                android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="20sp"
                 android:background="@drawable/container_card"
-                android:elevation="8dp"
+                android:elevation="8sp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16sp"
+                android:focusable="true">
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="10sp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_create"
+                    app:srcCompat="@drawable/ic_create"
                     android:tint="@color/colorYellowDark" />
 
                 <TextView
@@ -166,27 +170,28 @@
                     android:gravity="center"
                     android:text="@string/create_quiz"
                     android:textColor="@color/colorYellowDark"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/menu_button_validate_quiz"
-                android:layout_width="140dp"
+                android:id="@+id/main_menu_validateQuiz_btn"
+                android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="20sp"
                 android:background="@drawable/container_card"
-                android:elevation="8dp"
+                android:elevation="8sp"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16sp"
+                android:focusable="true">
 
                 <ImageButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="10sp"
                     android:background="@drawable/container_card"
-                    android:src="@drawable/ic_tick"
+                    app:srcCompat="@drawable/ic_tick"
                     android:tint="@color/colorOrangeLight" />
 
                 <TextView
@@ -196,7 +201,7 @@
                     android:gravity="center"
                     android:text="@string/validate_quiz"
                     android:textColor="@color/colorOrangeLight"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </LinearLayout>
         </GridLayout>
     </LinearLayout>

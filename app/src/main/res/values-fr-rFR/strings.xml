@@ -31,7 +31,7 @@
     <string name="badAnswer">Mauvaise réponse !</string>
     <string name="congrats">Bravo!</string>
     <string name="messageScore">"Votre score est de "</string>
-    <string name="points">" points."</string>
+    <string name="points">points</string>
     <string name="OKbutton">OK</string>
     <string name="welcome">"Bienvenue, "</string>
     <string name="lastScore">"\nVotre meilleur score était de "</string>
@@ -42,6 +42,7 @@
     <string name="welcome_text">Bienvenue dans top quiz ! Quel est ton prénom ?</string>
     <string name="username_hint">Username</string>
     <string name="mail_hint">E-mail</string>
+    <string name="confirm_mail_hint">Confirmer l\'e-mail</string>
     <string name="password_hint">Mot de passe</string>
     <string name="confirm_password_hint">Confirmer mot de passe</string>
     <string name="login_text">Connexion</string>
@@ -54,4 +55,18 @@
     <string name="create_quiz">Créer un quiz</string>
     <string name="validate_quiz">Valider quiz</string>
     <string name="answers_title">RÉPONSES</string>
+    <string name="themes_title">THÈMES</string>
+    <string name="leaderboard_title">LEADERBOARD</string>
+    <string name="general_title">Général</string>
+    <string name="themes">Thèmes</string>
+    <string name="validate_themes_title">Quiz à valider</string>
+    <string name="create_question_title">Nouvelle question</string>
+    <string name="option1">Choix 1</string>
+    <string name="option2">Choix 2</string>
+    <string name="option3">Choix 3</string>
+    <string name="option4">Choix 4</string>
+    <string name="create_theme_mainTitle">Création d\'un quiz</string>
+    <string name="theme">Thème</string>
+    <string name="AddQuestion">+ Ajouter une question</string>
+    <string name="SubmitQuiz">Soumettre le quiz</string>
 </resources>

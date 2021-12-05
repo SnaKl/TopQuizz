@@ -15,4 +15,5 @@
     <color name="colorCorrect">#56D35B</color>
     <color name="colorWrong">#CC2424</color>
     <color name="colorHint">#888888</color>
+    <color name="colorBronze">#BF762C</color>
 </resources>

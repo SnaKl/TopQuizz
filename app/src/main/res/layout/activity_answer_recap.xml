@@ -8,58 +8,271 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/answer_recap_mainTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="24sp"
         android:text="@string/answers_title"
         android:textColor="@color/colorWhite"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/number_correct_answers"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/answer_recap_noteLayout_lt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="8 "
-        android:textColor="@color/colorWhite"
-        android:textSize="42dp"
-        app:layout_constraintEnd_toStartOf="@+id/slash_score"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answer_recap_mainTitle">
 
-    <TextView
-        android:id="@+id/slash_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="/"
-        android:textColor="@color/colorWhite"
-        android:textSize="42dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/answer_recap_numberOfCorrectAnswers_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp"
+            android:text="8"
+            android:textColor="@color/colorWhite"
+            android:textSize="42sp" />
 
-    <TextView
-        android:id="@+id/number_questions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="10"
-        android:textColor="@color/colorWhite"
-        android:textSize="42dp"
-        app:layout_constraintStart_toEndOf="@+id/slash_score"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/answer_recap_slashNote_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp"
+            android:text="/"
+            android:textColor="@color/colorWhite"
+            android:textSize="42sp" />
+
+        <TextView
+            android:id="@+id/answer_recap_numberOfQuestions_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp"
+            android:text="10"
+            android:textColor="@color/colorWhite"
+            android:textSize="42sp" />
+    </com.google.android.flexbox.FlexboxLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="0sp"
+        android:layout_marginTop="16sp"
+        android:background="@drawable/container_semi_card"
+        android:elevation="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slash_score">
+        app:layout_constraintTop_toBottomOf="@+id/answer_recap_noteLayout_lt">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/answer_recap_pointsLayout_lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/answer_recap_plus_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/answer_recap_numberOfPoints_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:text="@string/points"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:text="!"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answer_recap_pointsLayout_lt">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/answer_recap_question1Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 1"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question2Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_wrong"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 2"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+
+                <Button
+                    android:id="@+id/answer_recap_question3Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_wrong"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 3"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question4Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 4"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question5Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 5"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question6Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 6"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question7Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 7"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question8Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 8"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question9Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 9"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/answer_recap_question10Result_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginRight="32sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 10"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
