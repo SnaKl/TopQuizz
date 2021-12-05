@@ -3,10 +3,14 @@ import jwt from 'jsonwebtoken';
 const config = process.env;
 
 export default function (req, res, next) {
-	const token = req.headers['x-access-token'];
+	let token = req.headers['x-access-token'] || req.headers['authorization'];
 
-	if (!token)
-		return res.status(403).send('A token is required for authentication');
+	if (!token || !token.startsWith('Bearer '))
+		return res
+			.status(403)
+			.send('A valid token is required for authentication');
+
+	token = token.slice(7, token.length);
 
 	try {
 		const decoded = jwt.verify(token, config.TOKEN_KEY);

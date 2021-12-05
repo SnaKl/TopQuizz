@@ -4,6 +4,7 @@
 		"nickname": "String",
 		"password": "String",
 		"salt": "String",
+		"jwtToken": "String",
 		"email": "String",
 		"signUpDate": "Date",
 		"totalScore": "Integer",
@@ -13,11 +14,11 @@
 				"points": "Integer"
 			}
 		],
-		"token": "String"
+		"avatar": "String"
 	},
 	"Theme": {
 		"_id": "ObjectId",
-		"_imageID": "ObjectId",
+		"image": "String",
 		"title": "String",
 		"description": "String",
 		"questionNB": "Integer"
@@ -25,24 +26,14 @@
 	"Question": {
 		"_id": "ObjectId",
 		"_themeID": "ObjectId",
-		"_imageID": "ObjectId",
-		"description": "String",
 		"_createdBy": "ObjectId",
+		"description": "String",
 		"answerList": ["String"],
 		"validation": {
 			"totalUpVote": "Integer",
 			"upVoteByUsers": ["ObjectId"],
 			"totalDownVote": "Integer",
 			"downVoteByUsers": ["ObjectId"]
-		}
-	},
-	"Image": {
-		"_id": "ObjectId",
-		"uploadDate": "Date",
-		"name": "String",
-		"img": {
-			"data": "Buffer",
-			"contentType": "String"
 		}
 	}
 }
