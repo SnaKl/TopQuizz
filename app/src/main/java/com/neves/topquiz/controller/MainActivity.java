@@ -30,8 +30,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final int GAME_ACTIVITY_REQUEST_CODE = 42;
     private TextView mGreetingText;
-    private EditText mNameInput;
-    private Button mPlayButton;
+    private EditText mUsername;
+    private EditText mPassword;
+    private Button mConnectionBtn;
     private User mUser;
     private List<User> users;
     private SharedPreferences mPreferences;
@@ -43,22 +44,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            //show start activity
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).commit();
+            startActivity(new Intent(MainActivity.this, CreateAccount.class));
+        }
+
         setContentView(R.layout.activity_login);
-        this.configureToolbar();
 
         System.out.println("MainActivity::onCreate()");
 
-        mUser = new User("", 0);
-        users = new ArrayList<User>();
+
+//        mUser = new User("", 0);
+//        users = new ArrayList<User>();
         mPreferences = getPreferences(MODE_PRIVATE);
         mGreetingText = (TextView) findViewById(R.id.login_greetingTxt_tv);
-        mNameInput = (EditText) findViewById(R.id.login_username_input);
-        mPlayButton = (Button) findViewById(R.id.login_connection_btn);
-        mPlayButton.setEnabled(false);
 
-        greetUser();
+        mUsername = (EditText) findViewById(R.id.login_username_input);
+        mPassword = (EditText) findViewById(R.id.login_password_input);
+        mPassword.setEnabled(false);
+        mConnectionBtn = (Button) findViewById(R.id.login_connection_btn);
 
-        mNameInput.addTextChangedListener(new TextWatcher() {
+        String username = mUsername.getText().toString();
+        String password = mPassword.getText().toString();
+
+        //greetUser();
+        mUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -66,8 +79,25 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mPlayButton.setEnabled(s.toString().length() != 0);
-                if (s.toString().length() != 0) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPassword.setEnabled(true);
+            }
+        });
+
+        mPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mConnectionBtn.setEnabled(s.toString().length() != 0);
+                /*if (s.toString().length() != 0) {
                     //mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
                     String fulltext = getString(R.string.welcome) + mNameInput.getText().toString()
                             + getString(R.string.lastScore) + "0"
@@ -85,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                                 + getString(R.string.tryAgain);
                         mGreetingText.setText(fulltext);
                     }
-                }
+                }*/
             }
 
             @Override
@@ -94,13 +124,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mPlayButton.setOnClickListener(new View.OnClickListener() {
+        mConnectionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUser.setFirstName(mNameInput.getText().toString());
-                Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
-                gameActivity.putExtra(USER, mUser);
-                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
+                //we check if this username exist, if so is it associated with given password
+                startActivity(new Intent(MainActivity.this, MainMenu.class));
+                //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
+//                gameActivity.putExtra(USER, mUser);
+//                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -121,10 +152,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Ajoute la toolbar déclarée dans activity_main.xml à notre vue
      */
-    private void configureToolbar() {
+    /*private void configureToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-    }
+    }*/
 
     /**
      * Défini l'action des différents "boutons" de la toolBar lors d'un clique
@@ -148,12 +179,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
             mUser = data.getParcelableExtra(GameActivity.USER);
             Gson gson = new Gson();
             mPreferences.edit().putString(USER, gson.toJson(mUser)).apply();
             mPreferences.edit().putString(USERS, gson.toJson(users)).apply();
-            greetUser();
+            //greetUser();
         }
     }
 
@@ -161,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
      * Récupère les informations d'un utilisateur ayant précédément utilisé l'application et
      * change l'interface au besoin
      */
-    private void greetUser() {
+    /*private void greetUser() {
         //mPreferences.edit().clear().apply();
         if (mPreferences.contains(USERS)) {
             int flag = 0;
@@ -211,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //Log.d("test", "USER vide");
         }
-    }
+    }*/
 
     @Override
     protected void onStart() {

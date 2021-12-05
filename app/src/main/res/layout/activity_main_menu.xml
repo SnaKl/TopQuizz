@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.neves.topquiz.controller.MainActivity"
     android:orientation="vertical"
     android:background="@drawable/background_basic_gradient">
 
@@ -38,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/main_menu_chooseTheme_btn"
+            android:id="@+id/x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -55,13 +54,14 @@
                 android:padding="4sp">
 
                 <ImageButton
+                    android:id="@+id/main_menu_chooseTheme_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10sp"
                     android:background="@drawable/container_card"
-                    app:srcCompat="@drawable/ic_play" />
-
+                    app:srcCompat="@drawable/ic_play"
+                    android:contentDescription="TODO" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:rowCount="2">
 
             <LinearLayout
-                android:id="@+id/main_menu_account_btn"
+
                 android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -94,6 +94,7 @@
                 android:focusable="true">
 
                 <ImageButton
+                    android:id="@+id/main_menu_account_btn1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -101,7 +102,6 @@
                     android:background="@drawable/container_card"
                     app:srcCompat="@drawable/ic_account"
                     android:tint="@color/colorPrimaryLight" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/main_menu_leaderboard_btn"
+
                 android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -124,6 +124,7 @@
                 android:focusable="true">
 
                 <ImageButton
+                    android:id="@+id/main_menu_leaderboard_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -143,7 +144,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/main_menu_createQuiz_btn"
+
                 android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
@@ -155,6 +156,7 @@
                 android:focusable="true">
 
                 <ImageButton
+                    android:id="@+id/main_menu_createQuiz_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -174,7 +176,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/main_menu_validateQuiz_btn"
+
                 android:layout_width="140sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -186,6 +188,7 @@
                 android:focusable="true">
 
                 <ImageButton
+                    android:id="@+id/main_menu_validateQuiz_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
