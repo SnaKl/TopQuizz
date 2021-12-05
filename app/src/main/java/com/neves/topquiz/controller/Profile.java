@@ -8,9 +8,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.R;
 
 public class Profile extends AppCompatActivity {
+    private ShapeableImageView mProfPic;
+    private TextView mPointsNumber;
     private TextView mUsername;
     private TextView mMail;
     private TextView mPassword;
@@ -21,6 +24,8 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mProfPic  = (ShapeableImageView) findViewById(R.id.profile_picture_siv);
+        mPointsNumber = (TextView) findViewById(R.id.profile_nbPoints_tv);
         mUsername = (TextView) findViewById(R.id.profile_username_input);
         mMail = (TextView) findViewById(R.id.profile_mail_input);
         mPassword = (TextView) findViewById(R.id.profile_password_input);

@@ -58,5 +58,21 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(Leaderboard);
             }
         });
+
+        mCreateQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent MyAccount = new Intent(MainMenu.this, CreateTheme.class);
+                startActivity(MyAccount);
+            }
+        });
+
+        mValidateQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Leaderboard = new Intent(MainMenu.this, LeaderboardGeneral.class);
+                startActivity(Leaderboard);
+            }
+        });
     }
 }

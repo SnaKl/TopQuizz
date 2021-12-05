@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mUsername;
     private EditText mPassword;
     private Button mConnectionBtn;
+    private Button mAccountCreationBtn;
     private User mUser;
     private List<User> users;
     private SharedPreferences mPreferences;
@@ -66,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         mPassword = (EditText) findViewById(R.id.login_password_input);
         mPassword.setEnabled(false);
         mConnectionBtn = (Button) findViewById(R.id.login_connection_btn);
-
+        mConnectionBtn.setEnabled(false);
+        mAccountCreationBtn = (Button) findViewById(R.id.login_createAccount_btn);
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
 
@@ -128,11 +130,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //we check if this username exist, if so is it associated with given password
-                startActivity(new Intent(MainActivity.this, MainMenu.class));
-                finish();
+                    startActivity(new Intent(MainActivity.this, MainMenu.class));
+                    finish();
+                //else
+                    //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
+
                 //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
 //                gameActivity.putExtra(USER, mUser);
 //                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+        mAccountCreationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateAccount.class));
+                finish();
             }
         });
     }

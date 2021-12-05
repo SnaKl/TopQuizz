@@ -61,6 +61,7 @@
                 android:background="@drawable/container_edit_text"
                 android:elevation="8sp"
                 android:hint="@string/username_hint"
+                android:inputType="textPersonName"
                 android:padding="24sp"
                 android:visibility="visible"
                 android:textColor="@color/colorBlack"
@@ -77,6 +78,7 @@
                 android:background="@drawable/container_edit_text"
                 android:elevation="8sp"
                 android:hint="@string/mail_hint"
+                android:inputType="textEmailAddress"
                 android:padding="24sp"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorHint"/>

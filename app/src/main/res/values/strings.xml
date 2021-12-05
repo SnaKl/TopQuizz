@@ -69,4 +69,5 @@
     <string name="theme">Theme</string>
     <string name="AddQuestion">+ Add a question</string>
     <string name="SubmitQuiz">Submit quiz</string>
+    <string name="WrongID">Username or Password is incorrect !</string>
 </resources>

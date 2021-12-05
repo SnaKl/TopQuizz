@@ -9,9 +9,11 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.R;
 
 public class EditProfile extends AppCompatActivity {
+    private ShapeableImageView mProfPic;
     private EditText mUsername;
     private EditText mMail;
     private EditText mConfirmMail;
@@ -25,6 +27,7 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
 
+        mProfPic  = (ShapeableImageView) findViewById(R.id.profile_picture_siv);
         mUsername = (EditText) findViewById(R.id.profile_edit_username_input);
         mMail = (EditText) findViewById(R.id.profile_edit_mail_input);
         mConfirmMail = (EditText) findViewById(R.id.profile_edit_confirmMail_input);
