@@ -10,11 +10,14 @@ app.use(bodyParser.json());
 
 app.use(express.static('./public/uploads'));
 
+import authRoutes from './auth/auth.route.js';
+app.use('/api/auth', authRoutes);
+
 import userRoutes from './user/user.route.js';
 app.use('/api/user', userRoutes);
 
-import authRoutes from './auth/auth.route.js';
-app.use('/api/auth', authRoutes);
+import themeRoutes from './theme/theme.route.js';
+app.use('/api/theme', themeRoutes);
 
 app.get('/', (req, res) => {
 	res.send('TopQuizz API');
