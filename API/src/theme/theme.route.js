@@ -2,26 +2,27 @@ import { Router } from 'express';
 var router = Router();
 import * as ThemeController from './theme.controller';
 
-/**
- * @route GET api/theme
- * @desc theme route
- * @access Public
- */
-router.get('/', ThemeController.getTheme);
+import Validator from '../middleware/validator';
+import * as ThemeValidator from './theme.validator';
 
 /**
- * @route PUT api/theme
- * @desc update theme route
- * @access Private
+ * @route GET api/theme
+ * @desc return all theme
+ * @access Public
  */
-router.put('/', ThemeController.updateTheme);
+router.get('/', ThemeController.getAllTheme);
 
 /**
  * @route POST api/theme
  * @desc create theme route
  * @access Public
  */
-router.post('/', ThemeController.createTheme);
+router.post(
+	'/',
+	ThemeValidator.createTheme(),
+	Validator,
+	ThemeController.createTheme,
+);
 
 /**
  * @route GET api/theme/:title
@@ -42,6 +43,6 @@ router.put('/:title', ThemeController.updateThemeByTitle);
  * @desc delete theme by title route
  * @access Public
  */
-router.delete('/:title', ThemeController.updateThemeByTitle);
+router.delete('/:title', ThemeController.deleteThemeByTitle);
 
 export default router;
