@@ -91,7 +91,7 @@
             app:layout_constraintBottom_toTopOf="@+id/profile_username_input"
             app:layout_constraintStart_toStartOf="@+id/profile_username_input"/>
 
-        <EditText
+        <TextView
             android:id="@+id/profile_username_input"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/profile_mail_input"
             app:layout_constraintStart_toStartOf="@+id/profile_mail_input"/>
-        <EditText
+        <TextView
             android:id="@+id/profile_mail_input"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
 
             app:layout_constraintBottom_toTopOf="@+id/profile_password_input"
             app:layout_constraintStart_toStartOf="@+id/profile_password_input" />
-        <EditText
+        <TextView
             android:id="@+id/profile_password_input"
             android:layout_width="0sp"
             android:layout_height="wrap_content"

@@ -78,6 +78,7 @@ public class CreateAccount extends AppCompatActivity{
                 boolean success = userDB.addOne(mUser);*/
                 Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
                 startActivity(Suite);
+                finish();
             }
         });
     }

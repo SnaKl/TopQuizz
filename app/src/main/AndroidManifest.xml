@@ -13,6 +13,10 @@
         <activity android:name=".controller.Profile"/>
         <activity android:name=".controller.CreateAccount"/>
         <activity android:name=".controller.MainMenu"/>
+        <activity android:name=".controller.LeaderboardGeneral"/>
+        <activity android:name=".controller.LeaderboardTheme"/>
+        <activity android:name=".controller.Themes"/>
+        <activity android:name=".controller.EditProfile"/>
         <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

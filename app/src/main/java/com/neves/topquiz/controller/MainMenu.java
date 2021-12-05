@@ -29,7 +29,7 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         chooseTheme= (ImageButton) findViewById(R.id.main_menu_chooseTheme_btn);
-        mMyAccount = (ImageButton) findViewById(R.id.main_menu_account_btn1);
+        mMyAccount = (ImageButton) findViewById(R.id.main_menu_account_btn);
         mLeaderboard = (ImageButton) findViewById(R.id.main_menu_leaderboard_btn);
         mCreateQuiz = (ImageButton) findViewById(R.id.main_menu_createQuiz_btn);
         mValidateQuiz = (ImageButton) findViewById(R.id.main_menu_validateQuiz_btn);
@@ -38,7 +38,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Intent ChooseThemeIntent = ;
-                startActivity(new Intent(MainMenu.this, Profile.class));
+                startActivity(new Intent(MainMenu.this, Themes.class));
             }
         });
 
@@ -53,7 +53,7 @@ public class MainMenu extends AppCompatActivity {
         mLeaderboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Leaderboard = new Intent(MainMenu.this, Profile.class);
+                Intent Leaderboard = new Intent(MainMenu.this, LeaderboardGeneral.class);
                 startActivity(Leaderboard);
             }
         });

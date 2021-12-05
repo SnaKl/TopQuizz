@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //we check if this username exist, if so is it associated with given password
                 startActivity(new Intent(MainActivity.this, MainMenu.class));
+                finish();
                 //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
 //                gameActivity.putExtra(USER, mUser);
 //                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
