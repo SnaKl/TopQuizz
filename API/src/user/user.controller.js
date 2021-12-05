@@ -21,51 +21,55 @@ export async function getUser(req, res) {
 	res.send('getUser not implemented');
 }
 export async function updateUser(req, res) {
-	var requestParams = _.pick(req.body, ['email']);
-	var update = requestParams;
-
-	if (req.file) {
-		// récupération du fichier télécharger
-		let file = req.file;
-
-		// récupération de l'avatar de l'utilisateur
-		let user = await UserService.findUser(
-			{ nickname: req.user.nickname },
-			'avatar',
-			1,
-		);
-		user = user.toObject();
-
-		if (user.avatar) {
-			const path =
-				'public/uploads' +
-				user.avatar.slice(serverUrl.length, user.avatar.length);
-
-			try {
-				// supprime l'ancien avatar
-				await fsPromises.unlink(path);
-			} catch (error) {
-				// supprime le fichié téléchargé
-				fs.unlinkSync(file.path);
-				//suprime
-				await UserService.updateUser(
-					{ nickname: req.user.nickname },
-					{ $unset: { avatar: true } },
-				);
-				return res.status(500).send('Server error');
-			}
-		}
-
-		const url =
-			'http://localhost:3000' + file.path.slice(14, file.path.length);
-
-		//ajouter l'avatar
-		update.avatar = url;
-	}
+	var update = _.pick(req.body, ['email']);
 
 	const newUser = await UserService.updateUser(
 		{ nickname: req.user.nickname },
 		{ $set: update },
+	);
+
+	res.json(newUser);
+}
+
+export async function updateUserAvatar(req, res) {
+	if (!req.file) return res.status(401).send('You need to provide an image');
+
+	// récupération du fichier télécharger
+	let file = req.file;
+
+	// récupération de l'avatar de l'utilisateur
+	let user = await UserService.findUser(
+		{ nickname: req.user.nickname },
+		'avatar',
+		1,
+	);
+	user = user.toObject();
+
+	if (user.avatar) {
+		const path =
+			'public/uploads' +
+			user.avatar.slice(serverUrl.length, user.avatar.length);
+
+		try {
+			// supprime l'ancien avatar
+			await fsPromises.unlink(path);
+		} catch (error) {
+			// supprime le fichié téléchargé
+			fs.unlinkSync(file.path);
+			//suprime
+			await UserService.updateUser(
+				{ nickname: req.user.nickname },
+				{ $unset: { avatar: true } },
+			);
+			return res.status(500).send('Server error');
+		}
+	}
+
+	const url = 'http://localhost:3000' + file.path.slice(14, file.path.length);
+
+	const newUser = await UserService.updateUser(
+		{ nickname: req.user.nickname },
+		{ $set: { avatar: url } },
 	);
 
 	res.json(newUser);

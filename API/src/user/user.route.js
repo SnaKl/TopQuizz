@@ -19,8 +19,14 @@ router.put(
 	Auth,
 	UserValidator.updateUser(),
 	Validator,
-	upload('userAvatar'),
 	UserController.updateUser,
+);
+
+router.put(
+	'/avatar',
+	Auth,
+	upload('userAvatar'),
+	UserController.updateUserAvatar,
 );
 
 router.post(
