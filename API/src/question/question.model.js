@@ -4,10 +4,11 @@ const ObjectId = Schema.Types.ObjectId;
 const QuestionSchema = new Schema(
 	{
 		_themeID: { type: ObjectId, ref: 'Theme' },
-		_imageID: { type: ObjectId, ref: 'Image' },
-		description: { type: String },
 		_createdBy: { type: ObjectId, ref: 'User' },
-		answerList: [{ type: String, required: true }],
+		imageUrl: String,
+		description: String,
+		anwserList: [String],
+		correctAnswerIndex: { type: Number, min: 0, max: 3 },
 		Validation: {
 			totalUpVote: { type: Number, default: 0 },
 			upVoteByUsers: [{ type: ObjectId, ref: 'User' }],
@@ -19,4 +20,4 @@ const QuestionSchema = new Schema(
 		versionKey: false,
 	},
 );
-export default model('Question', QuestionSchema);
+export default model('Question', QuestionSchema, 'Question');

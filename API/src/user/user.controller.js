@@ -65,7 +65,7 @@ export async function updateUserAvatar(req, res) {
 		}
 	}
 
-	const url = 'http://localhost:3000' + file.path.slice(14, file.path.length);
+	const url = serverUrl + file.path.slice(14, file.path.length);
 
 	const newUser = await UserService.updateUser(
 		{ nickname: req.user.nickname },
