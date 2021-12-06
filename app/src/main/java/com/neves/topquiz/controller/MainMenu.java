@@ -1,5 +1,6 @@
 package com.neves.topquiz.controller;
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.User;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,11 +24,18 @@ public class MainMenu extends AppCompatActivity {
     private LinearLayout mLeaderboard;
     private LinearLayout mCreateQuiz;
     private LinearLayout mValidateQuiz;
+    public static final String USER = "USER";
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(USER)) {
+            mUser = intent.getParcelableExtra(USER);
+        }
 
         mChooseTheme= findViewById(R.id.main_menu_chooseTheme_btn);
         mMyAccount = findViewById(R.id.main_menu_account_btn);
@@ -39,6 +47,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent ChooseTheme = new Intent(MainMenu.this, Themes.class);
+                ChooseTheme.putExtra(USER, mUser);
                 startActivity(ChooseTheme);
             }
         });
@@ -70,7 +79,7 @@ public class MainMenu extends AppCompatActivity {
         mValidateQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Leaderboard = new Intent(MainMenu.this, LeaderboardGeneral.class);
+                Intent Leaderboard = new Intent(MainMenu.this, ValidateTheme.class);
                 startActivity(Leaderboard);
             }
         });

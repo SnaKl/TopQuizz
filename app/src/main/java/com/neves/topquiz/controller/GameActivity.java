@@ -242,6 +242,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
                 0);
 
+        Question question6 = new Question(("Qui est le plus beau de la classe"),
+                Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
+                0);
+
         return new QuestionBank(Arrays.asList(question1,
                 question2,
                 question3,
@@ -338,7 +342,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString((R.string.congrats)))
                 .setMessage(getString(R.string.messageScore) + mUser.getScore() + getString(R.string.points))
-                .setPositiveButton(getString(R.string.OKbutton), (dialog, which) -> finish())
+                .setPositiveButton(getString(R.string.OKbutton), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent AnswerRecap = new Intent(GameActivity.this, AnswerRecap.class);
+                        AnswerRecap.putExtra(USER, mUser);
+                        startActivity(AnswerRecap);
+                        //finish();
+                    }
+                })
                 .create()
                 .show();
     }
@@ -359,10 +371,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(BUNDLE_STATE_SCORE, mUser.getScore().getPoints());
-        outState.putInt(BUNDLE_STATE_QUESTION, mRemainingQuestionCount);
-        outState.putParcelable(BUNDLE_QUESTION_BANK, mQuestionBank);
-        super.onSaveInstanceState(outState);
+        //outState.putInt(BUNDLE_STATE_SCORE, mUser.getScore());
+        //outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
+        //outState.putParcelable(BUNDLE_QUESTION_BANK, mQuestionBank);
+        //super.onSaveInstanceState(outState);
     }
 
 }

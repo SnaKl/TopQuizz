@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
+        /*Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
         if (isFirstRun) {
             // Show start activity
             getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
             startActivity(new Intent(MainActivity.this, CreateAccount.class));
-        }
+        }*/
 
         setContentView(R.layout.activity_login);
 
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
 
             //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
-//                gameActivity.putExtra(USER, mUser);
+     gameActivity.putExtra(USER, mUser);
 //                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
         });
 

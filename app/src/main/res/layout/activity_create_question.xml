@@ -9,23 +9,6 @@
     android:orientation="vertical"
     tools:context="com.neves.topquiz.controller.GameActivity">
 
-    <ImageButton
-        android:id="@+id/create_question_nextQuestion_btn"
-        android:layout_width="40sp"
-        android:layout_height="40sp"
-        android:layout_gravity="bottom|right"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="8dp"
-        android:adjustViewBounds="false"
-        android:cropToPadding="false"
-        android:elevation="10sp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_tick"
-        android:background="@drawable/container_answer_button"/>
-
     <TextView
         android:id="@+id/create_question_title_tv"
         android:layout_width="wrap_content"
@@ -88,7 +71,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:background="@drawable/container_semi_card_reversed"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/create_questions_submitQuestion_btn"
             app:layout_constraintEnd_toEndOf="@+id/create_question_editImage_lt"
             app:layout_constraintStart_toStartOf="@+id/create_question_editImage_lt"
             app:layout_constraintTop_toBottomOf="@+id/create_question_editImage_lt">
@@ -134,12 +117,12 @@
             android:autoSizeTextType="uniform"
             android:background="@drawable/container_answer_button"
             android:elevation="16sp"
-            android:hint="@string/option1"
-            android:textColorHint="@color/colorHint"
             android:gravity="center"
+            android:hint="@string/option1"
             android:padding="12sp"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorHint" />
 
         <EditText
             android:id="@+id/create_question_answer2_input"
@@ -150,12 +133,12 @@
             android:autoSizeTextType="uniform"
             android:background="@drawable/container_answer_button"
             android:elevation="16sp"
-            android:hint="@string/option2"
-            android:textColorHint="@color/colorHint"
             android:gravity="center"
+            android:hint="@string/option2"
             android:padding="12sp"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorHint" />
 
         <EditText
             android:id="@+id/create_question_answer3_input"
@@ -166,12 +149,12 @@
             android:autoSizeTextType="uniform"
             android:background="@drawable/container_answer_button"
             android:elevation="16sp"
-            android:hint="@string/option3"
-            android:textColorHint="@color/colorHint"
             android:gravity="center"
+            android:hint="@string/option3"
             android:padding="12sp"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorHint" />
 
         <EditText
             android:id="@+id/create_question_answer4_input"
@@ -182,11 +165,30 @@
             android:autoSizeTextType="uniform"
             android:background="@drawable/container_answer_button"
             android:elevation="16sp"
-            android:hint="@string/option4"
-            android:textColorHint="@color/colorHint"
             android:gravity="center"
+            android:hint="@string/option4"
             android:padding="12sp"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorHint" />
     </com.google.android.flexbox.FlexboxLayout>
+
+    <Button
+        android:id="@+id/create_questions_submitQuestion_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/container_light_button"
+        android:elevation="16sp"
+        android:padding="12sp"
+        android:text="@string/SubmitQuiz"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_question_answers_lt" />
+
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

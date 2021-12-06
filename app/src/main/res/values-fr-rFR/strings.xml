@@ -69,4 +69,6 @@
     <string name="theme">Thème</string>
     <string name="AddQuestion">+ Ajouter une question</string>
     <string name="SubmitQuiz">Soumettre le quiz</string>
+    <string name="WrongID">Le pseudo ou le mot de passe est incorrect !</string>
+    <string name="returnMenu">Retourner au menu</string>
 </resources>

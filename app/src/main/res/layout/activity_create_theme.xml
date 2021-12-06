@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_theme_mainTitle_tv">
 
-        <EditText
+        <Spinner
             android:id="@+id/create_theme_themeTitle_input"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
