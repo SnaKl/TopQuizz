@@ -282,11 +282,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
             0);
 
+        Question question6 = new Question(("Qui est le plus beau de la classe"),
+                Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
+                0);
+
         return new QuestionBank(Arrays.asList(question1,
                                 question2,
                                 question3,
                                 question4,
-                                question5));
+                                question5,
+                                question6));
         //return loadQuestions();
 }
 
@@ -383,7 +388,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .setPositiveButton(getString(R.string.OKbutton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        Intent AnswerRecap = new Intent(GameActivity.this, AnswerRecap.class);
+                        AnswerRecap.putExtra(USER, mUser);
+                        startActivity(AnswerRecap);
+                        //finish();
                     }
                 })
                 .create()
@@ -400,10 +408,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(BUNDLE_STATE_SCORE, mUser.getScore());
-        outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
-        outState.putParcelable(BUNDLE_QUESTION_BANK, mQuestionBank);
-        super.onSaveInstanceState(outState);
+        //outState.putInt(BUNDLE_STATE_SCORE, mUser.getScore());
+        //outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
+        //outState.putParcelable(BUNDLE_QUESTION_BANK, mQuestionBank);
+        //super.onSaveInstanceState(outState);
     }
 
     @Override

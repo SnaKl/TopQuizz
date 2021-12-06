@@ -21,6 +21,7 @@
         <activity android:name=".controller.CreateQuestion"/>
         <activity android:name=".controller.ValidateTheme"/>
         <activity android:name=".controller.ValidateQuestion"/>
+        <activity android:name=".controller.AnswerRecap"/>
         <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -129,8 +129,11 @@ public class MainActivity extends AppCompatActivity {
         mConnectionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mUser = new User(username, 0); // créer une fonction "getScore" qui récupère le score en bdd
                 //we check if this username exist, if so is it associated with given password
-                    startActivity(new Intent(MainActivity.this, MainMenu.class));
+                    Intent mainMenuActivity=new Intent(MainActivity.this, MainMenu.class);
+                    mainMenuActivity.putExtra(USER, mUser);
+                    startActivity(mainMenuActivity);
                     finish();
                 //else
                     //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
