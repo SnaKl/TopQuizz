@@ -1,6 +1,7 @@
 package com.neves.topquiz.controller;
 
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.User;
 
 import android.content.Intent;
@@ -13,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AnswerRecap extends AppCompatActivity {
     public static final String USER = "USER";
+    public static final String SCORE = "SCORE";
     private User mUser;
+    private Score mScore;
     private TextView mNumberOfPoints;
     private TextView mNumberOfCorrectAnswers;
     private TextView mNumberOfQuestions;
@@ -29,13 +32,15 @@ public class AnswerRecap extends AppCompatActivity {
             mUser = intent.getParcelableExtra(USER);
         }
 
+        mScore = mUser.getScore();
+
         mReturnMenu = findViewById(R.id.answer_recap_returnMenu_btn);
         mNumberOfPoints = findViewById(R.id.answer_recap_numberOfPoints_tv);
         mNumberOfCorrectAnswers = findViewById(R.id.answer_recap_numberOfCorrectAnswers_tv);
         mNumberOfQuestions = findViewById(R.id.answer_recap_numberOfQuestions_tv);
 
-        mNumberOfCorrectAnswers.setText(mUser.getScore().getPoints()+"");
-        mNumberOfPoints.setText(mUser.getScore().getPoints()*10+"");
+        mNumberOfCorrectAnswers.setText(mScore.getPoints()+"");
+        mNumberOfPoints.setText(mScore.getPoints()+"");
 
         mReturnMenu.setOnClickListener(new View.OnClickListener() {
             @Override

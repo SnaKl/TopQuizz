@@ -1,6 +1,9 @@
 package com.neves.topquiz.model;
 
-public class Score {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Score implements Parcelable {
 
     private Theme mTheme;
 
@@ -23,6 +26,23 @@ public class Score {
         mTheme = theme;
         mPoints = points;
     }
+
+    protected Score(Parcel in) {
+        mTheme = (Theme) in.readValue(Theme.class.getClassLoader());
+        mPoints = in.readInt();
+    }
+
+    public static final Creator<Score> CREATOR = new Creator<Score>() {
+        @Override
+        public Score createFromParcel(Parcel in) {
+            return new Score(in);
+        }
+
+        @Override
+        public Score[] newArray(int size) {
+            return new Score[size];
+        }
+    };
 
     /**
      * Permet de récupérer le thème du score
@@ -63,4 +83,14 @@ public class Score {
         mPoints++;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeParcelable(mTheme,flags);
+        out.writeInt(mPoints);
+    }
 }

@@ -1,6 +1,9 @@
 package com.neves.topquiz.model;
 
-public class Theme {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Theme implements Parcelable {
 
     private String mImageUrl;
 
@@ -28,6 +31,25 @@ public class Theme {
         mDescription = description;
         mQuestionNB = questionNB;
     }
+
+    protected Theme(Parcel in) {
+        mImageUrl = in.readString();
+        mTitle = in.readString();
+        mDescription = in.readString();
+        mQuestionNB = in.readInt();
+    }
+
+    public static final Creator<Theme> CREATOR = new Creator<Theme>() {
+        @Override
+        public Theme createFromParcel(Parcel in) {
+            return new Theme(in);
+        }
+
+        @Override
+        public Theme[] newArray(int size) {
+            return new Theme[size];
+        }
+    };
 
     /**
      * Permet de récupérer l'image du thème
@@ -91,5 +113,18 @@ public class Theme {
      */
     public void setQuestionNB(int questionNB) {
         mQuestionNB = questionNB;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(mImageUrl);
+        out.writeString(mTitle);
+        out.writeString(mDescription);
+        out.writeInt(mQuestionNB);
     }
 }

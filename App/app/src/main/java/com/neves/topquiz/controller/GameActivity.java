@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUNDLE_QUESTION_BANK = "BUNDLE_QUESTION_BANK";
     public static final String MY_FILE_NAME = "questions.txt";
     public static final String USER = "USER";
+    public static final String SCORE = "SCORE";
 
     private User mUser;
     private QuestionBank mQuestionBank;
@@ -64,7 +65,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
         }
-        mUser.setScore(new Score());
+        mUser.setScore(new Score(null,0));
 
         deleteFile();
         try {
@@ -348,6 +349,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     public void onClick(DialogInterface dialog, int which) {
                         Intent AnswerRecap = new Intent(GameActivity.this, AnswerRecap.class);
                         AnswerRecap.putExtra(USER, mUser);
+                        //AnswerRecap.putExtra(SCORE, mUser.getScore().getPoints()+"");
                         startActivity(AnswerRecap);
                         //finish();
                     }
