@@ -22,13 +22,16 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
     public static final int GAME_ACTIVITY_REQUEST_CODE = 42;
+
     private TextView mGreetingText;
     private EditText mUsername;
     private EditText mPassword;
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String USER = "USER";
     public static final String USERS = "USERS";
 
+    private static final String SHARED_PREF_USER_INFO = "SHARED_PREF_USER_INFO";
+    private static final String SHARED_PREF_USER_INFO_NAME = "SHARED_PREF_USER_INFO_NAME";
+    private static final String SHARED_PREF_USER_INFO_SCORE = "SHARED_PREF_USER_INFO_SCORE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,31 +54,25 @@ public class MainActivity extends AppCompatActivity {
 
         /*Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            //show start activity
-            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).commit();
+            // Show start activity
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
             startActivity(new Intent(MainActivity.this, CreateAccount.class));
         }*/
 
         setContentView(R.layout.activity_login);
 
-        System.out.println("MainActivity::onCreate()");
-
-
-//        mUser = new User("", 0);
-//        users = new ArrayList<User>();
         mPreferences = getPreferences(MODE_PRIVATE);
-        mGreetingText = (TextView) findViewById(R.id.login_greetingTxt_tv);
+        mGreetingText = findViewById(R.id.login_greetingTxt_tv);
 
-        mUsername = (EditText) findViewById(R.id.login_username_input);
-        mPassword = (EditText) findViewById(R.id.login_password_input);
+        mUsername = findViewById(R.id.login_username_input);
+        mPassword = findViewById(R.id.login_password_input);
         mPassword.setEnabled(false);
-        mConnectionBtn = (Button) findViewById(R.id.login_connection_btn);
+        mConnectionBtn = findViewById(R.id.login_connection_btn);
         mConnectionBtn.setEnabled(false);
-        mAccountCreationBtn = (Button) findViewById(R.id.login_createAccount_btn);
+        mAccountCreationBtn = findViewById(R.id.login_createAccount_btn);
         String username = mUsername.getText().toString();
         String password = mPassword.getText().toString();
 
-        //greetUser();
         mUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -126,30 +126,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mConnectionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUser = new User(username, 0); // créer une fonction "getScore" qui récupère le score en bdd
-                //we check if this username exist, if so is it associated with given password
-                    Intent mainMenuActivity=new Intent(MainActivity.this, MainMenu.class);
-                    mainMenuActivity.putExtra(USER, mUser);
-                    startActivity(mainMenuActivity);
-                    finish();
-                //else
-                    //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
+        mConnectionBtn.setOnClickListener(v -> {
+            //String password, String salt, String jwtToken, String email, String avatar
+            mUser = new User(username, "", "", "", "", ""); // créer une fonction "getScore" qui récupère le score en bdd
+            mUser.setScore(new Score(null, 0));
+            //we check if this username exist, if so is it associated with given password
+            Intent mainMenuActivity = new Intent(MainActivity.this, MainMenu.class);
+            mainMenuActivity.putExtra(USER, mUser);
+            startActivity(mainMenuActivity);
+            finish();
+            //else
+            //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
 
-                //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
-//                gameActivity.putExtra(USER, mUser);
+            //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
+     gameActivity.putExtra(USER, mUser);
 //                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
-            }
         });
 
-        mAccountCreationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CreateAccount.class));
-                finish();
-            }
+        mAccountCreationBtn.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, CreateAccount.class));
+            finish();
         });
     }
 
@@ -184,10 +180,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_activity_main_drapeau:
-                Toast.makeText(this, "changement de langue", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Changement de langue", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_activity_main_parametres:
-                Toast.makeText(this, "afficher vue paramètre", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Afficher vue paramètre", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -195,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
             mUser = data.getParcelableExtra(GameActivity.USER);
@@ -262,33 +258,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }*/
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        System.out.println("MainActivity::onStart()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        System.out.println("MainActivity::onResume()");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("MainActivity::onPause()");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        System.out.println("MainActivity::onStop()");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        System.out.println("MainActivity::onDestroy()");
-    }
 }

@@ -9,18 +9,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuestionBank implements Parcelable{
+
     private List<Question> mQuestionList;
+
     private int mNextQuestionIndex;
 
-    public int getTaille() {
-        return taille;
-    }
-
-    public void setTaille(int taille) {
-        this.taille = taille;
-    }
-
-    private int taille;
+    private static final int mSize = 10;
 
     /**
      * Constructeur
@@ -30,45 +24,12 @@ public class QuestionBank implements Parcelable{
         mQuestionList = questionList;
         Collections.shuffle(mQuestionList);
         mNextQuestionIndex = 0;
-        taille = questionList.size();
     }
+
 
     /**
-     * Permet l'ajout d'une question à la banque
-     * @param question
+     * Implémentation de Parcelable
      */
-    public void setQuestion(Question question){
-        mQuestionList.add(question);
-        mNextQuestionIndex++;
-    }
-
-    /**
-     * Renvoie la question actuelle de la liste
-     * @return : une question
-     */
-    public Question getCurrentQuestion() {
-        return mQuestionList.get(mNextQuestionIndex);
-    }
-
-    /**
-     * Modifie l'index de la question en court dans la liste
-     * @param mNextQuestionIndex
-     */
-    public void setmNextQuestionIndex(int mNextQuestionIndex){
-        this.mNextQuestionIndex = mNextQuestionIndex;
-    }
-
-    /**
-     * Renvoie la question suivante de la liste
-     * @return : une question
-     */
-    public Question getQuestion() {
-        if(mNextQuestionIndex == mQuestionList.size()){
-            mNextQuestionIndex = 0;
-        }
-        return mQuestionList.get(mNextQuestionIndex++);
-    }
-
     public int describeContents() {
         return 0;
     }
@@ -90,8 +51,74 @@ public class QuestionBank implements Parcelable{
     };
 
     private QuestionBank(Parcel in) {
-        mQuestionList = new ArrayList<Question>();
+        mQuestionList = new ArrayList<>();
         in.readList(mQuestionList, Question.class.getClassLoader());
         mNextQuestionIndex = in.readInt();
     }
+
+    /**
+     * Permet de récupérer la liste de questions
+     * @return : la liste de questions
+     */
+    public List<Question> getQuestionList() {
+        return mQuestionList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        mQuestionList = questionList;
+    }
+
+    /**
+     * Permet de récupérer l'indice de la prochaine question
+     * @return : l'indice de la prochaine question
+     */
+    public int getNextQuestionIndex() {
+        return mNextQuestionIndex;
+    }
+
+    /**
+     * Permet d'ajouter un  au score
+     * @param nextQuestionIndex : est le thème du score
+     */
+    public void setNextQuestionIndex(int nextQuestionIndex) {
+        this.mNextQuestionIndex = nextQuestionIndex;
+    }
+
+    /**
+     * Permet de récupérer la taille de la banque de questions
+     * @return : la taille de la banque de questions
+     */
+    public int getSize() {
+        return mSize;
+    }
+
+    /**
+     * Renvoie la question actuelle de la liste
+     * @return : la question actuelle de la liste
+     */
+    public Question getCurrentQuestion() {
+        return mQuestionList.get(mNextQuestionIndex);
+    }
+
+    /**
+     * Renvoie la question suivante de la liste
+     * @return : la question suivante de la liste
+     */
+    public Question getNextQuestion() {
+        if (mNextQuestionIndex == mQuestionList.size()) {
+            mNextQuestionIndex = 0;
+        }
+        mNextQuestionIndex++;
+        return getCurrentQuestion();
+    }
+
+    /**
+     * Permet l'ajout d'une question à la banque
+     * @param question : est la question à ajouter
+     */
+    public void setQuestion(Question question){
+        mQuestionList.add(question);
+        mNextQuestionIndex++;
+    }
+
 }

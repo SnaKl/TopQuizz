@@ -24,6 +24,7 @@ import java.util.Calendar;
 import static java.lang.System.out;
 
 public class CreateAccount extends AppCompatActivity{
+
     private EditText mUsername;
     private EditText mMail;
     private EditText mPassword;
@@ -38,11 +39,11 @@ public class CreateAccount extends AppCompatActivity{
 
         mPreferences = getPreferences(MODE_PRIVATE);
 
-        mUsername = (EditText) findViewById(R.id.create_account_username_input);
-        mMail = (EditText) findViewById(R.id.create_account_mail_input);
-        mPassword = (EditText) findViewById(R.id.create_account_password_input);
-        mConfirmPassword = (EditText) findViewById(R.id.create_account_confirmPassword_input);
-        mCreateAccountBtn = (Button) findViewById(R.id.create_account_validate_btn);
+        mUsername = findViewById(R.id.create_account_username_input);
+        mMail = findViewById(R.id.create_account_mail_input);
+        mPassword = findViewById(R.id.create_account_password_input);
+        mConfirmPassword = findViewById(R.id.create_account_confirmPassword_input);
+        mCreateAccountBtn = findViewById(R.id.create_account_validate_btn);
 
         String username = mUsername.getText().toString();
         String mail = mMail.getText().toString();
@@ -68,18 +69,15 @@ public class CreateAccount extends AppCompatActivity{
             }
         });
 
-        mCreateAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //créer un User et lui rentrer les infos
+        mCreateAccountBtn.setOnClickListener(v -> {
+            //créer un User et lui rentrer les infos
 
-                /*User mUser = new User(pseudoS, DDNS, genreS, permisS, poidsS, tailleS, numS);
-                UserDB userDB = new UserDB(Formulaire.this);
-                boolean success = userDB.addOne(mUser);*/
-                Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
-                startActivity(Suite);
-                finish();
-            }
+            /*User mUser = new User(pseudoS, DDNS, genreS, permisS, poidsS, tailleS, numS);
+            UserDB userDB = new UserDB(Formulaire.this);
+            boolean success = userDB.addOne(mUser);*/
+            Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
+            startActivity(Suite);
+            finish();
         });
     }
 }

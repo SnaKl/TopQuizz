@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="welcomeTopQuiz">Bienvenue dans TopQuiz. Quel est votre prénom ?</string>
-    <string name="app_name">TopQuiz</string>
+    <string name="welcomeTopQuiz">Bienvenue dans TopQuizz. Quel est votre prénom ?</string>
+    <string name="app_name">TopQuizz</string>
     <string name="question1">Quand a été créé Android ?</string>
     <string name="response11">1999</string>
     <string name="response12">2001</string>
@@ -27,8 +27,8 @@
     <string name="response52">La classe GlobalResources</string>
     <string name="response53">La classe Activity</string>
     <string name="response54">La classe MainConstants</string>
-    <string name="goodAnswer">Bonne réponse !</string>
-    <string name="badAnswer">Mauvaise réponse !</string>
+    <string name="rightAnswer">Bonne réponse !</string>
+    <string name="wrongAnswer">Mauvaise réponse !</string>
     <string name="congrats">Bravo!</string>
     <string name="messageScore">"Votre score est de "</string>
     <string name="points">points</string>
