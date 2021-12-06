@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recap implements Parcelable {
-    List<Pair<Question, Boolean>> mQuestionRecap = new ArrayList<Pair<Question, Boolean>>();
-    private String mFirstName;
-    private int score;
+    private List<Pair<Question, Boolean>> mQuestionRecap;
+    private int mNumberQuestions;
+    private int mNumberGoodAnswers;
 
     public static final Creator<Recap> CREATOR = new Creator<Recap>() {
         @Override
@@ -31,61 +31,31 @@ public class Recap implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(score);
-        out.writeString(mFirstName);
+        //out.writeInt(score);
+        //out.writeString(mFirstName);
     }
 
     private Recap(Parcel in) {
-        score = in.readInt();
-        mFirstName = in.readString();
+        mQuestionRecap= new ArrayList<Pair<Question, Boolean>>();
+        mNumberQuestions=0;
+        //mQuestionRecap=in.readList(mQuestionRecap, mQuestionRecap.class.getClassLoader());;
+        //score = in.readInt();
+        //mFirstName = in.readString();
     }
 
-    /**
-     * Permet d'incrémenter de 1 le score
-     */
-    public void incScoreByOne(){
-        score++;
+    public Pair<Question,Boolean> getQuestion(int index) {
+        return mQuestionRecap.get(index);
     }
 
-    /**
-     * Retourne le score de l'utilisateur
-     * @return Le score de l'utilisateur
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Affecte un score à un utilisateur
-     * @param score de l'utilisateur
-     */
-    public void setScore(int score) {
-        this.score = score;
+    public List<Pair<Question,Boolean>> getQuestionRecap() {
+        return mQuestionRecap;
     }
 
     /**
      * Constructeur
-     * @param mFirstName : est le nom de l'utilisateur
-     * @param score : esr le score du joueur
      */
-    public Recap(String mFirstName, int score) {
-        this.mFirstName = mFirstName;
-        this.score = score;
-    }
-
-    /**
-     * Permet de récupérer le nom de l'utilisateur
-     * @return : le nom de l'utilisateur
-     */
-    public String getFirstName() {
-        return mFirstName;
-    }
-
-    /**
-     * Permet d'ajouter un nom à utilisateur
-     * @param firstName : est le nom de l'utilisateur
-     */
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
+    public Recap() {
+        mQuestionRecap= new ArrayList<Pair<Question, Boolean>>();
+        mNumberQuestions=0;
     }
 }
