@@ -3,11 +3,47 @@ package com.neves.topquiz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.time.LocalDate;
+
 public class User implements Parcelable {
 
-    private String mFirstName;
-    private int score;
+    private String mNickname;
+    private String mPassword;
+    private String mSalt;
+    private String mJwtToken;
+    private String mEmail;
+    private LocalDate mSignUpDate;
+    private int mTotalScore;
+    private Score mScore;
+    private String mAvatar;
 
+    /**
+     * Constructeur vide
+     */
+    public User() {}
+
+    /**
+     * Constructeur
+     * @param nickname : est le nom de l'utilisateur
+     * @param password : est le mot de passe de l'utilisateur
+     * @param salt : est le salt de l'utilisateur
+     * @param jwtToken : est le jwt token de l'utilisateur
+     * @param email : est l'email de l'utilisateur
+     * @param avatar : est l'avatar de l'utilisateur
+     */
+    public User(String nickname, String password, String salt, String jwtToken, String email, String avatar) {
+        mNickname = nickname;
+        mPassword = password;
+        mSalt = salt;
+        mJwtToken = jwtToken;
+        mEmail = email;
+        mTotalScore = 0;
+        mAvatar = avatar;
+    }
+
+    /**
+     * Implémentation de Parcelable
+     */
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {
@@ -27,61 +63,176 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(score);
-        out.writeString(mFirstName);
+        out.writeString(mNickname);
+        out.writeInt(mScore.getPoints());
     }
 
     private User(Parcel in) {
-        score = in.readInt();
-        mFirstName = in.readString();
-    }
-
-    /**
-     * Permet d'incrémenter de 1 le score
-     */
-    public void incScoreByOne(){
-        score++;
-    }
-
-    /**
-     * Retourne le score de l'utilisateur
-     * @return Le score de l'utilisateur
-     */
-    public int getScore() {
-        return score;
-    }
-
-    /**
-     * Affecte un score à un utilisateur
-     * @param score de l'utilisateur
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    /**
-     * Constructeur
-     * @param mFirstName : est le nom de l'utilisateur
-     * @param score : esr le score du joueur
-     */
-    public User(String mFirstName, int score) {
-        this.mFirstName = mFirstName;
-        this.score = score;
+        mNickname = in.readString();
+        if (mScore != null) {
+            mScore.setPoints(in.readInt());
+        }
+        else {
+            mScore = new Score();
+        }
     }
 
     /**
      * Permet de récupérer le nom de l'utilisateur
      * @return : le nom de l'utilisateur
      */
-    public String getFirstName() {
-        return mFirstName;
+    public String getNickname() {
+        return mNickname;
     }
 
     /**
-     * Permet d'ajouter un nom à utilisateur
-     * @param firstName : est le nom de l'utilisateur
+     * Permet d'ajouter un nom à l'utilisateur
+     * @param nickname : est le nom de l'utilisateur
      */
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
+    public void setNickname(String nickname) {
+        mNickname = nickname;
     }
+
+    /**
+     * Permet de récupérer le mot de passe de l'utilisateur
+     * @return : le mot de passe de l'utilisateur
+     */
+    public String getPassword() {
+        return mPassword;
+    }
+
+    /**
+     * Permet d'ajouter un mot de passe à l'utilisateur
+     * @param password : est le mot de passe de l'utilisateur
+     */
+    public void setPassword(String password) {
+        mPassword = password;
+    }
+
+    /**
+     * Permet de récupérer le salt de l'utilisateur
+     * @return : le salt de l'utilisateur
+     */
+    public String getSalt() {
+        return mSalt;
+    }
+
+    /**
+     * Permet d'ajouter un salt à l'utilisateur
+     * @param salt: est le salt de l'utilisateur
+     */
+    public void setSalt(String salt) {
+        mSalt = salt;
+    }
+
+    /**
+     * Permet de récupérer le jwt token de l'utilisateur
+     * @return : le jwt token de l'utilisateur
+     */
+    public String getJwtToken() {
+        return mJwtToken;
+    }
+
+    /**
+     * Permet d'ajouter un jwt token à l'utilisateur
+     * @param jwtToken : est le jwt token de l'utilisateur
+     */
+    public void setJwtToken(String jwtToken) {
+        mJwtToken = jwtToken;
+    }
+
+    /**
+     * Permet de récupérer l'email de l'utilisateur
+     * @return : l'email de l'utilisateur
+     */
+    public String getEmail() {
+        return mEmail;
+    }
+
+    /**
+     * Permet d'ajouter un email à l'utilisateur
+     * @param email : est l'email de l'utilisateur
+     */
+    public void setEmail(String email) {
+        mEmail = email;
+    }
+
+    /**
+     * Permet de récupérer la date de création de compte de l'utilisateur
+     * @return : la date de création de compte de l'utilisateur
+     */
+    public LocalDate getSignUpDate() {
+        return mSignUpDate;
+    }
+
+    /**
+     * Permet d'ajouter une date de création de compte à l'utilisateur
+     * @param signUpDate : est la date de création de compte de l'utilisateur
+     */
+    public void setSignUpDate(LocalDate signUpDate) {
+        mSignUpDate = signUpDate;
+    }
+
+    /**
+     * Retourne le score total de l'utilisateur
+     * @return le score total de l'utilisateur
+     */
+    public int getTotalScore() {
+        return mTotalScore;
+    }
+
+    /**
+     * Affecte un score total à l'utilisateur
+     * @param totalScore de l'utilisateur
+     */
+    public void setTotalScore(int totalScore) {
+        mTotalScore = totalScore;
+    }
+
+    /**
+     * Retourne le score de l'utilisateur
+     * @return le score de l'utilisateur
+     */
+    public Score getScore() {
+        return mScore;
+    }
+
+    /**
+     * Affecte un score à l'utilisateur
+     * @param score de l'utilisateur
+     */
+    public void setScore(Score score) {
+        mScore = score;
+    }
+
+    /**
+     * Permet de récupérer l'avatar de l'utilisateur
+     * @return : l'avatar de l'utilisateur
+     */
+    public String getAvatar() {
+        return mAvatar;
+    }
+
+    /**
+     * Permet d'ajouter un avatar à l'utilisateur
+     * @param avatar : est l'avatar de l'utilisateur
+     */
+    public void setAvatar(String avatar) {
+        this.mAvatar = avatar;
+    }
+
+    /**
+     * Permet d'incrémenter de 1 le score
+     */
+    public void incrementScore(){
+        mScore.incrementScore();
+    }
+
+    /**
+     * Permet d'ajouter le score au score total
+     */
+    public void addScoreToTotal() {
+        mTotalScore += mScore.getPoints();
+    }
+
 }
