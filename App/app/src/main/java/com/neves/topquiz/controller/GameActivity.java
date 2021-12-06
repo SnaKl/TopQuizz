@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -242,7 +243,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
                 0);
 
-        Question question6 = new Question(("Qui est le plus beau de la classe"),
+        Question question6 = new Question(null, null, null, ("Qui est le plus beau de la classe"),
                 Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
                 0);
 

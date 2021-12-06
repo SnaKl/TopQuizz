@@ -138,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
             //else
             //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
 
-            //Intent gameActivity = new Intent(MainActivity.this, Menu.class);
-     gameActivity.putExtra(USER, mUser);
-//                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
+            Intent gameActivity = new Intent(MainActivity.this, Menu.class);
+            gameActivity.putExtra(USER, mUser);
+            startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
         });
 
         mAccountCreationBtn.setOnClickListener(v -> {
