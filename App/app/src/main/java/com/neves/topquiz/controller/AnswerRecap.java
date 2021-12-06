@@ -34,7 +34,7 @@ public class AnswerRecap extends AppCompatActivity {
         mNumberOfCorrectAnswers = findViewById(R.id.answer_recap_numberOfCorrectAnswers_tv);
         mNumberOfQuestions = findViewById(R.id.answer_recap_numberOfQuestions_tv);
 
-        mNumberOfCorrectAnswers.setText(mUser.getScore()+"");
+        mNumberOfCorrectAnswers.setText(mUser.getScore().getPoints()+"");
         mNumberOfPoints.setText(mUser.getScore().getPoints()*10+"");
 
         mReturnMenu.setOnClickListener(new View.OnClickListener() {

@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mQuestionBank.setNextQuestionIndex(mQuestionBank.getSize() - mRemainingQuestionCount);
         } else {
             mUser.setScore(new Score(null, 0));
-            mRemainingQuestionCount = 10;
+            mRemainingQuestionCount = 4; // A AUGMENTER ICI POUR AUGMENTER LE NOMBRE DE QUESTIONS PAR PARTIE
             try {
                 mQuestionBank = this.generateQuestions();
             } catch (IOException e) {
@@ -278,7 +278,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // If this is the last question, ends the game.
                 // Else, display the next question.
                 mCurrentQuestion = mQuestionBank.getNextQuestion();
-                handleButtonColor(mQuestionBank.getSize(), true);
+                handleButtonColor(4, true);
                 displayQuestion(mCurrentQuestion);
             } else {
                 // No questions left, end the game
@@ -342,7 +342,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void endGame() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString((R.string.congrats)))
-                .setMessage(getString(R.string.messageScore) + mUser.getScore() + getString(R.string.points))
+                .setMessage(getString(R.string.messageScore) + mUser.getScore().getPoints() + getString(R.string.points))
                 .setPositiveButton(getString(R.string.OKbutton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
