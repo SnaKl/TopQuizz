@@ -41,7 +41,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public static final String BUNDLE_QUESTION_BANK = "BUNDLE_QUESTION_BANK";
     public static final String MY_FILE_NAME = "questions.txt";
     public static final String USER = "USER";
-    public static final String SCORE = "SCORE";
 
     private User mUser;
     private QuestionBank mQuestionBank;
@@ -66,25 +65,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mUser = intent.getParcelableExtra(USER);
         }
         mUser.setScore(new Score(null,0));
+        mUser.initLastQuestionRecap();
 
         deleteFile();
         try {
-            Question q = new Question(null, null, null, getString(R.string.question1), Arrays.asList(getString(R.string.response11),
+            Question q = new Question(null, null, null,"Question historique", getString(R.string.question1), Arrays.asList(getString(R.string.response11),
                     getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)), 3);
             saveQuestion(q);
-            q = new Question(null, null, null, getString(R.string.question2), Arrays.asList(getString(R.string.response21),
+            q = new Question(null, null, null, "Question Layout", getString(R.string.question2), Arrays.asList(getString(R.string.response21),
                     getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)), 3);
             saveQuestion(q);
-            q = new Question(null, null, null, getString(R.string.question3), Arrays.asList(getString(R.string.response31),
+            q = new Question(null, null, null,"Question Graphique", getString(R.string.question3), Arrays.asList(getString(R.string.response31),
                     getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)), 2);
             saveQuestion(q);
-            q = new Question(null, null, null, "Question 4", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
+            q = new Question(null, null, null, "Question 4", "Question 4", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
             saveQuestion(q);
-            q = new Question(null, null, null, "Question 5", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
+            q = new Question(null, null, null, "Question 5", "Question 5", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
             saveQuestion(q);
-            q = new Question(null, null, null, "Question 6", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
+            q = new Question(null, null, null,"Question 6", "Question 6", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
             saveQuestion(q);
-            q = new Question(null, null, null, "Question 7", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
+            q = new Question(null, null, null,"Question 7", "Question 7", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
             saveQuestion(q);
         } catch (IOException e) {
             e.printStackTrace();
@@ -180,6 +180,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int content;
         int i = 0;
         Question q;
+        String questionTitle="";
         String question = "";
         int answerIndex = -1;
         List<String> answers = new ArrayList<String>();
@@ -202,7 +203,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("test_load", "answerIndex in : " + answerIndex);
                 i = 0;
                 stringb.setLength(0);
-                q = new Question(null, null, null, question, answers, answerIndex);
+                q = new Question(null, null, null, questionTitle, question, answers, answerIndex);
                 answers = new ArrayList<String>();
                 listQuestions.add(q);
             } else {
@@ -224,27 +225,27 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private QuestionBank generateQuestions() throws IOException {
 
-        Question question1 = new Question(null, null, null, (getString(R.string.question1)),
+        Question question1 = new Question(null, null, null, "Question historique",(getString(R.string.question1)),
                 Arrays.asList(getString(R.string.response11), getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)),
                 2);
 
-        Question question2 = new Question(null, null, null, (getString(R.string.question2)),
+        Question question2 = new Question(null, null, null, "Question layout",(getString(R.string.question2)),
                 Arrays.asList(getString(R.string.response21), getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)),
                 2);
 
-        Question question3 = new Question(null, null, null, (getString(R.string.question3)),
+        Question question3 = new Question(null, null, null, "Question graphique",(getString(R.string.question3)),
                 Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
                 1);
 
-        Question question4 = new Question(null, null, null, (getString(R.string.question4)),
+        Question question4 = new Question(null, null, null, "Question XML",(getString(R.string.question4)),
                 Arrays.asList(getString(R.string.response41), getString(R.string.response42), getString(R.string.response43), getString(R.string.response44)),
                 0);
 
-        Question question5 = new Question(null, null, null, (getString(R.string.question5)),
+        Question question5 = new Question(null, null, null,"Question architecture" ,(getString(R.string.question5)),
                 Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
                 0);
 
-        Question question6 = new Question(null, null, null, ("Qui est le plus beau de la classe"),
+        Question question6 = new Question(null, null, null, "Question de beauté" ,("Qui est le plus beau de la classe"),
                 Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
                 0);
 
@@ -252,7 +253,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 question2,
                 question3,
                 question4,
-                question5));
+                question5,
+                question6));
         //return loadQuestions();
     }
 
@@ -264,9 +266,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (responseIndex == mCurrentQuestion.getAnswerIndex()) {
             mUser.incrementScore();
             handleButtonColor(responseIndex, true);
+            mUser.addQuestionToQuestionRecap(mCurrentQuestion,true);
             Toast.makeText(this, getString(R.string.rightAnswer), Toast.LENGTH_SHORT).show();
         } else {
             handleButtonColor(responseIndex, false);
+            mUser.addQuestionToQuestionRecap(mCurrentQuestion,false);
             Toast.makeText(this, getString(R.string.wrongAnswer), Toast.LENGTH_SHORT).show();
         }
 
@@ -372,12 +376,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.finish();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    //@Override
+    //protected void onSaveInstanceState(Bundle outState) {
         //outState.putInt(BUNDLE_STATE_SCORE, mUser.getScore());
         //outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
         //outState.putParcelable(BUNDLE_QUESTION_BANK, mQuestionBank);
         //super.onSaveInstanceState(outState);
-    }
+    //}
 
 }

@@ -1,27 +1,35 @@
 package com.neves.topquiz.controller;
 
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.User;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
 
 public class AnswerRecap extends AppCompatActivity {
     public static final String USER = "USER";
-    public static final String SCORE = "SCORE";
     private User mUser;
     private Score mScore;
     private TextView mNumberOfPoints;
     private TextView mNumberOfCorrectAnswers;
     private TextView mNumberOfQuestions;
+    private LinearLayout mQuestionsListContainer;
     private Button mReturnMenu;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +41,7 @@ public class AnswerRecap extends AppCompatActivity {
         }
 
         mScore = mUser.getScore();
-
+        mQuestionsListContainer = (LinearLayout) findViewById(R.id.answer_recap_questionsListContainer_lt);
         mReturnMenu = findViewById(R.id.answer_recap_returnMenu_btn);
         mNumberOfPoints = findViewById(R.id.answer_recap_numberOfPoints_tv);
         mNumberOfCorrectAnswers = findViewById(R.id.answer_recap_numberOfCorrectAnswers_tv);
@@ -41,6 +49,17 @@ public class AnswerRecap extends AppCompatActivity {
 
         mNumberOfCorrectAnswers.setText(mScore.getPoints()+"");
         mNumberOfPoints.setText(mScore.getPoints()+"");
+
+        for(int i=0;i<mUser.getQuestionRecapSize();i++){
+            Button myButton = new Button(this);
+            myButton.setText(mUser.getQuestionRecapQuestionTitle(i));
+            if(mUser.getQuestionRecapResult(i)) {
+                myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
+            }else{
+                myButton.setBackground(getDrawable(R.drawable.container_answer_button_wrong));
+            }
+            mQuestionsListContainer.addView(myButton);
+        }
 
         mReturnMenu.setOnClickListener(new View.OnClickListener() {
             @Override

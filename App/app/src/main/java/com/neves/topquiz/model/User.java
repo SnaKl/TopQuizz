@@ -3,10 +3,17 @@ package com.neves.topquiz.model;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Pair;
 
 import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class User implements Parcelable {
 
@@ -19,6 +26,8 @@ public class User implements Parcelable {
     private int mTotalScore;
     private Score mScore;
     private String mAvatar;
+    private List<Question> mLastQuestionRecap;
+    private List<Boolean> mLastAnswersRecap;
 
     /**
      * Constructeur vide
@@ -76,6 +85,8 @@ public class User implements Parcelable {
         out.writeValue(mSignUpDate);
         out.writeParcelable(mScore,flags);
         out.writeString(mAvatar);
+        out.writeValue(mLastQuestionRecap);
+        out.writeValue(mLastAnswersRecap);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -89,6 +100,14 @@ public class User implements Parcelable {
         mSignUpDate = (LocalDate) in.readValue(LocalDate.class.getClassLoader());
         mScore = in.readParcelable(Score.class.getClassLoader());
         mAvatar = in.readString();
+        /*mLastQuestionRecap = new ArrayList<Pair<Question, Boolean>>();
+        in.readList(mLastQuestionRecap,mLastQuestionRecap.getClass().getClassLoader());
+        mLastQuestionRecap = new LinkedHashMap<Question,Boolean>();
+        in.readMap(mLastQuestionRecap,getClass().getClassLoader());*/
+        mLastQuestionRecap= (List<Question>) in.readValue(Question.class.getClassLoader());
+        mLastAnswersRecap=(List<Boolean>) in.readValue(Boolean.class.getClassLoader());
+                //new ArrayList<>();
+        //in.readList(mLastAnswersRecap,mLastAnswersRecap.getClass().getClassLoader());
     }
 
     /**
@@ -247,6 +266,33 @@ public class User implements Parcelable {
      */
     public void addScoreToTotal() {
         mTotalScore += mScore.getPoints();
+    }
+
+    public void initLastQuestionRecap(){
+        //mLastQuestionRecap=new LinkedHashMap<Question,Boolean>();
+        mLastQuestionRecap=new ArrayList<Question>();
+        mLastAnswersRecap=new ArrayList<Boolean>();
+    }
+
+    public void addQuestionToQuestionRecap(Question question, boolean result){
+        mLastQuestionRecap.add(question);
+        mLastAnswersRecap.add(result);
+    }
+
+    public String getQuestionRecapQuestionTitle(int index){
+        /*List<Question> Questions = new ArrayList<>(mLastQuestionRecap.keySet());
+        return Questions.get(index).getQuestionTitle();*/
+        return mLastQuestionRecap.get(index).getQuestionTitle();
+    }
+
+    public Boolean getQuestionRecapResult(int index){
+        /*List<Boolean> Results = new ArrayList<>(mLastQuestionRecap.values());
+        return Results.get(index);*/
+        return mLastAnswersRecap.get(index);
+    }
+
+    public int getQuestionRecapSize(){
+        return mLastQuestionRecap.size();
     }
 
 }
