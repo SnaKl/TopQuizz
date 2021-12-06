@@ -19,6 +19,9 @@ app.use('/api/user', userRoutes);
 import themeRoutes from './theme/theme.route.js';
 app.use('/api/theme', themeRoutes);
 
+import questionRoutes from './question/question.route.js';
+app.use('/api/question', questionRoutes);
+
 app.get('/', (req, res) => {
 	res.send('TopQuizz API');
 });

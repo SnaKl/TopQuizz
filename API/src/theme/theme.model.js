@@ -1,11 +1,10 @@
 import { Schema, model } from 'mongoose';
-const ObjectId = Schema.Types.ObjectId;
 
 const ThemeSchema = new Schema(
 	{
 		title: { type: String, required: true, unique: true },
+		imageUrl: { type: String },
 		description: { type: String },
-		questionNB: { type: Number, default: 0 },
 	},
 	{
 		versionKey: false,

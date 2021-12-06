@@ -9,7 +9,7 @@ import fs from 'fs';
 // destination: './src/uploads',
 // filename: 'image-1638441661672-915153352.jpg',
 // path: 'src\\up
-const targets = ['userAvatar', 'themeImage'];
+const targets = ['userAvatar', 'themeImage', 'questionImage'];
 
 for (const target of targets) {
 	let dir = `./public/uploads/${target}`;

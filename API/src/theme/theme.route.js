@@ -17,6 +17,7 @@ router.get('/', ThemeController.getAllTheme);
  * @desc create theme route
  * @access Public
  */
+//TODO rajouter image au theme
 router.post(
 	'/',
 	ThemeValidator.createTheme(),

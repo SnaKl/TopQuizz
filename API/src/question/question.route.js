@@ -2,60 +2,74 @@ import { Router } from 'express';
 var router = Router();
 import * as QuestionController from './question.controller';
 
-/**
- * @route GET api/question
- * @desc question route
- * @access Public
- */
-router.get('/', QuestionController.getTheme);
-
-/**
- * @route PUT api/question
- * @desc update question route
- * @access Private
- */
-router.put('/', QuestionController.updateTheme);
+import Auth from '../middleware/auth';
+import Validator from '../middleware/validator';
+import * as QuestionValidator from './question.validator';
+import upload from '../middleware/upload';
 
 /**
  * @route POST api/question
- * @desc create question route
+ * @desc create question
  * @access Public
  */
-router.post('/', QuestionController.createTheme);
+router.post(
+	'/',
+	Auth,
+	upload('questionImage'),
+	QuestionController.createQuestion,
+);
 
 /**
- * @route GET api/question/:id
- * @desc get question by id route
+ * @route GET api/question
+ * @desc get random quetions in theme
  * @access Public
  */
-router.get('/:id', QuestionController.getThemeByTitle);
+router.get(
+	'/randomQuestion/:theme',
+	QuestionValidator.getRandomQuestionByTheme(),
+	Validator,
+	QuestionController.getRandomQuestionByTheme,
+);
 
+// req.params.nbQuestion;
 /**
- * @route PUT api/question/:id
- * @desc update question by id route
+ * @route GET api/question
+ * @desc get random quetions in theme
  * @access Public
  */
-router.put('/:id', QuestionController.updateThemeByTitle);
-
-/**
- * @route DELETE api/question/:id
- * @desc question by id route
- * @access Public
- */
-router.delete('/:id', QuestionController.deleteQuestionById);
-
-/**
- * @route GET api/question/:themeID
- * @desc get question by theme id route
- * @access Public
- */
-router.get('/:themeID', QuestionController.getQuestionByTheme);
+router.get(
+	'/randomQuestion/:theme/:nbQuestion',
+	QuestionValidator.getRandomQuestionsByTheme(),
+	Validator,
+	QuestionController.getRandomQuestionsByTheme,
+);
 
 /**
  * @route DELETE api/question/:themeID
- * @desc delete question by theme id route
+ * @desc delete question by theme
  * @access Private
  */
-router.delete('/themeID', QuestionController.deleteQuestionByTheme);
+router.delete('/theme/:theme', QuestionController.deleteQuestionsByTheme);
+
+/**
+ * @route GET api/question
+ * @desc get question by id
+ * @access Public
+ */
+router.get('/id/:questionID', QuestionController.getQuestionById);
+
+/**
+ * @route PUT api/question
+ * @desc update question by id
+ * @access Private
+ */
+router.put('/id/:questionID', QuestionController.updateQuestionById);
+
+/**
+ * @route DELETE api/question/:id
+ * @desc delete question by id
+ * @access Public
+ */
+router.delete('/id/:questionsID', QuestionController.deleteQuestionById);
 
 export default router;

@@ -1,5 +1,5 @@
 import * as ThemeService from './theme.service';
-// import
+
 export async function getAllTheme(req, res) {
 	const themes = await ThemeService.findTheme();
 	res.send(themes);
