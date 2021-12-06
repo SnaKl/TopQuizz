@@ -70,4 +70,6 @@
     <string name="AddQuestion">+ Add a question</string>
     <string name="SubmitQuiz">Submit quiz</string>
     <string name="WrongID">Username or Password is incorrect !</string>
+    <string-array name="themes_array">
+    </string-array>
 </resources>

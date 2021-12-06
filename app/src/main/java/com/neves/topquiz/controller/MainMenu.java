@@ -70,7 +70,7 @@ public class MainMenu extends AppCompatActivity {
         mValidateQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Leaderboard = new Intent(MainMenu.this, LeaderboardGeneral.class);
+                Intent Leaderboard = new Intent(MainMenu.this, ValidateTheme.class);
                 startActivity(Leaderboard);
             }
         });
