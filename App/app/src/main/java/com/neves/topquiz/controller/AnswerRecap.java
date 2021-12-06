@@ -48,7 +48,7 @@ public class AnswerRecap extends AppCompatActivity {
         mNumberOfQuestions = findViewById(R.id.answer_recap_numberOfQuestions_tv);
 
         mNumberOfCorrectAnswers.setText(mScore.getPoints()+"");
-        mNumberOfPoints.setText(mScore.getPoints()+"");
+        mNumberOfPoints.setText(mScore.getPoints()*100+"");
 
         for(int i=0;i<mUser.getQuestionRecapSize();i++){
             Button myButton = new Button(this);

@@ -9,11 +9,7 @@ import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class User implements Parcelable {
 
@@ -269,7 +265,6 @@ public class User implements Parcelable {
     }
 
     public void initLastQuestionRecap(){
-        //mLastQuestionRecap=new LinkedHashMap<Question,Boolean>();
         mLastQuestionRecap=new ArrayList<Question>();
         mLastAnswersRecap=new ArrayList<Boolean>();
     }
@@ -280,14 +275,10 @@ public class User implements Parcelable {
     }
 
     public String getQuestionRecapQuestionTitle(int index){
-        /*List<Question> Questions = new ArrayList<>(mLastQuestionRecap.keySet());
-        return Questions.get(index).getQuestionTitle();*/
         return mLastQuestionRecap.get(index).getQuestionTitle();
     }
 
     public Boolean getQuestionRecapResult(int index){
-        /*List<Boolean> Results = new ArrayList<>(mLastQuestionRecap.values());
-        return Results.get(index);*/
         return mLastAnswersRecap.get(index);
     }
 
