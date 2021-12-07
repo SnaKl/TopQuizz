@@ -1,13 +1,17 @@
 package com.neves.topquiz.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Question {
+public class Question implements Parcelable {
 
     private Theme mTheme;
     private User mCreatedBy;
     private String mImageUrl;
     private String mQuestion;
+    private String mQuestionTitle;
     private List<String> mAnswerList;
     private int mAnswerIndex;
 
@@ -20,16 +24,39 @@ public class Question {
      * @param answerList : la liste des réponses possibles
      * @param answerIndex : le numéro de la réponse correcte
      */
-    public Question(Theme theme, User author, String image, String question, List<String> answerList, int answerIndex) {
+    public Question(Theme theme, User author, String image, String questionTitle,String question, List<String> answerList, int answerIndex) {
         if ((answerIndex >= 0 && answerIndex < 4) && (answerList.size() != 0) && question.length() > 0) {
             mTheme = theme;
             mCreatedBy = author;
             mImageUrl = image;
+            mQuestionTitle = questionTitle;
             mQuestion = question;
             mAnswerList = answerList;
             mAnswerIndex = answerIndex;
         }
     }
+
+    protected Question(Parcel in) {
+        mTheme = in.readParcelable(Theme.class.getClassLoader());
+        mCreatedBy = in.readParcelable(User.class.getClassLoader());
+        mImageUrl = in.readString();
+        mQuestion = in.readString();
+        mQuestionTitle = in.readString();
+        mAnswerList = in.createStringArrayList();
+        mAnswerIndex = in.readInt();
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 
     /**
      * Permet de récupérer le thème de la question
@@ -91,6 +118,15 @@ public class Question {
     }
 
     /**
+     * Retourner la question
+     *
+     * @return la question
+     */
+    public String getQuestionTitle() {
+        return mQuestionTitle;
+    }
+
+    /**
      * Permet d'ajouter une question
      * @param question : est l'énoncé de la question
      */
@@ -132,4 +168,19 @@ public class Question {
         mAnswerIndex = answerIndex;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeParcelable(mTheme, flags);
+        out.writeParcelable(mCreatedBy, flags);
+        out.writeString(mImageUrl);
+        out.writeString(mQuestion);
+        out.writeString(mQuestionTitle);
+        out.writeStringList(mAnswerList);
+        out.writeInt(mAnswerIndex);
+    }
 }

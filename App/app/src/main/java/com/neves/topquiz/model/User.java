@@ -1,9 +1,15 @@
 package com.neves.topquiz.model;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Pair;
+
+import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Parcelable {
 
@@ -16,6 +22,8 @@ public class User implements Parcelable {
     private int mTotalScore;
     private Score mScore;
     private String mAvatar;
+    private List<Question> mLastQuestionRecap;
+    private List<Boolean> mLastAnswersRecap;
 
     /**
      * Constructeur vide
@@ -45,6 +53,7 @@ public class User implements Parcelable {
      * Implémentation de Parcelable
      */
     public static final Creator<User> CREATOR = new Creator<User>() {
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public User createFromParcel(Parcel in) {
             return new User(in);
@@ -64,17 +73,37 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mNickname);
-        out.writeInt(mScore.getPoints());
+        out.writeString(mPassword);
+        out.writeString(mSalt);
+        out.writeString(mJwtToken);
+        out.writeString(mEmail);
+        out.writeInt(mTotalScore);
+        out.writeValue(mSignUpDate);
+        out.writeParcelable(mScore,flags);
+        out.writeString(mAvatar);
+        out.writeValue(mLastQuestionRecap);
+        out.writeValue(mLastAnswersRecap);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private User(Parcel in) {
         mNickname = in.readString();
-        if (mScore != null) {
-            mScore.setPoints(in.readInt());
-        }
-        else {
-            mScore = new Score();
-        }
+        mPassword = in.readString();
+        mSalt = in.readString();
+        mJwtToken = in.readString();
+        mEmail = in.readString();
+        mTotalScore = in.readInt();
+        mSignUpDate = (LocalDate) in.readValue(LocalDate.class.getClassLoader());
+        mScore = in.readParcelable(Score.class.getClassLoader());
+        mAvatar = in.readString();
+        /*mLastQuestionRecap = new ArrayList<Pair<Question, Boolean>>();
+        in.readList(mLastQuestionRecap,mLastQuestionRecap.getClass().getClassLoader());
+        mLastQuestionRecap = new LinkedHashMap<Question,Boolean>();
+        in.readMap(mLastQuestionRecap,getClass().getClassLoader());*/
+        mLastQuestionRecap= (List<Question>) in.readValue(Question.class.getClassLoader());
+        mLastAnswersRecap=(List<Boolean>) in.readValue(Boolean.class.getClassLoader());
+                //new ArrayList<>();
+        //in.readList(mLastAnswersRecap,mLastAnswersRecap.getClass().getClassLoader());
     }
 
     /**
@@ -233,6 +262,28 @@ public class User implements Parcelable {
      */
     public void addScoreToTotal() {
         mTotalScore += mScore.getPoints();
+    }
+
+    public void initLastQuestionRecap(){
+        mLastQuestionRecap=new ArrayList<Question>();
+        mLastAnswersRecap=new ArrayList<Boolean>();
+    }
+
+    public void addQuestionToQuestionRecap(Question question, boolean result){
+        mLastQuestionRecap.add(question);
+        mLastAnswersRecap.add(result);
+    }
+
+    public String getQuestionRecapQuestionTitle(int index){
+        return mLastQuestionRecap.get(index).getQuestionTitle();
+    }
+
+    public Boolean getQuestionRecapResult(int index){
+        return mLastAnswersRecap.get(index);
+    }
+
+    public int getQuestionRecapSize(){
+        return mLastQuestionRecap.size();
     }
 
 }
