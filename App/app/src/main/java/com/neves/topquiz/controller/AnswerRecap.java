@@ -50,9 +50,14 @@ public class AnswerRecap extends AppCompatActivity {
         mNumberOfCorrectAnswers.setText(mScore.getPoints()+"");
         mNumberOfPoints.setText(mScore.getPoints()*100+"");
 
+        findViewById(R.id.answer_recap_question1Result_btn).setVisibility(View.GONE);
         for(int i=0;i<mUser.getQuestionRecapSize();i++){
             Button myButton = new Button(this);
+            myButton.setLayoutParams(findViewById(R.id.answer_recap_question1Result_btn).getLayoutParams());
             myButton.setText(mUser.getQuestionRecapQuestionTitle(i));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                myButton.setTextColor(getColor(R.color.colorBlack));
+            }
             if(mUser.getQuestionRecapResult(i)) {
                 myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
             }else{

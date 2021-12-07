@@ -45,7 +45,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private User mUser;
     private QuestionBank mQuestionBank;
     private Question mCurrentQuestion;
-
+    private TextView mQuestionTitle;
     private TextView mQuestionTextView;
     private Button mAnswerButton1;
     private Button mAnswerButton2;
@@ -107,6 +107,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = true;
 
+        mQuestionTitle = findViewById(R.id.question_title_tv);
         mQuestionTextView = findViewById(R.id.question_question_tv);
         mAnswerButton1 = findViewById(R.id.question_answer1_btn);
         mAnswerButton2 = findViewById(R.id.question_answer2_btn);
@@ -133,6 +134,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * @param question : object question
      */
     private void displayQuestion(final Question question) {
+        mQuestionTitle.setText(question.getQuestionTitle());
         mQuestionTextView.setText(question.getQuestion());
         mAnswerButton1.setText(question.getAnswerList().get(0));
         mAnswerButton2.setText(question.getAnswerList().get(1));
