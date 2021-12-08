@@ -8,7 +8,7 @@ import * as ThemeService from '../theme/theme.service';
 export async function createQuestion(req, res) {
 	const file = req.file;
 	if (!file)
-		return res.status(400).send('You need to provide an image theme');
+		return res.status(400).send('You need to provide an image question');
 
 	var { themeTitle, description, anwserList, correctAnswerIndex } = req.body;
 
@@ -75,22 +75,27 @@ export async function createQuestion(req, res) {
 	res.status(201).end();
 }
 
+//TODO getQuestionById
 export async function getQuestionById(req, res) {
 	throw new Error('Function not implemented.');
 }
 
+//TODO updateQuestionById
 export async function updateQuestionById(req, res) {
 	throw new Error('Function not implemented.');
 }
+//TODO deleteQuestionById
 
 export async function deleteQuestionById(req, res) {
 	throw new Error('Function not implemented.');
 }
 
+//TODO deleteQuestionsByTheme
 export async function deleteQuestionsByTheme(req, res) {
 	throw new Error('Function not implemented.');
 }
 
+//TODO return only upvoted question
 export async function getRandomQuestionByTheme(req, res) {
 	const theme = await ThemeService.findTheme(
 		{ title: req.params.theme },
@@ -107,6 +112,7 @@ export async function getRandomQuestionByTheme(req, res) {
 	res.send(question);
 }
 
+//TODO return only upvoted question
 export async function getRandomQuestionsByTheme(req, res) {
 	const theme = await ThemeService.findTheme(
 		{ title: req.params.theme },
