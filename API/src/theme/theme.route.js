@@ -2,8 +2,11 @@ import { Router } from 'express';
 var router = Router();
 import * as ThemeController from './theme.controller';
 
+import Auth from '../middleware/auth';
 import Validator from '../middleware/validator';
 import * as ThemeValidator from './theme.validator';
+
+import upload from '../middleware/upload';
 
 /**
  * @route GET api/theme
@@ -17,13 +20,7 @@ router.get('/', ThemeController.getAllTheme);
  * @desc create theme route
  * @access Public
  */
-//TODO rajouter image au theme
-router.post(
-	'/',
-	ThemeValidator.createTheme(),
-	Validator,
-	ThemeController.createTheme,
-);
+router.post('/', Auth, upload('themeImage'), ThemeController.createTheme);
 
 /**
  * @route GET api/theme/:title
@@ -35,15 +32,17 @@ router.get('/:title', ThemeController.getThemeByTitle);
 /**
  * @route PUT api/theme/:title
  * @desc update theme by title route
- * @access Public
+ * @access Admin
  */
-router.put('/:title', ThemeController.updateThemeByTitle);
+//TODO rajouter vérification du role
+router.put('/:title', Auth, ThemeController.updateThemeByTitle);
 
 /**
  * @route DELETE api/theme/:title
  * @desc delete theme by title route
- * @access Public
+ * @access Admin
  */
-router.delete('/:title', ThemeController.deleteThemeByTitle);
+//TODO rajouter vérification du role
+router.delete('/:title', Auth, ThemeController.deleteThemeByTitle);
 
 export default router;
