@@ -108,6 +108,7 @@ export async function getRandomQuestionByTheme(req, res) {
 	const question = await QuestionService.getRandomQuestionByTheme(
 		theme._id,
 		req.body.listAnsweredQuestion,
+		60,
 	);
 	res.send(question);
 }
@@ -125,6 +126,7 @@ export async function getRandomQuestionsByTheme(req, res) {
 	const questions = await QuestionService.getRandomQuestionsByTheme(
 		theme._id,
 		parseInt(req.params.nbQuestion),
+		60,
 	);
 	res.send(questions);
 }
