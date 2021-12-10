@@ -58,6 +58,9 @@ public class Question implements Parcelable {
         }
     };
 
+    public Question(String s, List<String> j3, int i) {
+    }
+
     /**
      * Permet de récupérer le thème de la question
      * @return : le thème de la question

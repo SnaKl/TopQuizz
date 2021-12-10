@@ -28,8 +28,10 @@
         android:elevation="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_theme_mainTitle_tv">
+        app:layout_constraintTop_toBottomOf="@+id/create_theme_mainTitle_tv"
+        app:layout_constraintVertical_bias="1.0">
 
         <Spinner
             android:id="@+id/create_theme_themeTitle_input"
@@ -37,16 +39,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32sp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="32sp"
-            android:background="@drawable/container_edit_text"
+            android:background="@drawable/container_spinner"
+            android:layout_gravity="center"
             android:elevation="8sp"
-            android:hint="@string/theme"
-            android:padding="24sp"
-            android:textColor="@color/colorBlack"
-            android:textColorHint="@color/colorHint"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="12sp"
+            android:spinnerMode="dialog"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_constraintEnd_toStartOf="@+id/create_theme_submitTheme_btn"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/create_theme_submitTheme_btn"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_light_button"
+            android:elevation="8sp"
+            android:padding="12sp"
+            android:text="@string/Enter"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
@@ -79,56 +97,44 @@
                     android:text="Question 1"
                     android:textAllCaps="false"
                     android:textColor="@color/colorBlack" />
-                <Button
-                    android:id="@+id/create_theme_question2_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="8sp"
-                    android:layout_marginRight="32sp"
-                    android:layout_marginBottom="8sp"
-                    android:autoSizeTextType="uniform"
-                    android:background="@drawable/container_answer_button_correct"
-                    android:elevation="16sp"
-                    android:padding="12sp"
-                    android:text="Question 2"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorBlack" />
 
-                <Button
-                    android:id="@+id/create_theme_addQuestion_btn"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="8sp"
-                    android:layout_marginRight="32sp"
-                    android:layout_marginBottom="8sp"
-                    android:autoSizeTextType="uniform"
-                    android:background="@drawable/container_dark_button"
-                    android:elevation="16sp"
-                    android:padding="12sp"
-                    android:text="@string/AddQuestion"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite" />
-                <Button
-                    android:id="@+id/create_theme_submitQuiz_btn"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32sp"
-                    android:layout_marginTop="8sp"
-                    android:layout_marginRight="32sp"
-                    android:layout_marginBottom="8sp"
-                    android:autoSizeTextType="uniform"
-                    android:background="@drawable/container_light_button"
-                    android:elevation="16sp"
-                    android:padding="12sp"
-                    android:text="@string/SubmitQuiz"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite" />
+
             </LinearLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/create_theme_addQuestion_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_dark_button"
+            android:elevation="16sp"
+            android:padding="12sp"
+            android:text="@string/AddQuestion"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@+id/create_theme_submitQuiz_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_theme_form_sv" />
+
+        <Button
+            android:id="@+id/create_theme_submitQuiz_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8sp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/container_light_button"
+            android:elevation="16sp"
+            android:padding="12sp"
+            android:text="@string/SubmitQuiz"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

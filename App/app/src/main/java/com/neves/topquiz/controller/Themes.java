@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Themes extends AppCompatActivity {
     private ShapeableImageView mTheme1;
+    private String mName;
     public static final String USER = "USER";
     private User mUser;
 

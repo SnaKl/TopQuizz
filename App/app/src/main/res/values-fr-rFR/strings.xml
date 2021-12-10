@@ -71,4 +71,5 @@
     <string name="SubmitQuiz">Soumettre le quiz</string>
     <string name="WrongID">Le pseudo ou le mot de passe est incorrect !</string>
     <string name="returnMenu">Retourner au menu</string>
+    <string name="Enter">Entrer</string>
 </resources>
