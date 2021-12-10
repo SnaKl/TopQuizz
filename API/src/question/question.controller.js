@@ -95,7 +95,6 @@ export async function deleteQuestionsByTheme(req, res) {
 	throw new Error('Function not implemented.');
 }
 
-//TODO return only upvoted question
 export async function getRandomQuestionByTheme(req, res) {
 	const theme = await ThemeService.findTheme(
 		{ title: req.params.theme },
@@ -109,11 +108,11 @@ export async function getRandomQuestionByTheme(req, res) {
 		theme._id,
 		req.body.listAnsweredQuestion,
 		60,
+		3,
 	);
 	res.send(question);
 }
 
-//TODO return only upvoted question
 export async function getRandomQuestionsByTheme(req, res) {
 	const theme = await ThemeService.findTheme(
 		{ title: req.params.theme },
@@ -127,6 +126,7 @@ export async function getRandomQuestionsByTheme(req, res) {
 		theme._id,
 		parseInt(req.params.nbQuestion),
 		60,
+		3,
 	);
 	res.send(questions);
 }

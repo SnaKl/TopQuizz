@@ -64,6 +64,7 @@ export async function getRandomQuestionsByTheme(
 	themeID,
 	nbQuestion,
 	percentage,
+	minNbVote,
 ) {
 	return Question.aggregate([
 		{ $sample: { size: nbQuestion } },
@@ -71,7 +72,12 @@ export async function getRandomQuestionsByTheme(
 		{
 			$project: project,
 		},
-		{ $match: { 'Vote.result': { $gte: percentage } } },
+		{
+			$match: {
+				'Vote.total_vote': { $gte: minNbVote },
+				'Vote.result': { $gte: percentage },
+			},
+		},
 	]);
 }
 
@@ -79,6 +85,7 @@ export async function getRandomQuestionByTheme(
 	themeID,
 	questionsID,
 	percentage,
+	minNbVote,
 ) {
 	const filter = {
 		_themeID: themeID,
@@ -90,7 +97,12 @@ export async function getRandomQuestionByTheme(
 			{
 				$project: project,
 			},
-			{ $match: { 'Vote.result': { $gte: percentage } } },
+			{
+				$match: {
+					'Vote.total_vote': { $gte: minNbVote },
+					'Vote.result': { $gte: percentage },
+				},
+			},
 			{ $sample: { size: 1 } },
 		])
 	)[0];
