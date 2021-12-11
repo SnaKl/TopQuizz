@@ -1,19 +1,15 @@
 package com.neves.topquiz.controller;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,19 +18,19 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.User;
 
-import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,22 +48,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String USER = "USER";
     public static final String USERS = "USERS";
 
-    private static final String SHARED_PREF_USER_INFO = "SHARED_PREF_USER_INFO";
-    private static final String SHARED_PREF_USER_INFO_NAME = "SHARED_PREF_USER_INFO_NAME";
-    private static final String SHARED_PREF_USER_INFO_SCORE = "SHARED_PREF_USER_INFO_SCORE";
+    private MainActivity mainActivity = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         AndroidNetworking.initialize(getApplicationContext());
-
-        /*Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
-        if (isFirstRun) {
-            // Show start activity
-            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).apply();
-            startActivity(new Intent(MainActivity.this, CreateAccount.class));
-        }*/
 
         setContentView(R.layout.activity_login);
 
@@ -76,81 +64,83 @@ public class MainActivity extends AppCompatActivity {
 
         mUsername = findViewById(R.id.login_username_input);
         mPassword = findViewById(R.id.login_password_input);
-        mPassword.setEnabled(false);
+
         mConnectionBtn = findViewById(R.id.login_connection_btn);
-        mConnectionBtn.setEnabled(false);
+
         mAccountCreationBtn = findViewById(R.id.login_createAccount_btn);
-        String username = mUsername.getText().toString();
-        String password = mPassword.getText().toString();
 
-        mUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mPassword.setEnabled(true);
-            }
-        });
 
         mPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mConnectionBtn.setEnabled(s.toString().length() != 0);
-                /*if (s.toString().length() != 0) {
-                    //mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
-                    String fulltext = getString(R.string.welcome) + mNameInput.getText().toString()
-                            + getString(R.string.lastScore) + "0"
-                            + getString(R.string.tryAgain);
-                    mGreetingText.setText(fulltext);
-                } else {
-                    //mPlayButton.setBackgroundColor(getColor(R.color.colorRed));
-                    String fulltext = getString(R.string.welcome) + "\n" + getString(R.string.enterPseudo);
-                    mGreetingText.setText(fulltext);
-                }
-                for (int i = 0; i < users.size(); i++) {
-                    if (mNameInput.getText().toString().equals(users.get(i).getFirstName())) {
-                        String fulltext = getString(R.string.welcome) + users.get(i).getFirstName()
-                                + getString(R.string.lastScore) + users.get(i).getScore()
-                                + getString(R.string.tryAgain);
-                        mGreetingText.setText(fulltext);
-                    }
-                }*/
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         mConnectionBtn.setOnClickListener(v -> {
-            //String password, String salt, String jwtToken, String email, String avatar
-            mUser = new User(username, "", "", "", "", ""); // créer une fonction "getScore" qui récupère le score en bdd
-            mUser.setScore(new Score(null, 0));
-            //we check if this username exist, if so is it associated with given password
-            Intent mainMenuActivity = new Intent(MainActivity.this, MainMenu.class);
-            mainMenuActivity.putExtra(USER, mUser);
-            startActivity(mainMenuActivity);
-            finish();
-            //else
-            //android.widget.Toast.makeText(MainActivity.this, R.string.WrongID, Toast.LENGTH_LONG).show();
+            String username = mUsername.getText().toString();
+            String password = mPassword.getText().toString();
 
-            /*Intent gameActivity = new Intent(MainActivity.this, Menu.class);
-            gameActivity.putExtra(USER, mUser);
-            startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);*/
+            if(username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, getString(R.string.ensureInput), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(!checkPassWordRequirements(password)) {
+                Toast.makeText(this, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            AndroidNetworking.get("http://"+ GlobalVariable.API_URL +":"+GlobalVariable.API_PORT+"/api/auth/login")
+                    .addQueryParameter("nickname", username)
+                    .addQueryParameter("password", password)
+                    .setTag("connect")
+                    .setPriority(Priority.LOW)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                mUser = new User(username, response.getString("token"), "", "");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            mUser.setScore(new Score(null, 0));
+                            Intent mainMenuActivity = new Intent(MainActivity.this, MainMenu.class);
+                            mainMenuActivity.putExtra(USER, mUser);
+                            startActivity(mainMenuActivity);
+                            finish();
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+                            try {
+                                JSONObject errorJsonObject = new JSONObject(error.getErrorBody());
+                                if(errorJsonObject.has("error")){
+                                    Toast.makeText(mainActivity, getString(R.string.invalidCredentials), Toast.LENGTH_SHORT).show();
+                                }
+                                else if(errorJsonObject.has("errors")){
+                                    JSONObject errors =  errorJsonObject.getJSONObject("errors");
+
+                                    if(errors.has("password")){
+                                        Toast.makeText(mainActivity, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
+                                    }
+                                    else if(errors.has("nickname")){
+                                        Toast.makeText(mainActivity, getString(R.string.ensureUsername), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }catch (JSONException err){
+                                Log.d("Error", err.toString());
+                            }
+                        }
+                    });
         });
 
         mAccountCreationBtn.setOnClickListener(v -> {
@@ -171,14 +161,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
-
-    /**
-     * Ajoute la toolbar déclarée dans activity_main.xml à notre vue
-     */
-    /*private void configureToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }*/
 
     /**
      * Défini l'action des différents "boutons" de la toolBar lors d'un clique
@@ -213,59 +195,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Récupère les informations d'un utilisateur ayant précédément utilisé l'application et
-     * change l'interface au besoin
+     * Check requirment for password
+     * @param password
+     * @return
      */
-    /*private void greetUser() {
-        //mPreferences.edit().clear().apply();
-        if (mPreferences.contains(USERS)) {
-            int flag = 0;
-            int i = 0;
-            Gson gson = new Gson();
-            String user = mPreferences.getString(USERS, null);
+    private Boolean checkPassWordRequirements(String password){
+        Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{4,20}$");
+        Matcher m = p.matcher(password);
+        return m.find();
+    }
 
-            if (user != null) {
-                users = gson.fromJson(user, new TypeToken<List<User>>() {
-                }.getType());
-            }
-
-            for (i = 0; i < users.size(); i++) {
-                if (users.get(i).getFirstName().equals(mUser.getFirstName()) && !(mUser.getFirstName().equals(""))) {
-                    if (users.get(i).getScore() < mUser.getScore()) {
-                        users.get(i).setScore(mUser.getScore());
-                    } else {
-                        mUser = users.get(i);
-                        mPreferences.edit().putString(USER, gson.toJson(mUser)).apply();
-                    }
-                    flag = 1;
-                }
-                //Log.d("test", "User : " + users.get(i).getFirstName() + " score : " + users.get(i).getScore());
-            }
-            if (flag == 0 && !(mUser.getFirstName().equals(""))) {
-                users.add(mUser);
-                mPreferences.edit().putString(USERS, gson.toJson(users)).apply();
-            }
-
-            //Log.d("test", "Taille users : " + users.size());
-
-            user = mPreferences.getString(USER, "");
-
-            if (user != null) {
-                mUser = gson.fromJson(user, User.class);
-            }
-            if (mUser.getFirstName() != null) {
-                String fulltext = getString(R.string.welcome) + mUser.getFirstName()
-                        + getString(R.string.lastScore) + mUser.getScore()
-                        + getString(R.string.tryAgain);
-                mGreetingText.setText(fulltext);
-                mNameInput.setText(mUser.getFirstName());
-                mNameInput.setSelection(mUser.getFirstName().length());
-                mPlayButton.setEnabled(true);
-                //mPlayButton.setBackgroundColor(getColor(R.color.colorGreen));
-            }
-        } else {
-            //Log.d("test", "USER vide");
-        }
-    }*/
 
 }
