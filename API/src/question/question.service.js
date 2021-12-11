@@ -4,7 +4,7 @@ const project = {
 	_createdBy: 1,
 	imageUrl: 1,
 	description: 1,
-	anwserList: 1,
+	answerList: 1,
 	correctAnswerIndex: 1,
 	Vote: {
 		$let: {
@@ -45,7 +45,7 @@ export async function createQuestion(
 	_createdBy,
 	imageUrl,
 	description,
-	anwserList,
+	answerList,
 	correctAnswerIndex,
 ) {
 	theme.addQuestion();
@@ -55,7 +55,7 @@ export async function createQuestion(
 		_createdBy,
 		imageUrl,
 		description,
-		anwserList,
+		answerList,
 		correctAnswerIndex,
 	});
 
