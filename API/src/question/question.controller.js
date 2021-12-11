@@ -17,7 +17,11 @@ export async function createQuestion(req, res) {
 		return res.status(400).send('you need to provide a theme');
 	}
 
-	const theme = await ThemeService.findTheme({ title: themeTitle }, '_id', 1);
+	const theme = await ThemeService.findTheme(
+		{ title: themeTitle },
+		'_id nbQuestion',
+		1,
+	);
 	if (!theme) {
 		fs.unlinkSync(file.path);
 		return res.status(400).send('you need to provide a valide theme');
@@ -47,11 +51,7 @@ export async function createQuestion(req, res) {
 			);
 	}
 	correctAnswerIndex = parseInt(correctAnswerIndex);
-	if (
-		!correctAnswerIndex ||
-		correctAnswerIndex < 0 ||
-		correctAnswerIndex > 3
-	) {
+	if (correctAnswerIndex < 0 || correctAnswerIndex > 3) {
 		fs.unlinkSync(file.path);
 		return res
 			.status(400)
@@ -60,7 +60,7 @@ export async function createQuestion(req, res) {
 
 	if (
 		!QuestionService.createQuestion(
-			theme._id,
+			theme,
 			req.user.id,
 			serverUrl + file.path.slice(14, file.path.length),
 			description,
@@ -95,7 +95,6 @@ export async function deleteQuestionsByTheme(req, res) {
 	throw new Error('Function not implemented.');
 }
 
-//TODO return only upvoted question
 export async function getRandomQuestionByTheme(req, res) {
 	const theme = await ThemeService.findTheme(
 		{ title: req.params.theme },
@@ -108,11 +107,12 @@ export async function getRandomQuestionByTheme(req, res) {
 	const question = await QuestionService.getRandomQuestionByTheme(
 		theme._id,
 		req.body.listAnsweredQuestion,
+		60,
+		3,
 	);
 	res.send(question);
 }
 
-//TODO return only upvoted question
 export async function getRandomQuestionsByTheme(req, res) {
 	const theme = await ThemeService.findTheme(
 		{ title: req.params.theme },
@@ -125,6 +125,8 @@ export async function getRandomQuestionsByTheme(req, res) {
 	const questions = await QuestionService.getRandomQuestionsByTheme(
 		theme._id,
 		parseInt(req.params.nbQuestion),
+		60,
+		3,
 	);
 	res.send(questions);
 }
