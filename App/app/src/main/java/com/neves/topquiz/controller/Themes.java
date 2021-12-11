@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,11 +47,11 @@ public class Themes extends AppCompatActivity {
         List<Theme> themeList=new ArrayList<>();
 
         themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
+        themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
         themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
+        themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
+        themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
+        themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
 
         try {
             createLayout(themeList);
@@ -69,38 +70,37 @@ public class Themes extends AppCompatActivity {
         listLayout.removeAllViews();
         boolean left=true;
         ConstraintLayout row = createRow(row_mockup);
+        List<ShapeableImageView> buttonList=new ArrayList<>();
         for(Theme theme : themeList){
             ShapeableImageView themeButton = new ShapeableImageView(this);
             new DownLoadImageTask(themeButton).execute(theme.getImage());
             manageButtonClickListener(themeButton, theme);
             roundButtonCorners(themeButton);
 
+            themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
             themeButton.setElevation(8);
-
             if(left) {
                 themeButton.setLayoutParams(left_btn_mockup.getLayoutParams());
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) themeButton.getLayoutParams();
-                params.setMarginStart(32);
-                params.setMarginEnd(0);
+                themeButton.setId(R.id.themes_left_btn);
                 themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 row.addView(themeButton);
                 left=false;
             }else{
                 themeButton.setLayoutParams(right_btn_mockup.getLayoutParams());
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) themeButton.getLayoutParams();
-                params.setMarginStart(0);
-                params.setMarginEnd(32);
+                themeButton.setId(R.id.themes_right_btn);
                 themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 left=true;
                 row.addView(themeButton);
                 listLayout.addView(row);
                 row=createRow(row_mockup);
+                buttonList.add(themeButton);
             }
         }
         if(!left){
             listLayout.addView(row);
         }
+
     }
     private ConstraintLayout createRow(ConstraintLayout row_mockup){
         ConstraintLayout caseConstraint = new ConstraintLayout(this);
@@ -161,6 +161,7 @@ public class Themes extends AppCompatActivity {
          */
         protected void onPostExecute(Bitmap result){
             imageView.setImageBitmap(result);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
     }
 }
