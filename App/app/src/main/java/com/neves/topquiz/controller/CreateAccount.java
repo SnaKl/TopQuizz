@@ -48,28 +48,6 @@ public class CreateAccount extends AppCompatActivity{
         mConfirmPassword = findViewById(R.id.create_account_confirmPassword_input);
         mCreateAccountBtn = findViewById(R.id.create_account_validate_btn);
 
-
-        mConfirmPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*if (!(username.length()==0 || mail.length()==0 || confirmMail.length()==0 || password.length()==0 || confirmPassword.length() == 0)){
-                    mCreateAccountBtn.setEnabled(s.toString().length() != 0);
-                }else{
-                    mCreateAccountBtn.setEnabled(false);
-                }*/
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         mCreateAccountBtn.setOnClickListener(v -> {
             //créer un User et lui rentrer les infos
 
@@ -79,7 +57,7 @@ public class CreateAccount extends AppCompatActivity{
             String username = mUsername.getText().toString();
             String mail = mMail.getText().toString();
             String confirmMail = mMail.getText().toString();
-            String password = mPassword.getText().toString();
+            String password = mPassword.getText().toString(); //taille 4, un chiffre, une majusucule, un caractère spécial
             String confirmPassword = mConfirmPassword.getText().toString();
 
             if(username.length()==0 || mail.length()==0 || confirmMail.length()==0 || password.length()==0 || confirmPassword.length() == 0){
@@ -90,8 +68,9 @@ public class CreateAccount extends AppCompatActivity{
                 Toast.makeText(this, getString(R.string.ensurePassword), Toast.LENGTH_SHORT).show();
             }else if(password.length()<4){
                 Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
-            }
-            else{
+            }else if(password.length()<4){
+                Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
+            }else{
                 //CREER UN COMPTE USER AVEC LES INFOS
                 Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
                 startActivity(Suite);
@@ -101,4 +80,3 @@ public class CreateAccount extends AppCompatActivity{
     }
 }
 
-// taille 4, un chiffre, une majusucule, un caractère spécial
