@@ -25,6 +25,7 @@ public class MainMenu extends AppCompatActivity {
     private LinearLayout mCreateQuiz;
     private LinearLayout mValidateQuiz;
     public static final String USER = "USER";
+    private static final String MODE = "MODE";
     private User mUser;
 
     @Override
@@ -48,6 +49,7 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent ChooseTheme = new Intent(MainMenu.this, Themes.class);
                 ChooseTheme.putExtra(USER, mUser);
+                ChooseTheme.putExtra(MODE,"GAME");
                 startActivity(ChooseTheme);
             }
         });
@@ -79,8 +81,10 @@ public class MainMenu extends AppCompatActivity {
         mValidateQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Leaderboard = new Intent(MainMenu.this, ValidateTheme.class);
-                startActivity(Leaderboard);
+                Intent ValidateQuiz = new Intent(MainMenu.this, Themes.class);
+                ValidateQuiz.putExtra(USER, mUser);
+                ValidateQuiz.putExtra(MODE,"VALIDATE_THEME");
+                startActivity(ValidateQuiz);
             }
         });
     }
