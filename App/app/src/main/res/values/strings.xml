@@ -78,4 +78,5 @@
     <string name="ensurePasswordLength">Password must be between 4 and 30 characters !</string>
     <string name="ensurePasswordRequirements">Password needs at least one uppercase letter, one lowercase letter, one number and one special character.</string>
     <string name="ensureMailRequirements">Please input a valid mail adress format !</string>
+    <string name="invalidCredentials">Invalid Credentials</string>
 </resources>
