@@ -1,28 +1,16 @@
 package com.neves.topquiz.controller;
 import com.neves.topquiz.R;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Calendar;
-
-import static java.lang.System.out;
 
 public class CreateAccount extends AppCompatActivity{
 
@@ -49,11 +37,6 @@ public class CreateAccount extends AppCompatActivity{
         mCreateAccountBtn = findViewById(R.id.create_account_validate_btn);
 
         mCreateAccountBtn.setOnClickListener(v -> {
-            //créer un User et lui rentrer les infos
-
-            /*User mUser = new User(pseudoS, DDNS, genreS, permisS, poidsS, tailleS, numS);
-            UserDB userDB = new UserDB(Formulaire.this);
-            boolean success = userDB.addOne(mUser);*/
             String username = mUsername.getText().toString();
             String mail = mMail.getText().toString();
             String confirmMail = mMail.getText().toString();
@@ -66,8 +49,10 @@ public class CreateAccount extends AppCompatActivity{
                 Toast.makeText(this, getString(R.string.ensureMail), Toast.LENGTH_SHORT).show();
             }else if(!password.equals(confirmPassword)){
                 Toast.makeText(this, getString(R.string.ensurePassword), Toast.LENGTH_SHORT).show();
-            }else if(password.length()<4){
+            }else if(password.length()<4 || password.length()>30){
                 Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
+            }else if(!checkPassWordRequirements(password)){
+                Toast.makeText(this, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
             }else{
                 //CREER UN COMPTE USER AVEC LES INFOS
                 Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
@@ -75,6 +60,12 @@ public class CreateAccount extends AppCompatActivity{
                 finish();
             }
         });
+    }
+
+    private Boolean checkPassWordRequirements(String password){
+        Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{4,20}$");
+        Matcher m = p.matcher(password);
+        return m.find();
     }
 }
 
