@@ -27,9 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Themes extends AppCompatActivity {
-    public static final String USER = "USER";
-    public static final String THEME = "THEME";
+    private static final String USER = "USER";
+    private static final String THEME = "THEME";
+    private static final String MODE = "MODE";
     private User mUser;
+    private String mMode;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -40,22 +42,33 @@ public class Themes extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
+            mMode = intent.getStringExtra(MODE);
         }
 
         List<Theme> themeList=new ArrayList<>();
 
-        themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-        themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-        themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
-        themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
-        themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-        themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
-        themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-        themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
-        themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
-        themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
+        if(mMode.equals("GAME")){
+            // Tous les thèmes jouables
+            themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
+            themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
+            themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
+            themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
+            themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
+            themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
+            themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
+            themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
+            themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
+            themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
+            themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
+            themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
+        }else if(mMode.equals("VALIDATE_THEME")){
+            // Thèmes / questions à valider
+            themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
+            themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
+            themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
+            themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
+        }
+
 
         try {
             createLayout(themeList);
@@ -116,7 +129,12 @@ public class Themes extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent GameActivity = new Intent(Themes.this, GameActivity.class);
+                Intent GameActivity;
+                if(mMode.equals("GAME")){
+                    GameActivity = new Intent(Themes.this, GameActivity.class);
+                }else{
+                    GameActivity = new Intent(Themes.this, ValidateQuestion.class);
+                }
                 GameActivity.putExtra(USER, mUser);
                 GameActivity.putExtra(THEME, theme);
                 startActivity(GameActivity);
