@@ -1,4 +1,4 @@
-import Theme from './Theme.model';
+import Theme from './theme.model';
 
 export async function findTheme(query = {}, select = '', limit = 0) {
 	const result = await Theme.find(query, select).limit(limit);
@@ -6,10 +6,11 @@ export async function findTheme(query = {}, select = '', limit = 0) {
 	return result;
 }
 
-export async function createTheme(title, description) {
+export async function createTheme(title, description, imageUrl) {
 	let theme = new Theme({
 		title,
 		description,
+		imageUrl,
 	});
 
 	return await theme.save();

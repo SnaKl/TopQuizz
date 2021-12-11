@@ -18,7 +18,7 @@ export async function login(req, res) {
 
 		const token = await AuthService.createToken(user);
 
-		res.status(200).json(token);
+		res.status(200).json({ token });
 	} catch (err) {
 		console.log(err);
 	}
