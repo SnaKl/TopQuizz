@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
@@ -27,8 +31,10 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,10 +57,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button mAnswerButton2;
     private Button mAnswerButton3;
     private Button mAnswerButton4;
+    private ShapeableImageView mQuestionImageView;
 
     private int mRemainingQuestionCount;
     private boolean mEnableTouchEvents;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +116,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = true;
 
+        mQuestionImageView = findViewById(R.id.question_image_siv);
         mQuestionTitle = findViewById(R.id.question_title_tv);
         mQuestionTextView = findViewById(R.id.question_question_tv);
         mAnswerButton1 = findViewById(R.id.question_answer1_btn);
@@ -134,6 +143,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param question : object question
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void displayQuestion(final Question question) {
         mQuestionTitle.setText(question.getQuestionTitle());
         mQuestionTextView.setText(question.getQuestion());
@@ -141,6 +151,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
+        if(question.getImageUrl()!=null){
+            new GameActivity.DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+        }else{
+            mQuestionImageView.setImageDrawable(getDrawable(R.drawable.iv_image_not_found));
+        }
     }
 
     private void deleteFile() {
@@ -377,6 +392,39 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         setResult(RESULT_OK, intent);
         super.finish();
+    }
+    private class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
+        ShapeableImageView imageView;
+
+        public DownLoadImageTask(ShapeableImageView imageView){
+            this.imageView = imageView;
+        }
+        /*
+            doInBackground(Params... params)
+                Override this method to perform a computation on a background thread.
+         */
+        protected Bitmap doInBackground(String...urls){
+            String urlOfImage = urls[0];
+            Bitmap logo = null;
+            try{
+                InputStream is = new URL(urlOfImage).openStream();
+                /*
+                    decodeStream(InputStream is)
+                        Decode an input stream into a bitmap.
+                 */
+                logo = BitmapFactory.decodeStream(is);
+            }catch(Exception e){ // Catch the download exception
+                e.printStackTrace();
+            }
+            return logo;
+        }
+        /*
+            onPostExecute(Result result)
+                Runs on the UI thread after doInBackground(Params...).
+         */
+        protected void onPostExecute(Bitmap result){
+            imageView.setImageBitmap(result);
+        }
     }
 
     //@Override
