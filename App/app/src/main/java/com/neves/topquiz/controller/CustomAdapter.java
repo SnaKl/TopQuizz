@@ -33,7 +33,7 @@ public class CustomAdapter extends ArrayAdapter {
         this.listItemLayoutResource = listItemLayoutResource;
         this.textViewItemNameId = textViewItemNameId;
         this.list = list;
-        temp = new ArrayList<Theme>(list);
+        this.temp = new ArrayList<Theme>(list);
         this.suggestions = new ArrayList<Theme>();
         this.flater = context.getLayoutInflater();
     }
@@ -51,6 +51,7 @@ public class CustomAdapter extends ArrayAdapter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
+                //notifyDataSetChanged();
                 suggestions.clear();
                 for (Theme theme : temp) {
                     if (theme.getTitle().toLowerCase()
@@ -92,6 +93,10 @@ public class CustomAdapter extends ArrayAdapter {
     public Object getItem(int position) {
         return this.list.get(position);
     }*/
+    public void updateList(List<Theme> newlist) {
+        list = newlist;
+        this.notifyDataSetChanged();
+    }
 
     @Override
     public Theme getItem(int position) {
@@ -112,35 +117,6 @@ public class CustomAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        /*View v = convertView;
-        if (v == null) {
-            *//*LayoutInflater vi = (LayoutInflater) context.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(listItemLayoutResource, parent, false);*//*
-
-            View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);
-
-        }
-        Theme theme = list.get(position);
-        TextView themeName = (TextView)  rowView.findViewById(this.textViewItemNameId);
-        if (themeName != null) {
-            themeName.setText(theme.getTitle());
-        }
-
-        *//*if (theme != null) {
-
-        }*//*
-        return v;
-
-        *//*Theme t = getItem(position);
-
-        View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);
-
-        TextView textViewItemName = (TextView) rowView.findViewById(this.textViewItemNameId);
-        textViewItemName.setText(t.getTitle());
-
-        return rowView;*/
         Theme t = getItem(position);
 
         View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);

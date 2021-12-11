@@ -43,8 +43,6 @@ public class CreateTheme extends AppCompatActivity {
     private static final String BUNDLE_STATE_QUESTION_BANK = "BUNDLE_STATE_QUESTION_BANK";
     private static final String BUNDLE_STATE_THEME_NAME = "BUNDLE_STATE_THEME_NAME" ;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
-    private static final String ADDQST = "ADDQST";
-    //private Spinner mThemeInput;
     private AutoCompleteTextView mThemeInput;
     //private List<Theme> themeList;
     private Button mAddQuestionBtn;
@@ -55,7 +53,6 @@ public class CreateTheme extends AppCompatActivity {
     private String mThemeName;
     private ViewGroup.LayoutParams btnParams;
     private Theme mTheme;
-    private int mNewQstNb;
     List<Theme> spinnerArray;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -64,7 +61,6 @@ public class CreateTheme extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_theme);
         findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
-        //mThemeInput = findViewById(R.id.create_theme_themeTitle_input);
         mThemeInput = findViewById(R.id.autoCompleteTextView);
         mAddQuestionBtn = findViewById(R.id.create_theme_addQuestion_btn);
         mSubmitQuiz = findViewById(R.id.create_theme_submitQuiz_btn);
@@ -80,19 +76,18 @@ public class CreateTheme extends AppCompatActivity {
                 R.layout.spinner_item_layout_resource,
                 R.id.textView_item_name,
                 spinnerArray);
-        //adapter.setNotifyOnChange(true);
         mThemeInput.setThreshold(1);
         mThemeInput.setAdapter(adapter);
-        /*ArrayAdapter<Theme> adapter = new ArrayAdapter<Theme>(CreateTheme.this,
-                android.R.layout.simple_dropdown_item_1line,
-                spinnerArray);
-        adapter.setNotifyOnChange(true);
-        mThemeInput.setThreshold(1);
-        mThemeInput.setAdapter(adapter);*/
 
 
         mThemeQuestionsListContainer = (LinearLayout) findViewById(R.id.create_theme_questionsList_lt);
-
+        if (savedInstanceState != null) {
+            mThemeName = savedInstanceState.getString(BUNDLE_STATE_THEME_NAME);
+            System.out.println(mThemeName+"!!!!!!!!!!!!!");
+            questionsDisplay(mTheme);
+        } else {
+            mThemeName = spinnerArray.get(0).getTitle();
+        }
         Intent intent = getIntent();
         if (intent.hasExtra(CHOSEN_THEME)) {
             mTheme = intent.getParcelableExtra(CHOSEN_THEME);
@@ -109,7 +104,7 @@ public class CreateTheme extends AppCompatActivity {
                 mTheme =(Theme) spinnerArray.get(position);
                 System.out.println(mTheme.getTitle());
                 System.out.println("mTheme.getTitle()!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                mEnterBtn.setEnabled(mThemeName.length() != 0);
+                mEnterBtn.setEnabled(mTheme.getTitle().length() != 0);
             }
 
 
@@ -135,13 +130,17 @@ public class CreateTheme extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isInArray(mThemeInput.getText().toString())){
+                    //adapter.notifyDataSetChanged();
                     questionsDisplay(mTheme);
                     mEnterBtn.setEnabled(false);
                 }
                 else {
                     Theme newTheme = new Theme("", mThemeInput.getText().toString(), "TropLol", 0);
                     spinnerArray.add(newTheme);
-                    adapter.notifyDataSetChanged();
+                    for (Theme t : spinnerArray){
+                        System.out.println(t.getTitle());
+                    }
+                    adapter.updateList(spinnerArray);
                     questionsDisplay(newTheme);
                     Toast.makeText(CreateTheme.this, R.string.newThemeCreation, Toast.LENGTH_SHORT).show();
                 }
@@ -164,15 +163,6 @@ public class CreateTheme extends AppCompatActivity {
                 //mettre à jour la bdd
             }
         });
-
-        if (savedInstanceState != null) {
-            mThemeName = savedInstanceState.getString(BUNDLE_STATE_THEME_NAME);
-            System.out.println(mThemeName+"!!!!!!!!!!!!!");
-            questionsDisplay(mTheme);
-        } else {
-            mThemeName = spinnerArray.get(0).getTitle();
-        }
-
 
     }
 
@@ -200,7 +190,7 @@ public class CreateTheme extends AppCompatActivity {
         mThemeQuestionsListContainer.removeAllViews();
         //ThemeDB mThemeDB = new ThemeDB(name);
         //mThemeDB.getQstNb() and mThemeDB.getQstBank()
-        for(int i=0;i<theme.getQuestionNB();i++){
+        for(int i=1;i<=theme.getQuestionNB();i++){
             Button myButton = new Button(CreateTheme.this);
             myButton.setLayoutParams(btnParams);
             myButton.setText("test");
@@ -218,7 +208,6 @@ public class CreateTheme extends AppCompatActivity {
             if(s.equals(t.getTitle())){
                 return true;
             }
-
         }
         return false;
     }

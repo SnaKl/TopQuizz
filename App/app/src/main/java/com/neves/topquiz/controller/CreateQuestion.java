@@ -55,6 +55,7 @@ public class CreateQuestion extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                System.out.println(mTheme.getTitle());
                 updateDB();
                 //mNewQstNb = mTheme.getQuestionNB()+1;
                 Intent CreateThemeActivity = new Intent(CreateQuestion.this, CreateTheme.class);
@@ -76,6 +77,7 @@ public class CreateQuestion extends AppCompatActivity {
     }
 
     void updateDB(){
+
         mTheme.setQuestionNB(mTheme.getQuestionNB()+1);
     }
     /*@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
