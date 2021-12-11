@@ -68,8 +68,6 @@ public class CreateAccount extends AppCompatActivity{
                 Toast.makeText(this, getString(R.string.ensurePassword), Toast.LENGTH_SHORT).show();
             }else if(password.length()<4){
                 Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
-            }else if(password.length()<4){
-                Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
             }else{
                 //CREER UN COMPTE USER AVEC LES INFOS
                 Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
