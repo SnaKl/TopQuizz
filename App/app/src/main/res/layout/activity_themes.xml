@@ -38,15 +38,16 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/themes_mockupThemeRow_lt"
                 android:layout_width="match_parent"
-                android:layout_height="150sp">
+                android:layout_height="150sp"
+                android:layout_marginBottom="20sp">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/themes_left_btn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="16dp"
                     android:clickable="true"
                     android:elevation="8sp"
                     android:focusable="true"
@@ -61,8 +62,9 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/themes_right_btn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="32dp"
                     android:clickable="true"
                     android:elevation="8sp"
