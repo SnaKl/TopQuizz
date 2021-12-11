@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
@@ -68,27 +70,36 @@ public class Themes extends AppCompatActivity {
         boolean left=true;
         ConstraintLayout row = createRow(row_mockup);
         for(Theme theme : themeList){
-
             ShapeableImageView themeButton = new ShapeableImageView(this);
-            themeButton.setLayoutParams(left_btn_mockup.getLayoutParams());
             new DownLoadImageTask(themeButton).execute(theme.getImage());
             manageButtonClickListener(themeButton, theme);
             roundButtonCorners(themeButton);
-            themeButton.setScaleType(ShapeableImageView.ScaleType.CENTER_CROP);
+
             themeButton.setElevation(8);
 
             if(left) {
                 themeButton.setLayoutParams(left_btn_mockup.getLayoutParams());
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) themeButton.getLayoutParams();
+                params.setMarginStart(32);
+                params.setMarginEnd(0);
+                themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 row.addView(themeButton);
                 left=false;
             }else{
                 themeButton.setLayoutParams(right_btn_mockup.getLayoutParams());
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) themeButton.getLayoutParams();
+                params.setMarginStart(0);
+                params.setMarginEnd(32);
+                themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                 left=true;
                 row.addView(themeButton);
                 listLayout.addView(row);
                 row=createRow(row_mockup);
             }
-
+        }
+        if(!left){
+            listLayout.addView(row);
         }
     }
     private ConstraintLayout createRow(ConstraintLayout row_mockup){
