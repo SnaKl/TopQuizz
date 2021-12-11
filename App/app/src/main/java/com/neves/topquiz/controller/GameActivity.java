@@ -6,33 +6,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
 import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.User;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,16 +48,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button mAnswerButton2;
     private Button mAnswerButton3;
     private Button mAnswerButton4;
+    private ShapeableImageView mQuestionImageView;
 
     private int mRemainingQuestionCount;
     private boolean mEnableTouchEvents;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
         Intent intent = getIntent();
+
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
         }
@@ -68,27 +68,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mUser.initLastQuestionRecap();
 
         deleteFile();
-        try {
-            Question q = new Question(null, null, null,"Question historique", getString(R.string.question1), Arrays.asList(getString(R.string.response11),
-                    getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)), 3);
-            saveQuestion(q);
-            q = new Question(null, null, null, "Question Layout", getString(R.string.question2), Arrays.asList(getString(R.string.response21),
-                    getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)), 3);
-            saveQuestion(q);
-            q = new Question(null, null, null,"Question Graphique", getString(R.string.question3), Arrays.asList(getString(R.string.response31),
-                    getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)), 2);
-            saveQuestion(q);
-            q = new Question(null, null, null, "Question 4", "Question 4", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
-            saveQuestion(q);
-            q = new Question(null, null, null, "Question 5", "Question 5", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
-            saveQuestion(q);
-            q = new Question(null, null, null,"Question 6", "Question 6", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
-            saveQuestion(q);
-            q = new Question(null, null, null,"Question 7", "Question 7", Arrays.asList("cinq", "six", "sept", "bonne reponse"), 3);
-            saveQuestion(q);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         if (savedInstanceState != null) {
             mUser.setScore(new Score(null, savedInstanceState.getInt(BUNDLE_STATE_SCORE)));
@@ -107,6 +86,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = true;
 
+        mQuestionImageView = findViewById(R.id.question_image_siv);
         mQuestionTitle = findViewById(R.id.question_title_tv);
         mQuestionTextView = findViewById(R.id.question_question_tv);
         mAnswerButton1 = findViewById(R.id.question_answer1_btn);
@@ -133,6 +113,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param question : object question
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void displayQuestion(final Question question) {
         mQuestionTitle.setText(question.getQuestionTitle());
         mQuestionTextView.setText(question.getQuestion());
@@ -140,84 +121,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
+        if(question.getImageUrl()!=null){
+            new GameActivity.DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+        }else{
+            mQuestionImageView.setImageDrawable(getDrawable(R.drawable.iv_image_not_found));
+        }
     }
 
     private void deleteFile() {
         deleteFile(MY_FILE_NAME);
-    }
-
-    private void saveQuestion(Question q) throws IOException {
-        //prise en charge - écriture UTF8 - test
-        FileOutputStream fos = new FileOutputStream(MY_FILE_NAME);
-        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-        BufferedWriter writer = new BufferedWriter(osw);
-        writer.append(q.getQuestion());
-        for (int i = 0; i < 10; i++) {
-            writer.append(q.getAnswerList().get(i));
-        }
-        writer.append(Integer.toString(q.getAnswerIndex()));
-        fos.close();
-
-        //prise en charge - lecture UTF8 - test
-        Log.d("test-UTF8", "1");
-        FileInputStream fis = new FileInputStream(MY_FILE_NAME);
-        Log.d("test-UTF8", "2");
-        InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
-        Log.d("test-UTF8", "3");
-        BufferedReader reader = new BufferedReader(isr);
-        Log.d("test-UTF8", "4");
-        String str;
-        if (reader.readLine() == null) {
-            Log.d("test-UTF8", "readLine vide");
-        }
-        Log.d("test-UTF8", "5");
-        while ((str = reader.readLine()) != null) {
-            Log.d("test-UTF8", str);
-        }
-        fis.close();
-    }
-
-    private QuestionBank loadQuestions() throws IOException {
-        String ligne = null;
-        int content;
-        int i = 0;
-        Question q;
-        String questionTitle="";
-        String question = "";
-        int answerIndex = -1;
-        List<String> answers = new ArrayList<String>();
-        List<Question> listQuestions = new ArrayList<Question>();
-        QuestionBank qb = null;
-
-        FileInputStream inputStream = openFileInput(MY_FILE_NAME);
-        StringBuilder stringb = new StringBuilder();
-
-        while ((content = inputStream.read()) != -1) {
-            if (content != '\n') {
-                ligne = String.valueOf(stringb.append((char) content));
-            } else if (i == 0) {
-                question = ligne;
-                Log.d("test_load", "question in : " + question);
-                i++;
-                stringb.setLength(0);
-            } else if (i == 5) {
-                answerIndex = Integer.parseInt(ligne);
-                Log.d("test_load", "answerIndex in : " + answerIndex);
-                i = 0;
-                stringb.setLength(0);
-                q = new Question(null, null, null, questionTitle, question, answers, answerIndex);
-                answers = new ArrayList<String>();
-                listQuestions.add(q);
-            } else {
-                answers.add(ligne);
-                Log.d("test_load", "reponse in " + i + " : " + ligne);
-                i++;
-                stringb.setLength(0);
-            }
-        }
-        qb = new QuestionBank(listQuestions);
-        inputStream.close();
-        return qb;
     }
 
     /**
@@ -227,7 +139,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private QuestionBank generateQuestions() throws IOException {
 
-        Question question1 = new Question(null, null, null, "Question historique",(getString(R.string.question1)),
+        Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
                 Arrays.asList(getString(R.string.response11), getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)),
                 2);
 
@@ -235,7 +147,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Arrays.asList(getString(R.string.response21), getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)),
                 2);
 
-        Question question3 = new Question(null, null, null, "Question graphique",(getString(R.string.question3)),
+        Question question3 = new Question(null, null, "https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg", "Question graphique",(getString(R.string.question3)),
                 Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
                 1);
 
@@ -355,7 +267,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     public void onClick(DialogInterface dialog, int which) {
                         Intent AnswerRecap = new Intent(GameActivity.this, AnswerRecap.class);
                         AnswerRecap.putExtra(USER, mUser);
-                        //AnswerRecap.putExtra(SCORE, mUser.getScore().getPoints()+"");
                         startActivity(AnswerRecap);
                         //finish();
                     }
@@ -377,13 +288,38 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setResult(RESULT_OK, intent);
         super.finish();
     }
+    private class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
+        ShapeableImageView imageView;
 
-    //@Override
-    //protected void onSaveInstanceState(Bundle outState) {
-        //outState.putInt(BUNDLE_STATE_SCORE, mUser.getScore());
-        //outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
-        //outState.putParcelable(BUNDLE_QUESTION_BANK, mQuestionBank);
-        //super.onSaveInstanceState(outState);
-    //}
+        public DownLoadImageTask(ShapeableImageView imageView){
+            this.imageView = imageView;
+        }
+        /*
+            doInBackground(Params... params)
+                Override this method to perform a computation on a background thread.
+         */
+        protected Bitmap doInBackground(String...urls){
+            String urlOfImage = urls[0];
+            Bitmap logo = null;
+            try{
+                InputStream is = new URL(urlOfImage).openStream();
+                /*
+                    decodeStream(InputStream is)
+                        Decode an input stream into a bitmap.
+                 */
+                logo = BitmapFactory.decodeStream(is);
+            }catch(Exception e){ // Catch the download exception
+                e.printStackTrace();
+            }
+            return logo;
+        }
+        /*
+            onPostExecute(Result result)
+                Runs on the UI thread after doInBackground(Params...).
+         */
+        protected void onPostExecute(Bitmap result){
+            imageView.setImageBitmap(result);
+        }
+    }
 
 }
