@@ -10,11 +10,11 @@
     <TextView
         android:id="@+id/themes_mainTitle_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         android:text="@string/themes_title"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/themes_scrollView_sv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,8 +22,8 @@
     <ScrollView
         android:id="@+id/themes_scrollView_sv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32sp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
                 android:id="@+id/themes_mockupThemeRow_lt"
                 android:layout_width="match_parent"
                 android:layout_height="150sp"
-                android:layout_marginBottom="20sp">
+                android:layout_marginBottom="32sp">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/themes_left_btn"

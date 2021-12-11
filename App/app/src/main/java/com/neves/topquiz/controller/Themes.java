@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +44,12 @@ public class Themes extends AppCompatActivity {
 
         List<Theme> themeList=new ArrayList<>();
 
+        themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
+        themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
+        themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
+        themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
+        themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
+        themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
         themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
         themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
         themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
