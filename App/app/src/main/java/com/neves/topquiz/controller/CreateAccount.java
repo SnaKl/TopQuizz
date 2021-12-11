@@ -49,6 +49,8 @@ public class CreateAccount extends AppCompatActivity{
                 Toast.makeText(this, getString(R.string.ensureMail), Toast.LENGTH_SHORT).show();
             }else if(!password.equals(confirmPassword)){
                 Toast.makeText(this, getString(R.string.ensurePassword), Toast.LENGTH_SHORT).show();
+            }else if(!checkMailRequirements(mail)){
+                Toast.makeText(this, getString(R.string.ensureMailRequirements), Toast.LENGTH_SHORT).show();
             }else if(password.length()<4 || password.length()>30){
                 Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
             }else if(!checkPassWordRequirements(password)){
@@ -65,6 +67,12 @@ public class CreateAccount extends AppCompatActivity{
     private Boolean checkPassWordRequirements(String password){
         Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{4,20}$");
         Matcher m = p.matcher(password);
+        return m.find();
+    }
+
+    private Boolean checkMailRequirements(String mail){
+        Pattern p = Pattern.compile("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(mail);
         return m.find();
     }
 }

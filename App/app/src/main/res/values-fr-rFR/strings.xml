@@ -77,4 +77,5 @@
     <string name="ensurePassword">Les mots de passe ne correspondent pas !</string>
     <string name="ensurePasswordLength">Le mot de passe doit être entre 4 et 30 caractères !</string>
     <string name="ensurePasswordRequirements">Le mot de passe doit avoir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</string>
+    <string name="ensureMailRequirements">Insérez un format d\'adresse mail valide !</string>
 </resources>
