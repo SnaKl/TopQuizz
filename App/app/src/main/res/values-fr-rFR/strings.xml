@@ -72,4 +72,6 @@
     <string name="WrongID">Le pseudo ou le mot de passe est incorrect !</string>
     <string name="returnMenu">Retourner au menu</string>
     <string name="Enter">Entrer</string>
+    <string name="wrongMail">Les mails ne sont pas les mêmes</string>
+    <string name="wrongPassword">Les mots de passe ne sont pas les mêmes</string>
 </resources>

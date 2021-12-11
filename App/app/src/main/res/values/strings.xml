@@ -72,4 +72,6 @@
     <string name="Enter">Enter</string>
     <string name="WrongID">Username or Password is incorrect !</string>
     <string name="returnMenu">Return to main menu</string>
+    <string name="wrongMail">Mails are not the same</string>
+    <string name="wrongPassword">Passwords are not the same</string>
 </resources>
