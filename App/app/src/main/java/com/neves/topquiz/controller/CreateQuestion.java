@@ -30,7 +30,9 @@ public class CreateQuestion extends AppCompatActivity {
     private LinearLayout mThemeNewQuestionContainer;
     private LayoutInflater flater;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
+    //private static final String ADDQST = "ADDQST";
     private Theme mTheme;
+    //private int mNewQstNb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,15 +55,15 @@ public class CreateQuestion extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                updateDB();
+                //mNewQstNb = mTheme.getQuestionNB()+1;
                 Intent CreateThemeActivity = new Intent(CreateQuestion.this, CreateTheme.class);
-                CreateThemeActivity.putExtra("ADDQST", "hello");
+                //CreateThemeActivity.putExtra(ADDQST, mNewQstNb);
                 //addQst to ThemeDB
                 CreateThemeActivity.putExtra(CHOSEN_THEME,mTheme);
                 startActivity(CreateThemeActivity);
                 //onCreateView();
                 finish();
-
-                
             }
         });
 
@@ -73,6 +75,9 @@ public class CreateQuestion extends AppCompatActivity {
         });
     }
 
+    void updateDB(){
+        mTheme.setQuestionNB(mTheme.getQuestionNB()+1);
+    }
     /*@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private View onCreateView() {
         flater = CreateQuestion.this.getLayoutInflater();

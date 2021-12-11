@@ -40,6 +40,7 @@ public class CreateTheme extends AppCompatActivity {
     private static final String BUNDLE_STATE_QUESTION_BANK = "BUNDLE_STATE_QUESTION_BANK";
     private static final String BUNDLE_STATE_THEME_NAME = "BUNDLE_STATE_THEME_NAME" ;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
+    private static final String ADDQST = "ADDQST";
     private Spinner mThemeInput;
     //private List<Theme> themeList;
     private Button mAddQuestionBtn;
@@ -50,6 +51,7 @@ public class CreateTheme extends AppCompatActivity {
     private String mThemeName;
     private ViewGroup.LayoutParams btnParams;
     private Theme mTheme;
+    private int mNewQstNb;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -68,9 +70,6 @@ public class CreateTheme extends AppCompatActivity {
         spinnerArray.add(new Theme("", "THE OFFICE", "TropLol", 5));
         spinnerArray.add(new Theme("", "FRIENDS", "TropLol", 5));
         spinnerArray.add(new Theme("", "COMMUNITY", "TropLol", 5));
-        /*spinnerArray.add("The Big Bang Theory");
-        spinnerArray.add("Community");
-        spinnerArray.add("Abarna");*/
 
         CustomAdapter adapter = new CustomAdapter(CreateTheme.this,
                 R.layout.spinner_item_layout_resource,
@@ -85,19 +84,21 @@ public class CreateTheme extends AppCompatActivity {
             mTheme = intent.getParcelableExtra(CHOSEN_THEME);
             mThemeInput.setSelection(getSpinnerIndex(mThemeInput,mTheme));
             System.out.println(getSpinnerIndex(mThemeInput,mTheme));
+            questionsDisplay(mTheme);
         }
-        if (intent.hasExtra("ADDQST")) {
+        /*if (intent.hasExtra(ADDQST)) {
+            mTheme = intent.getParcelableExtra(ADDQST);
             findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
             Button myButton = new Button(CreateTheme.this);
             myButton.setLayoutParams(findViewById(R.id.create_theme_question1_btn).getLayoutParams());
-            myButton.setText("new");
+            myButton.setText(mNewQstNb);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 myButton.setTextColor(getColor(R.color.colorBlack));
             }
             myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
 
             mThemeQuestionsListContainer.addView(myButton);
-        }
+        }*/
         mThemeInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -115,7 +116,7 @@ public class CreateTheme extends AppCompatActivity {
         mEnterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                questionsDisplay(mThemeName);
+                questionsDisplay(mTheme);
                 mEnterBtn.setEnabled(false);
 
             }
@@ -141,7 +142,7 @@ public class CreateTheme extends AppCompatActivity {
         if (savedInstanceState != null) {
             mThemeName = savedInstanceState.getString(BUNDLE_STATE_THEME_NAME);
             System.out.println(mThemeName+"!!!!!!!!!!!!!");
-            questionsDisplay(mThemeName);
+            questionsDisplay(mTheme);
         } else {
             mThemeName = spinnerArray.get(0).getTitle();
         }
@@ -166,42 +167,23 @@ public class CreateTheme extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void questionsDisplay(String name){
+    private void questionsDisplay(Theme theme){
 
         // a = mThemeInput.getSelectedItem().toString();
         //replace 2 with a.size()
-        if(name.equals("item2")){
-            mThemeQuestionsListContainer.removeAllViews();
-            //ThemeDB mThemeDB = new ThemeDB(name);
-            //mThemeDB.getQstNb() and mThemeDB.getQstBank()
-            for(int i=0;i<2;i++){
-                Button myButton = new Button(CreateTheme.this);
-                myButton.setLayoutParams(btnParams);
-                myButton.setText("test");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    myButton.setTextColor(getColor(R.color.colorBlack));
-                }
-                myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
-
-                mThemeQuestionsListContainer.addView(myButton);
+        mThemeQuestionsListContainer.removeAllViews();
+        //ThemeDB mThemeDB = new ThemeDB(name);
+        //mThemeDB.getQstNb() and mThemeDB.getQstBank()
+        for(int i=0;i<theme.getQuestionNB();i++){
+            Button myButton = new Button(CreateTheme.this);
+            myButton.setLayoutParams(btnParams);
+            myButton.setText("test");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                myButton.setTextColor(getColor(R.color.colorBlack));
             }
-        }
-        if(name.equals("item1")){
+            myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
 
-            mThemeQuestionsListContainer.removeAllViews();
-
-            //ThemeDB mThemeDB = new ThemeDB(name);
-            //mThemeDB.getQstNb() and mThemeDB.getQstBank()
-            for(int i=0;i<3;i++){
-                Button myButton = new Button(CreateTheme.this);
-                myButton.setLayoutParams(btnParams);
-                myButton.setText("you");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    myButton.setTextColor(getColor(R.color.colorBlack));
-                }
-                myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
-                mThemeQuestionsListContainer.addView(myButton);
-            }
+            mThemeQuestionsListContainer.addView(myButton);
         }
     }
 }
