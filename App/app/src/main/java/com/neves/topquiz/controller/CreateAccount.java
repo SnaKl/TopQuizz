@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,7 @@ public class CreateAccount extends AppCompatActivity{
 
     private EditText mUsername;
     private EditText mMail;
+    private EditText mConfirmMail;
     private EditText mPassword;
     private EditText mConfirmPassword;
     private Button mCreateAccountBtn;
@@ -41,14 +43,11 @@ public class CreateAccount extends AppCompatActivity{
 
         mUsername = findViewById(R.id.create_account_username_input);
         mMail = findViewById(R.id.create_account_mail_input);
+        mConfirmMail = findViewById(R.id.create_account_confirmMail_input);
         mPassword = findViewById(R.id.create_account_password_input);
         mConfirmPassword = findViewById(R.id.create_account_confirmPassword_input);
         mCreateAccountBtn = findViewById(R.id.create_account_validate_btn);
 
-        String username = mUsername.getText().toString();
-        String mail = mMail.getText().toString();
-        String password = mPassword.getText().toString();
-        String confirmPassword = mConfirmPassword.getText().toString();
 
         mConfirmPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -58,9 +57,11 @@ public class CreateAccount extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (password.equals(confirmPassword)){
+                /*if (!(username.length()==0 || mail.length()==0 || confirmMail.length()==0 || password.length()==0 || confirmPassword.length() == 0)){
                     mCreateAccountBtn.setEnabled(s.toString().length() != 0);
-                }
+                }else{
+                    mCreateAccountBtn.setEnabled(false);
+                }*/
             }
 
             @Override
@@ -75,10 +76,29 @@ public class CreateAccount extends AppCompatActivity{
             /*User mUser = new User(pseudoS, DDNS, genreS, permisS, poidsS, tailleS, numS);
             UserDB userDB = new UserDB(Formulaire.this);
             boolean success = userDB.addOne(mUser);*/
-            Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
-            startActivity(Suite);
-            finish();
+            String username = mUsername.getText().toString();
+            String mail = mMail.getText().toString();
+            String confirmMail = mMail.getText().toString();
+            String password = mPassword.getText().toString();
+            String confirmPassword = mConfirmPassword.getText().toString();
+
+            if(username.length()==0 || mail.length()==0 || confirmMail.length()==0 || password.length()==0 || confirmPassword.length() == 0){
+                Toast.makeText(this, getString(R.string.ensureInput), Toast.LENGTH_SHORT).show();
+            }else if(!mail.equals(confirmMail)){
+                Toast.makeText(this, getString(R.string.ensureMail), Toast.LENGTH_SHORT).show();
+            }else if(!password.equals(confirmPassword)){
+                Toast.makeText(this, getString(R.string.ensurePassword), Toast.LENGTH_SHORT).show();
+            }else if(password.length()<4){
+                Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
+            }
+            else{
+                //CREER UN COMPTE USER AVEC LES INFOS
+                Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
+                startActivity(Suite);
+                finish();
+            }
         });
     }
 }
 
+// taille 4, un chiffre, une majusucule, un caractère spécial
