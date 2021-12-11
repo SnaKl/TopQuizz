@@ -10,7 +10,7 @@ export async function createQuestion(req, res) {
 	if (!file)
 		return res.status(400).send('You need to provide an image question');
 
-	var { themeTitle, description, anwserList, correctAnswerIndex } = req.body;
+	var { themeTitle, description, answerList, correctAnswerIndex } = req.body;
 
 	if (!themeTitle) {
 		fs.unlinkSync(file.path);
@@ -32,7 +32,7 @@ export async function createQuestion(req, res) {
 		return res.status(400).send('you need to provide a description');
 	}
 
-	if (!anwserList) {
+	if (!answerList) {
 		fs.unlinkSync(file.path);
 		return res
 			.status(400)
@@ -41,8 +41,8 @@ export async function createQuestion(req, res) {
 			);
 	}
 
-	anwserList = anwserList.split('///');
-	if (anwserList.length !== 4) {
+	answerList = answerList.split('///');
+	if (answerList.length !== 4) {
 		fs.unlinkSync(file.path);
 		return res
 			.status(400)
@@ -64,7 +64,7 @@ export async function createQuestion(req, res) {
 			req.user.id,
 			serverUrl + file.path.slice(14, file.path.length),
 			description,
-			anwserList,
+			answerList,
 			correctAnswerIndex,
 		)
 	) {
