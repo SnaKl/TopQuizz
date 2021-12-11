@@ -61,6 +61,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_question);
 
         Intent intent = getIntent();
+
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
         }

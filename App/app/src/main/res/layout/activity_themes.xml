@@ -14,13 +14,13 @@
         android:text="@string/themes_title"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toTopOf="@+id/themes_scrollView_sv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/themes_scrollView_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32sp"
@@ -30,39 +30,41 @@
         app:layout_constraintTop_toBottomOf="@+id/themes_mainTitle_tv">
 
         <LinearLayout
+            android:id="@+id/themes_themesList_lt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/themes_mockupThemeRow_lt"
                 android:layout_width="match_parent"
                 android:layout_height="150sp">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme1_btn"
-                    android:layout_width="0sp"
+                    android:id="@+id/themes_left_btn"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginEnd="16sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
                     android:clickable="true"
                     android:elevation="8sp"
                     android:focusable="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/iv_office"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/themes_theme2_btn"
+                    app:layout_constraintEnd_toStartOf="@+id/themes_right_btn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme2_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="0sp"
+                    android:id="@+id/themes_right_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginEnd="24sp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
                     android:clickable="true"
                     android:elevation="8sp"
                     android:focusable="true"
@@ -70,139 +72,13 @@
                     android:src="@drawable/iv_friends"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/themes_theme1_btn"
+                    app:layout_constraintStart_toEndOf="@id/themes_left_btn"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="150sp"
-                android:layout_marginTop="20sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme3_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginEnd="16sp"
-                    android:clickable="true"
-                    android:elevation="8sp"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_bigbangtheory"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/themes_theme4_btn"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme4_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="0sp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginEnd="24sp"
-                    android:clickable="true"
-                    android:elevation="8sp"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_community"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/themes_theme3_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="150sp"
-                android:layout_marginTop="20sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme5_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginEnd="16sp"
-                    android:clickable="true"
-                    android:elevation="8sp"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_office"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/themes_theme6_btn"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme6_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="0sp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginEnd="24sp"
-                    android:clickable="true"
-                    android:elevation="8sp"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_friends"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/themes_theme5_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="150sp"
-                android:layout_marginTop="20sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme7_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginEnd="16sp"
-                    android:clickable="true"
-                    android:elevation="8sp"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_bigbangtheory"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/themes_theme8_btn"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/themes_theme8_btn"
-                    android:layout_width="0sp"
-                    android:layout_height="0sp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginEnd="24sp"
-                    android:clickable="true"
-                    android:elevation="8sp"
-                    android:focusable="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_community"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/themes_theme7_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
