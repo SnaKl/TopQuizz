@@ -45,10 +45,4 @@ router.put('/:title', Auth, ThemeController.updateThemeByTitle);
 //TODO rajouter vérification du role
 router.delete('/:title', Auth, ThemeController.deleteThemeByTitle);
 
-import Theme from './theme.model';
-router.get('/test/test', async (req, res) => {
-	const test = await Theme.find({});
-	return res.send(test);
-});
-
 export default router;

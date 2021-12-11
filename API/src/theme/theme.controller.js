@@ -5,7 +5,7 @@ import { serverUrl } from '../server';
 
 export async function getAllTheme(req, res) {
 	const themes = await ThemeService.findTheme();
-	res.send(themes);
+	res.send({ themes });
 }
 export async function createTheme(req, res) {
 	const file = req.file;
@@ -45,7 +45,7 @@ export async function createTheme(req, res) {
 export async function getThemeByTitle(req, res) {
 	const title = req.params.title;
 	const theme = await ThemeService.findTheme({ title }, '', 1);
-	res.send(theme);
+	res.send({ theme });
 }
 
 //TODO updateThemeByTitle

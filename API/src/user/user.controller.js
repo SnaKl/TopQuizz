@@ -14,7 +14,7 @@ export async function getUsers(req, res) {
 		'nickname totalScore signUpDate',
 	);
 
-	res.send(users);
+	res.json({ users });
 }
 
 export async function getUser(req, res) {
@@ -28,7 +28,7 @@ export async function updateUser(req, res) {
 		{ $set: update },
 	);
 
-	res.json(newUser);
+	res.json({ user: newUser });
 }
 
 export async function updateUserAvatar(req, res) {
@@ -72,7 +72,7 @@ export async function updateUserAvatar(req, res) {
 		{ $set: { avatar: url } },
 	);
 
-	res.json(newUser);
+	res.json({ user: newUser });
 }
 
 export async function createUser(req, res) {
@@ -111,7 +111,7 @@ export async function getUserByNickname(req, res) {
 		'nickname totalScore signUpDate',
 		1,
 	);
-	res.send(user);
+	res.send({ user });
 }
 
 export async function updateUserByNickname(req, res) {

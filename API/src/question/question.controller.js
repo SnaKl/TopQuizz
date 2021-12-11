@@ -110,7 +110,7 @@ export async function getRandomQuestionByTheme(req, res) {
 		60,
 		3,
 	);
-	res.send(question);
+	res.send({ question });
 }
 
 export async function getRandomQuestionsByTheme(req, res) {
@@ -128,5 +128,5 @@ export async function getRandomQuestionsByTheme(req, res) {
 		60,
 		3,
 	);
-	res.send(questions);
+	res.send({ questions });
 }
