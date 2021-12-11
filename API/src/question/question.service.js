@@ -41,15 +41,17 @@ const project = {
 };
 
 export async function createQuestion(
-	_themeID,
+	theme,
 	_createdBy,
 	imageUrl,
 	description,
 	anwserList,
 	correctAnswerIndex,
 ) {
+	theme.addQuestion();
+
 	let question = new Question({
-		_themeID,
+		_themeID: theme._id,
 		_createdBy,
 		imageUrl,
 		description,

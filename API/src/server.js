@@ -1,6 +1,5 @@
 import db from './config/db';
 import app from './app';
-var http = require('http');
 
 const serverUrl = process.env.SERVER_ADDRESS + ':' + process.env.SERVER_PORT;
 
