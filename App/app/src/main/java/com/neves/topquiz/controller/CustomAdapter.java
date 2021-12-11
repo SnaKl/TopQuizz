@@ -1,21 +1,27 @@
 package com.neves.topquiz.controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.neves.topquiz.model.Theme;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomAdapter extends BaseAdapter  {
+public class CustomAdapter extends ArrayAdapter {
 
     private LayoutInflater flater;
     //private List<Theme> list;
     private List<Theme> list;
+    private List<Theme> temp;
+    private List<Theme> suggestions;
     private int listItemLayoutResource;
     private int textViewItemNameId;
 
@@ -23,14 +29,58 @@ public class CustomAdapter extends BaseAdapter  {
     public CustomAdapter(Activity context, int listItemLayoutResource,
                          int textViewItemNameId,
                          List<Theme> list) {
+        super(context, listItemLayoutResource, list);
         this.listItemLayoutResource = listItemLayoutResource;
-
         this.textViewItemNameId = textViewItemNameId;
         this.list = list;
+        temp = new ArrayList<Theme>(list);
+        this.suggestions = new ArrayList<Theme>();
         this.flater = context.getLayoutInflater();
     }
-
     @Override
+    public Filter getFilter() {
+        return nameFilter;
+    }
+
+    Filter nameFilter = new Filter() {
+        public String convertResultToString(Object resultValue) {
+            String str = ((Theme) (resultValue)).getTitle();
+            return str;
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            if (constraint != null) {
+                suggestions.clear();
+                for (Theme theme : temp) {
+                    if (theme.getTitle().toLowerCase()
+                            .startsWith(constraint.toString().toLowerCase())) {
+                        suggestions.add(theme);
+                    }
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = suggestions;
+                filterResults.count = suggestions.size();
+                return filterResults;
+            } else {
+                return new FilterResults();
+            }
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            List<Theme> filteredList = (List<Theme>) results.values;
+            if (results != null && results.count > 0) {
+                clear();
+                for (Theme t : filteredList) {
+                    add(t);
+                    notifyDataSetChanged();
+                }
+
+            }
+        }
+    };
+        @Override
     public int getCount() {
         if(this.list == null)  {
             return 0;
@@ -62,6 +112,35 @@ public class CustomAdapter extends BaseAdapter  {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        /*View v = convertView;
+        if (v == null) {
+            *//*LayoutInflater vi = (LayoutInflater) context.getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            v = vi.inflate(listItemLayoutResource, parent, false);*//*
+
+            View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);
+
+        }
+        Theme theme = list.get(position);
+        TextView themeName = (TextView)  rowView.findViewById(this.textViewItemNameId);
+        if (themeName != null) {
+            themeName.setText(theme.getTitle());
+        }
+
+        *//*if (theme != null) {
+
+        }*//*
+        return v;
+
+        *//*Theme t = getItem(position);
+
+        View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);
+
+        TextView textViewItemName = (TextView) rowView.findViewById(this.textViewItemNameId);
+        textViewItemName.setText(t.getTitle());
+
+        return rowView;*/
         Theme t = getItem(position);
 
         View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);

@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -41,7 +44,8 @@ public class CreateTheme extends AppCompatActivity {
     private static final String BUNDLE_STATE_THEME_NAME = "BUNDLE_STATE_THEME_NAME" ;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
     private static final String ADDQST = "ADDQST";
-    private Spinner mThemeInput;
+    //private Spinner mThemeInput;
+    private AutoCompleteTextView mThemeInput;
     //private List<Theme> themeList;
     private Button mAddQuestionBtn;
     private Button mSubmitQuiz;
@@ -52,6 +56,7 @@ public class CreateTheme extends AppCompatActivity {
     private ViewGroup.LayoutParams btnParams;
     private Theme mTheme;
     private int mNewQstNb;
+    List<Theme> spinnerArray;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -59,66 +64,87 @@ public class CreateTheme extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_theme);
         findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
-        mThemeInput = findViewById(R.id.create_theme_themeTitle_input);
+        //mThemeInput = findViewById(R.id.create_theme_themeTitle_input);
+        mThemeInput = findViewById(R.id.autoCompleteTextView);
         mAddQuestionBtn = findViewById(R.id.create_theme_addQuestion_btn);
         mSubmitQuiz = findViewById(R.id.create_theme_submitQuiz_btn);
         mEnterBtn = findViewById(R.id.create_theme_submitTheme_btn);
         //themeList = ThemeDB.getTheme();
         btnParams = findViewById(R.id.create_theme_question1_btn).getLayoutParams();
-        List<Theme> spinnerArray =  new ArrayList<>();
-
-        spinnerArray.add(new Theme("", "THE OFFICE", "TropLol", 5));
+        spinnerArray =  new ArrayList<>();
+        spinnerArray.add(new Theme("", "hello", "TropLol", 5));
         spinnerArray.add(new Theme("", "FRIENDS", "TropLol", 5));
         spinnerArray.add(new Theme("", "COMMUNITY", "TropLol", 5));
 
-        CustomAdapter adapter = new CustomAdapter(CreateTheme.this,
+        CustomAdapter adapter = new CustomAdapter(this,
                 R.layout.spinner_item_layout_resource,
                 R.id.textView_item_name,
                 spinnerArray);
+        //adapter.setNotifyOnChange(true);
+        mThemeInput.setThreshold(1);
         mThemeInput.setAdapter(adapter);
+        /*ArrayAdapter<Theme> adapter = new ArrayAdapter<Theme>(CreateTheme.this,
+                android.R.layout.simple_dropdown_item_1line,
+                spinnerArray);
+        adapter.setNotifyOnChange(true);
+        mThemeInput.setThreshold(1);
+        mThemeInput.setAdapter(adapter);*/
+
 
         mThemeQuestionsListContainer = (LinearLayout) findViewById(R.id.create_theme_questionsList_lt);
 
         Intent intent = getIntent();
         if (intent.hasExtra(CHOSEN_THEME)) {
             mTheme = intent.getParcelableExtra(CHOSEN_THEME);
-            mThemeInput.setSelection(getSpinnerIndex(mThemeInput,mTheme));
-            System.out.println(getSpinnerIndex(mThemeInput,mTheme));
+            /*mThemeInput.setSelection(getSpinnerIndex(mThemeInput,mTheme));
+            System.out.println(getSpinnerIndex(mThemeInput,mTheme));*/
+            mThemeInput.setText(mTheme.getTitle());
             questionsDisplay(mTheme);
         }
-        /*if (intent.hasExtra(ADDQST)) {
-            mTheme = intent.getParcelableExtra(ADDQST);
-            findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
-            Button myButton = new Button(CreateTheme.this);
-            myButton.setLayoutParams(findViewById(R.id.create_theme_question1_btn).getLayoutParams());
-            myButton.setText(mNewQstNb);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                myButton.setTextColor(getColor(R.color.colorBlack));
-            }
-            myButton.setBackground(getDrawable(R.drawable.container_answer_button_correct));
 
-            mThemeQuestionsListContainer.addView(myButton);
-        }*/
-        mThemeInput.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mThemeInput.setOnItemClickListener(new AdapterView.OnItemClickListener()  {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            public void onItemClick(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 //mThemeName = mThemeInput.getSelectedItem().toString();
-                mTheme =(Theme) mThemeInput.getSelectedItem();
+                mTheme =(Theme) spinnerArray.get(position);
+                System.out.println(mTheme.getTitle());
+                System.out.println("mTheme.getTitle()!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 mEnterBtn.setEnabled(mThemeName.length() != 0);
             }
 
+
+        });
+        mThemeInput.addTextChangedListener(new TextWatcher() {
+
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEnterBtn.setEnabled(mThemeInput.getText().toString().length() != 0);
             }
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
         mEnterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                questionsDisplay(mTheme);
-                mEnterBtn.setEnabled(false);
-
+                if(isInArray(mThemeInput.getText().toString())){
+                    questionsDisplay(mTheme);
+                    mEnterBtn.setEnabled(false);
+                }
+                else {
+                    Theme newTheme = new Theme("", mThemeInput.getText().toString(), "TropLol", 0);
+                    spinnerArray.add(newTheme);
+                    adapter.notifyDataSetChanged();
+                    questionsDisplay(newTheme);
+                    Toast.makeText(CreateTheme.this, R.string.newThemeCreation, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -186,6 +212,17 @@ public class CreateTheme extends AppCompatActivity {
             mThemeQuestionsListContainer.addView(myButton);
         }
     }
+
+    public boolean isInArray(String s){
+        for (Theme t : spinnerArray){
+            if(s.equals(t.getTitle())){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 }
 
 

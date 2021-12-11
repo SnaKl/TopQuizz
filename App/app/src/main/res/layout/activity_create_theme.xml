@@ -33,21 +33,17 @@
         app:layout_constraintTop_toBottomOf="@+id/create_theme_mainTitle_tv"
         app:layout_constraintVertical_bias="1.0">
 
-        <Spinner
-            android:id="@+id/create_theme_themeTitle_input"
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32sp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/container_spinner"
-            android:layout_gravity="center"
-            android:elevation="8sp"
-            android:padding="12sp"
-            android:spinnerMode="dialog"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:textColor="@color/colorBlack"
             app:layout_constraintEnd_toStartOf="@+id/create_theme_submitTheme_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <Button
             android:id="@+id/create_theme_submitTheme_btn"
@@ -74,7 +70,7 @@
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_theme_themeTitle_input">
+            app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView">
 
             <LinearLayout
                 android:id="@+id/create_theme_questionsList_lt"
