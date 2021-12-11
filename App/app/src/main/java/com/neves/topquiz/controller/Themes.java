@@ -1,7 +1,6 @@
 package com.neves.topquiz.controller;
 
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.shape.CornerFamily;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
@@ -14,25 +13,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Themes extends AppCompatActivity {
-    private ShapeableImageView mTheme1;
     public static final String USER = "USER";
     public static final String THEME = "THEME";
     private User mUser;
@@ -62,16 +55,6 @@ public class Themes extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*mTheme1 = findViewById(R.id.themes_left_btn);
-
-        mTheme1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent GameActivity = new Intent(Themes.this, GameActivity.class);
-                GameActivity.putExtra(USER, mUser);
-                startActivity(GameActivity);
-            }
-        });*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -93,7 +76,6 @@ public class Themes extends AppCompatActivity {
             roundButtonCorners(themeButton);
             themeButton.setScaleType(ShapeableImageView.ScaleType.CENTER_CROP);
             themeButton.setElevation(8);
-
 
             if(left) {
                 themeButton.setLayoutParams(left_btn_mockup.getLayoutParams());
