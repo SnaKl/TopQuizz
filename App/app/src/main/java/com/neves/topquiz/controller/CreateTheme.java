@@ -67,15 +67,10 @@ public class CreateTheme extends AppCompatActivity {
 
         spinnerArray.add(new Theme("", "THE OFFICE", "TropLol", 5));
         spinnerArray.add(new Theme("", "FRIENDS", "TropLol", 5));
+        spinnerArray.add(new Theme("", "COMMUNITY", "TropLol", 5));
         /*spinnerArray.add("The Big Bang Theory");
         spinnerArray.add("Community");
         spinnerArray.add("Abarna");*/
-
-        Intent intent = getIntent();
-        if (intent.hasExtra(CHOSEN_THEME)) {
-            mTheme = intent.getParcelableExtra(CHOSEN_THEME);
-            mThemeInput.setSelection(getSpinnerIndex(mThemeInput,mTheme.getTitle()));
-        }
 
         CustomAdapter adapter = new CustomAdapter(CreateTheme.this,
                 R.layout.spinner_item_layout_resource,
@@ -85,6 +80,12 @@ public class CreateTheme extends AppCompatActivity {
 
         mThemeQuestionsListContainer = (LinearLayout) findViewById(R.id.create_theme_questionsList_lt);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra(CHOSEN_THEME)) {
+            mTheme = intent.getParcelableExtra(CHOSEN_THEME);
+            mThemeInput.setSelection(getSpinnerIndex(mThemeInput,mTheme));
+            System.out.println(getSpinnerIndex(mThemeInput,mTheme));
+        }
         if (intent.hasExtra("ADDQST")) {
             findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
             Button myButton = new Button(CreateTheme.this);
@@ -148,9 +149,10 @@ public class CreateTheme extends AppCompatActivity {
 
     }
 
-    private int getSpinnerIndex(Spinner spinner, String myString){
+    private int getSpinnerIndex(Spinner spinner, Theme myTheme){
          for (int i=0;i<spinner.getCount();i++){
-             if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+             Theme testedTheme = (Theme) spinner.getItemAtPosition(i);
+             if (testedTheme.getTitle().equalsIgnoreCase(myTheme.getTitle())){
                  return i;
              }
          }
