@@ -1,8 +1,6 @@
 import fs from 'fs';
 import * as ThemeService from './theme.service';
 
-import { serverUrl } from '../server';
-
 export async function getAllTheme(req, res) {
 	const themes = await ThemeService.findTheme();
 	res.send({ themes });
@@ -34,7 +32,7 @@ export async function createTheme(req, res) {
 		!ThemeService.createTheme(
 			title,
 			description,
-			serverUrl + file.path.slice(14, file.path.length),
+			file.path.slice(14, file.path.length),
 		)
 	)
 		return res.status(500).send('Server error');
