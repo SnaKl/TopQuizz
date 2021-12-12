@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.neves.topquiz">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_quizz"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_quizz_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".controller.GameActivity"/>
+        <activity android:name=".controller.Profile"/>
+        <activity android:name=".controller.CreateAccount"/>
+        <activity android:name=".controller.MainMenu"/>
+        <activity android:name=".controller.LeaderboardGeneral"/>
+        <activity android:name=".controller.LeaderboardTheme"/>
+        <activity android:name=".controller.Themes"/>
+        <activity android:name=".controller.EditProfile"/>
+        <activity android:name=".controller.CreateTheme"/>
+        <activity android:name=".controller.CreateQuestion"/>
+        <activity android:name=".controller.ValidateTheme"/>
+        <activity android:name=".controller.ValidateQuestion"/>
+        <activity android:name=".controller.AnswerRecap"/>
+        <activity android:name=".controller.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

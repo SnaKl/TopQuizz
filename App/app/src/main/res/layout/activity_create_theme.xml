@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_basic_gradient"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/create_theme_mainTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:text="@string/create_theme_mainTitle"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/create_theme_form_lt"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/container_semi_card"
+        android:elevation="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_theme_mainTitle_tv">
+
+        <Spinner
+            android:id="@+id/create_theme_themeTitle_input"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32sp"
+            android:background="@drawable/container_edit_text"
+            android:elevation="8sp"
+            android:hint="@string/theme"
+            android:padding="24sp"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorHint"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/create_theme_form_sv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_theme_themeTitle_input">
+
+            <LinearLayout
+                android:id="@+id/create_theme_questionsList_lt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/create_theme_question1_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginRight="32sp"
+                    android:layout_marginBottom="8sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 1"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+                <Button
+                    android:id="@+id/create_theme_question2_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginRight="32sp"
+                    android:layout_marginBottom="8sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_answer_button_correct"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="Question 2"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBlack" />
+
+                <Button
+                    android:id="@+id/create_theme_addQuestion_btn"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginRight="32sp"
+                    android:layout_marginBottom="8sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_dark_button"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="@string/AddQuestion"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite" />
+                <Button
+                    android:id="@+id/create_theme_submitQuiz_btn"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32sp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginRight="32sp"
+                    android:layout_marginBottom="8sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/container_light_button"
+                    android:elevation="16sp"
+                    android:padding="12sp"
+                    android:text="@string/SubmitQuiz"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

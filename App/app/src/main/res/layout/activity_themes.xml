@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_basic_gradient"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/themes_mainTitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/themes_title"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/themes_scrollView_sv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/themes_mainTitle_tv">
+
+        <LinearLayout
+            android:id="@+id/themes_themesList_lt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/themes_mockupThemeRow_lt"
+                android:layout_width="match_parent"
+                android:layout_height="150sp"
+                android:layout_marginBottom="32sp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/themes_left_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:elevation="8sp"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/iv_office"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/themes_right_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/themes_right_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:clickable="true"
+                    android:elevation="8sp"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/iv_friends"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/themes_left_btn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
