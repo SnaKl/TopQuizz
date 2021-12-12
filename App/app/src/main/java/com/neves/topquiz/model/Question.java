@@ -25,7 +25,7 @@ public class Question implements Parcelable {
      * @param answerIndex : le numéro de la réponse correcte
      */
     public Question(Theme theme, User author, String image, String questionTitle,String question, List<String> answerList, int answerIndex) {
-        if ((answerIndex >= 0 && answerIndex < 4) && (answerList.size() != 0) && question.length() > 0) {
+        if ((answerIndex >= 0 && answerIndex < 4) && (answerList.size() != 0) ) {
             mTheme = theme;
             mCreatedBy = author;
             mImageUrl = image;

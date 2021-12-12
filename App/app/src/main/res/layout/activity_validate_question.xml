@@ -42,7 +42,7 @@ tools:context="com.neves.topquiz.controller.GameActivity">
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/decline_button"
+        android:id="@+id/validate_question_reject_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autoSizeTextType="uniform"
@@ -168,7 +168,7 @@ tools:context="com.neves.topquiz.controller.GameActivity">
             android:textColor="@color/colorBlack" />
 
         <Button
-            android:id="@+id/validate_question_answer4"
+            android:id="@+id/validate_question_answer4_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8sp"
