@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ public class ValidateQuestion extends AppCompatActivity {
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
         }
-        mUser.setScore(new Score(null,0));
+
         mUser.initLastQuestionRecap();
 
         try {
@@ -59,9 +60,9 @@ public class ValidateQuestion extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (Question i : mQuestionBank.getQuestionList()){
-            System.out.println(i.getQuestionTitle());
-        }
+
+        mRemainingQuestionCount = mQuestionBank.getSize();
+
         mEnableTouchEvents = true;
 
         mApprove = findViewById(R.id.validate_question_accept_btn);
@@ -82,7 +83,6 @@ public class ValidateQuestion extends AppCompatActivity {
 
                 mUser.addQuestionToQuestionRecap(mCurrentQuestion,true);
 
-
                 mEnableTouchEvents = false;
                 mRemainingQuestionCount--;
 
@@ -96,6 +96,7 @@ public class ValidateQuestion extends AppCompatActivity {
                         displayQuestion(mCurrentQuestion);
                     } else {
                         // No questions left, end the game
+                        //DELETE THIS THEME FROM THE ARRAY
                         finish();
                     }
                 }, 2000);
@@ -113,6 +114,7 @@ public class ValidateQuestion extends AppCompatActivity {
         this.displayQuestion(mCurrentQuestion);
     }
 
+    //à enlever
     private QuestionBank generateQuestions() throws IOException {
 
         Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
@@ -127,26 +129,17 @@ public class ValidateQuestion extends AppCompatActivity {
                 Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
                 1);
 
-        Question question4 = new Question(null, null, null, "Question XML",(getString(R.string.question4)),
-                Arrays.asList(getString(R.string.response41), getString(R.string.response42), getString(R.string.response43), getString(R.string.response44)),
-                0);
-
-        Question question5 = new Question(null, null, null,"Question architecture" ,(getString(R.string.question5)),
-                Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
-                0);
-
-        Question question6 = new Question(null, null, null, "Question de beauté" ,("Qui est le plus beau de la classe"),
-                Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
-                0);
-
         return new QuestionBank(Arrays.asList(question1,
                 question2,
-                question3,
-                question4,
-                question5,
-                question6));
+                question3));
         //return loadQuestions();
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return mEnableTouchEvents && super.dispatchTouchEvent(ev);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void displayQuestion(final Question question) {
         mQuestionTitle.setText(question.getQuestionTitle());
