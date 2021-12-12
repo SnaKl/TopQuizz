@@ -1,9 +1,17 @@
 package com.neves.topquiz.controller;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Score;
+import com.neves.topquiz.model.User;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,6 +19,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CreateAccount extends AppCompatActivity{
 
@@ -21,6 +32,8 @@ public class CreateAccount extends AppCompatActivity{
     private EditText mConfirmPassword;
     private Button mCreateAccountBtn;
     private SharedPreferences mPreferences;
+    private static final String ACCOUNT_CREATED = "ACCOUNT_CREATED";
+    private CreateAccount createAccount = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +70,51 @@ public class CreateAccount extends AppCompatActivity{
                 Toast.makeText(this, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
             }else{
                 //CREER UN COMPTE USER AVEC LES INFOS
-                Intent Suite = new Intent(CreateAccount.this, MainActivity.class);
-                startActivity(Suite);
-                finish();
+                AndroidNetworking.post(GlobalVariable.API_URL+"/api/user")
+                        .addBodyParameter("nickname", username)
+                        .addBodyParameter("email", mail)
+                        .addBodyParameter("password", password)
+                        .setPriority(Priority.LOW)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                goToMainActivity();
+                            }
+
+                            @Override
+                            public void onError(ANError error) {
+                                try {
+                                    if(error.getErrorBody()!=null) {
+                                        JSONObject errorJsonObject = new JSONObject(error.getErrorBody());
+                                        if (errorJsonObject.has("error")) {
+                                            Toast.makeText(createAccount, getString(R.string.invalidCredentials), Toast.LENGTH_SHORT).show();
+                                        } else if (errorJsonObject.has("errors")) {
+                                            JSONObject errors = errorJsonObject.getJSONObject("errors");
+
+                                            if (errors.has("password")) {
+                                                Toast.makeText(createAccount, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
+                                            } else if (errors.has("nickname")) {
+                                                Toast.makeText(createAccount, getString(R.string.ensureUsername), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }else{
+                                        goToMainActivity();
+                                    }
+                                }catch (JSONException err){
+                                    Log.d("Error", err.toString());
+                                }
+                            }
+                        });
             }
         });
+    }
+
+    private void goToMainActivity(){
+        Intent MainActivity = new Intent(CreateAccount.this, MainActivity.class);
+        MainActivity.putExtra(ACCOUNT_CREATED, true);
+        startActivity(MainActivity);
+        finish();
     }
 
     private Boolean checkPassWordRequirements(String password){
