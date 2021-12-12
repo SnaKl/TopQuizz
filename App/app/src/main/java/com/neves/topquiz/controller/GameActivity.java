@@ -34,7 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -127,57 +126,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
-        if(question.getImageUrl()!=""){
+        if (question.getImageUrl() != "") {
             new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
-        }else{
+        } else {
             new DownLoadImageTask(mQuestionImageView).execute(mTheme.getImage());
         }
 
     }
 
-
-    /**
-     * Créer la banque de question
-     *
-     * @return une liste de question
-     * private QuestionBank generateQuestions() throws IOException {
-     * <p>
-     * Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
-     * Arrays.asList(getString(R.string.response11), getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)),
-     * 2);
-     * <p>
-     * Question question2 = new Question(null, null, null, "Question layout",(getString(R.string.question2)),
-     * Arrays.asList(getString(R.string.response21), getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)),
-     * 2);
-     * <p>
-     * Question question3 = new Question(null, null, "https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg", "Question graphique",(getString(R.string.question3)),
-     * Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
-     * 1);
-     * <p>
-     * Question question4 = new Question(null, null, null, "Question XML",(getString(R.string.question4)),
-     * Arrays.asList(getString(R.string.response41), getString(R.string.response42), getString(R.string.response43), getString(R.string.response44)),
-     * 0);
-     * <p>
-     * Question question5 = new Question(null, null, null,"Question architecture" ,(getString(R.string.question5)),
-     * Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
-     * 0);
-     * <p>
-     * Question question6 = new Question(null, null, null, "Question de beauté" ,("Qui est le plus beau de la classe"),
-     * Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
-     * 0);
-     * <p>
-     * return new QuestionBank(Arrays.asList(question1,
-     * question2,
-     * question3,
-     * question4,
-     * question5,
-     * question6));
-     * //return loadQuestions();
-     * }
-     */
-
     public void generateQuestions() {
-        AndroidNetworking.get(GlobalVariable.API_URL + "/api/question/randomQuestion/" + mTheme.getTitle() + "/"+mRemainingQuestionCount)
+        AndroidNetworking.get(GlobalVariable.API_URL + "/api/question/randomQuestion/" + mTheme.getTitle() + "/" + mRemainingQuestionCount)
                 .setTag("getQuestions")
                 .setPriority(Priority.LOW)
                 .build()
@@ -199,7 +157,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     Collections.shuffle(answerList);
                                     Question question = new Question(
                                             mTheme,
-                                            new User("UNKNOWN","","",""),
+                                            new User("UNKNOWN", "", "", ""),
+                                            questionJSONObject.getString("_id"),
                                             questionJSONObject.getString("imageUrl"),
                                             questionJSONObject.getString("questionTitle"),
                                             questionJSONObject.getString("description"),

@@ -21,12 +21,12 @@ public class Question implements Parcelable {
     };
     private Theme mTheme;
     private User mCreatedBy;
+    private String mQuestionId;
     private String mImageUrl;
     private String mQuestion;
     private String mQuestionTitle;
     private List<String> mAnswerList;
     private int mAnswerIndex;
-    private String mThemeTitle;
 
     /**
      * Constructeur
@@ -38,9 +38,10 @@ public class Question implements Parcelable {
      * @param answerList  : la liste des réponses possibles
      * @param answerIndex : le numéro de la réponse correcte
      */
-    public Question(Theme theme, User author, String image, String questionTitle, String question, List<String> answerList, int answerIndex) {
+    public Question(Theme theme, User author, String questionId, String image, String questionTitle, String question, List<String> answerList, int answerIndex) {
         mTheme = theme;
         mCreatedBy = author;
+        mQuestionId = questionId;
         mImageUrl = GlobalVariable.API_URL + image;
         mQuestionTitle = questionTitle;
         mQuestion = question;
@@ -51,14 +52,12 @@ public class Question implements Parcelable {
     protected Question(Parcel in) {
         mTheme = in.readParcelable(Theme.class.getClassLoader());
         mCreatedBy = in.readParcelable(User.class.getClassLoader());
+        mQuestionId = in.readString();
         mImageUrl = in.readString();
         mQuestion = in.readString();
         mQuestionTitle = in.readString();
         mAnswerList = in.createStringArrayList();
         mAnswerIndex = in.readInt();
-    }
-
-    public Question(String s, List<String> j3, int i) {
     }
 
     /**
@@ -192,5 +191,9 @@ public class Question implements Parcelable {
         out.writeString(mQuestionTitle);
         out.writeStringList(mAnswerList);
         out.writeInt(mAnswerIndex);
+    }
+
+    public String getQuestionId() {
+        return mQuestionId;
     }
 }

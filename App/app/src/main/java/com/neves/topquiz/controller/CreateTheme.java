@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
+import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
@@ -37,6 +40,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+
+import com.neves.topquiz.model.Question;
+import com.neves.topquiz.model.QuestionBank;
+import com.neves.topquiz.model.User;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CreateTheme extends AppCompatActivity {
     private static final String USER = "USER";
@@ -56,6 +68,7 @@ public class CreateTheme extends AppCompatActivity {
     List<Theme> themeList= new ArrayList<>();
     User mUser;
 
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +82,9 @@ public class CreateTheme extends AppCompatActivity {
         mSubmitQuiz = findViewById(R.id.create_theme_submitQuiz_btn);
         mEnterBtn = findViewById(R.id.create_theme_submitTheme_btn);
         btnParams = findViewById(R.id.create_theme_question1_btn).getLayoutParams();
+
         spinnerArray =  new ArrayList<>();
+
         updateListSpinner();
         CustomAdapter adapter = new CustomAdapter(this,
                 R.layout.spinner_item_layout_resource,
@@ -77,6 +92,7 @@ public class CreateTheme extends AppCompatActivity {
                 themeList);
         mThemeInput.setThreshold(1);
         mThemeInput.setAdapter(adapter);
+        //adapter.getFilter().filter(null);
 
 
         Intent intent = getIntent();
@@ -88,6 +104,14 @@ public class CreateTheme extends AppCompatActivity {
         if(intent.hasExtra(USER)){
             mUser=intent.getParcelableExtra(USER);
         }
+
+        mThemeInput.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                mThemeInput.showDropDown();
+                return false;
+            }
+        });
 
         mThemeInput.setOnTouchListener(new View.OnTouchListener(){
             @Override
@@ -109,7 +133,6 @@ public class CreateTheme extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 updateListSpinner();
                 for(Theme i : themeList){
                     System.out.println(i.getTitle());
@@ -199,6 +222,7 @@ public class CreateTheme extends AppCompatActivity {
     }
 
     public boolean isInArray(String s){
+
             for (Theme t : themeList){
                 if(s.equals(t.getTitle())){
                     return true;

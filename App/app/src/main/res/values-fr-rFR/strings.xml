@@ -85,5 +85,6 @@
     <string name="invalidCredentials">Informations d\'identification invalides</string>
     <string name="accountCreatedToast">Félicitations ! Vous venez de créer votre compte, vous pouvez désormais vous connecter.</string>
     <string name="noQuestions">Aucune questions valide pour ce thème</string>
+    <string name="noQuestionsToValidate">Vous n\'avez aucune question à valider pour ce thème</string>
 
 </resources>
