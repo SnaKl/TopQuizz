@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent.hasExtra(ACCOUNT_CREATED)) {
-            Toast.makeText(mainActivity, getString(R.string.accountCreatedToast), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mMainActivity, getString(R.string.accountCreatedToast), Toast.LENGTH_SHORT).show();
         }
 
         AndroidNetworking.initialize(getApplicationContext());

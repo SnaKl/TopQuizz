@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import java.util.List;
 
 public class Question implements Parcelable {
-
     public static final Creator<Question> CREATOR = new Creator<Question>() {
         @Override
         public Question createFromParcel(Parcel in) {
@@ -57,23 +56,12 @@ public class Question implements Parcelable {
         mAnswerIndex = in.readInt();
     }
 
-    public static final Creator<Question> CREATOR = new Creator<Question>() {
-        @Override
-        public Question createFromParcel(Parcel in) {
-            return new Question(in);
-        }
-
-        @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
-        }
-    };
-
     public Question(String s, List<String> j3, int i) {
     }
 
     /**
      * Permet de récupérer le thème de la question
+     *
      * @return : le thème de la question
      */
     public Theme getTheme() {
@@ -82,6 +70,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter un thème à la question
+     *
      * @param theme : est le thème de la question
      */
     public void setTheme(Theme theme) {
@@ -99,6 +88,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter un auteur à la question
+     *
      * @param createdBy : est l'auteur de la question
      */
     public void setCreatedBy(User createdBy) {
@@ -116,6 +106,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter une image à la question
+     *
      * @param imageUrl : est l'URL de l'image de la question
      */
     public void setImageUrl(String imageUrl) {
@@ -160,6 +151,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter une liste de réponses possibles à la question
+     *
      * @param answerList: est la liste de réponses possibles de la question
      */
     public void setAnswerList(List<String> answerList) {
@@ -177,6 +169,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter le numéro de la réponse correcte à la question
+     *
      * @param answerIndex : est le numéro de la réponse correcte de la question
      */
     public void setAnswerIndex(int answerIndex) {
