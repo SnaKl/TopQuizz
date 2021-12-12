@@ -28,7 +28,7 @@ public class Score implements Parcelable {
     }
 
     protected Score(Parcel in) {
-        mTheme = (Theme) in.readValue(Theme.class.getClassLoader());
+        mTheme = in.readParcelable(Theme.class.getClassLoader());
         mPoints = in.readInt();
     }
 

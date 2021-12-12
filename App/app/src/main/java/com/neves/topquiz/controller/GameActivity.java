@@ -194,7 +194,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     Collections.shuffle(answerList);
                                     Question question = new Question(
                                             mTheme,
-                                            mUser,
+                                            new User("UNKNOWN","","",""),
                                             questionJSONObject.getString("imageUrl"),
                                             questionJSONObject.getString("questionTitle"),
                                             questionJSONObject.getString("description"),
