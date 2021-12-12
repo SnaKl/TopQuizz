@@ -58,6 +58,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent MyAccount = new Intent(MainMenu.this, Profile.class);
+                MyAccount.putExtra(USER, mUser);
                 startActivity(MyAccount);
             }
         });
