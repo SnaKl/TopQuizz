@@ -121,11 +121,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
-        if(question.getImageUrl()!=null){
-            new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
-        }else{
-            mQuestionImageView.setImageDrawable(getDrawable(R.drawable.iv_image_not_found));
-        }
+        new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
     }
 
     private void deleteFile() {
