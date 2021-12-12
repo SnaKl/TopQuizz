@@ -67,7 +67,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:text="TEXT"
-                    android:elevation="8dp"
                     android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="@+id/themes_left_btn"
                     app:layout_constraintEnd_toEndOf="@+id/themes_left_btn"
@@ -96,8 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="TEXT"
-                    android:elevation="8dp"
+
                     android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="@+id/themes_right_btn"
                     app:layout_constraintEnd_toEndOf="@+id/themes_right_btn"

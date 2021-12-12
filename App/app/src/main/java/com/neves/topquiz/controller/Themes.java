@@ -13,6 +13,7 @@ import com.neves.topquiz.model.User;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import androidx.annotation.RequiresApi;
@@ -91,6 +93,8 @@ public class Themes extends AppCompatActivity {
 
         ShapeableImageView left_btn_mockup= findViewById(R.id.themes_left_btn);
         ShapeableImageView right_btn_mockup= findViewById(R.id.themes_right_btn);
+        TextView left_title_mockup = findViewById(R.id.themes_leftThemeTitle_tv);
+        TextView right_title_mockup = findViewById(R.id.themes_rightThemeTitle_tv);
         ConstraintLayout row_mockup = findViewById(R.id.themes_mockupThemeRow_lt);
         listLayout.removeAllViews();
         boolean left=true;
@@ -98,25 +102,37 @@ public class Themes extends AppCompatActivity {
         List<ShapeableImageView> buttonList=new ArrayList<>();
         for(Theme theme : themeList){
             ShapeableImageView themeButton = new ShapeableImageView(this);
+            TextView themeTitle = new TextView(this);
+            themeTitle.setText(theme.getTitle());
             new DownLoadImageTask(themeButton).execute(theme.getImage());
             manageButtonClickListener(themeButton, theme);
             roundButtonCorners(themeButton);
-
-            themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
             themeButton.setElevation(8);
+            themeTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+            themeTitle.setTypeface(themeTitle.getTypeface(), Typeface.BOLD);
+            themeTitle.setElevation(16);
+            //
+
             if(left) {
                 themeButton.setLayoutParams(left_btn_mockup.getLayoutParams());
                 themeButton.setId(R.id.themes_left_btn);
                 themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                themeTitle.setLayoutParams(left_title_mockup.getLayoutParams());
+                themeTitle.setId(R.id.themes_leftThemeTitle_tv);
+                themeTitle.setShadowLayer(0.7f,1.5f,1.5f,R.color.colorBlack);
                 row.addView(themeButton);
+                row.addView(themeTitle);
                 left=false;
             }else{
                 themeButton.setLayoutParams(right_btn_mockup.getLayoutParams());
                 themeButton.setId(R.id.themes_right_btn);
                 themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
+                themeTitle.setLayoutParams(right_title_mockup.getLayoutParams());
+                themeTitle.setId(R.id.themes_rightThemeTitle_tv);
+                themeTitle.setShadowLayer(0.7f,1.5f,1.5f,R.color.colorBlack);
                 left=true;
                 row.addView(themeButton);
+                row.addView(themeTitle);
                 listLayout.addView(row);
                 row=createRow(row_mockup);
                 buttonList.add(themeButton);
