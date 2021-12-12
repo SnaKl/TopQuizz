@@ -45,7 +45,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private final GameActivity mGameActivity = this;
     private User mUser;
     private Theme mTheme;
-    private final QuestionBank mQuestionBank = new QuestionBank();
+    private QuestionBank mQuestionBank = new QuestionBank();
     private Question mCurrentQuestion;
     private TextView mQuestionTitle;
     private TextView mQuestionTextView;
@@ -79,12 +79,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         if (savedInstanceState != null) {
-            mUser.setScore(new Score(null, savedInstanceState.getInt(BUNDLE_STATE_SCORE)));
+            mUser.setScore(new Score(mTheme, savedInstanceState.getInt(BUNDLE_STATE_SCORE)));
             mRemainingQuestionCount = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
-            //mQuestionBank = savedInstanceState.getParcelable(BUNDLE_QUESTION_BANK);
-            //mQuestionBank.setNextQuestionIndex(mQuestionBank.getSize() - mRemainingQuestionCount);
+            mQuestionBank = savedInstanceState.getParcelable(BUNDLE_QUESTION_BANK);
+            mQuestionBank.setNextQuestionIndex(mQuestionBank.getSize() - mRemainingQuestionCount);
         } else {
-            mUser.setScore(new Score(null, 0));
+            mUser.setScore(new Score(mTheme, 0));
             mRemainingQuestionCount = 4; // A AUGMENTER ICI POUR AUGMENTER LE NOMBRE DE QUESTIONS PAR PARTIE
 
             generateQuestions();
@@ -109,9 +109,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setTag(1);
         mAnswerButton3.setTag(2);
         mAnswerButton4.setTag(3);
-
-        //mCurrentQuestion = mQuestionBank.getNextQuestion();
-        //this.displayQuestion(mCurrentQuestion);
     }
 
     /**
@@ -182,7 +179,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray questionsJSONArray = response.getJSONArray("questions");
-                            if (questionsJSONArray.length() == 0) {
+                            mRemainingQuestionCount = questionsJSONArray.length();
+                            if (mRemainingQuestionCount == 0) {
                                 Toast.makeText(mGameActivity, getString(R.string.noQuestions), Toast.LENGTH_SHORT).show();
                                 mGameActivity.finish();
                             } else {
@@ -199,7 +197,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                             questionJSONObject.getInt("correctAnswerIndex"));
                                     mQuestionBank.addQuestion(question);
                                 }
-                                mGameActivity.displayQuestion(mQuestionBank.getCurrentQuestion());
+                                mCurrentQuestion = mQuestionBank.getCurrentQuestion();
+                                mGameActivity.displayQuestion(mCurrentQuestion);
                             }
                         } catch (JSONException jsonException) {
                             jsonException.printStackTrace();

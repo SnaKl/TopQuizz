@@ -7,6 +7,17 @@ import java.util.List;
 
 public class Question implements Parcelable {
 
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
     private Theme mTheme;
     private User mCreatedBy;
     private String mImageUrl;
@@ -18,23 +29,22 @@ public class Question implements Parcelable {
 
     /**
      * Constructeur
-     * @param theme : le thème de la question
-     * @param author : l'auteur de la question
-     * @param image : l'image de la question
-     * @param question : la question
-     * @param answerList : la liste des réponses possibles
+     *
+     * @param theme       : le thème de la question
+     * @param author      : l'auteur de la question
+     * @param image       : l'image de la question
+     * @param question    : la question
+     * @param answerList  : la liste des réponses possibles
      * @param answerIndex : le numéro de la réponse correcte
      */
-    public Question(Theme theme, User author, String image, String questionTitle,String question, List<String> answerList, int answerIndex) {
-        if ((answerIndex >= 0 && answerIndex < 4) && (answerList.size() != 0) && question.length() > 0) {
-            mTheme = theme;
-            mCreatedBy = author;
-            mImageUrl = image;
-            mQuestionTitle = questionTitle;
-            mQuestion = question;
-            mAnswerList = answerList;
-            mAnswerIndex = answerIndex;
-        }
+    public Question(Theme theme, User author, String image, String questionTitle, String question, List<String> answerList, int answerIndex) {
+        mTheme = theme;
+        mCreatedBy = author;
+        mImageUrl = image;
+        mQuestionTitle = questionTitle;
+        mQuestion = question;
+        mAnswerList = answerList;
+        mAnswerIndex = answerIndex;
     }
 
     protected Question(Parcel in) {
@@ -47,23 +57,12 @@ public class Question implements Parcelable {
         mAnswerIndex = in.readInt();
     }
 
-    public static final Creator<Question> CREATOR = new Creator<Question>() {
-        @Override
-        public Question createFromParcel(Parcel in) {
-            return new Question(in);
-        }
-
-        @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
-        }
-    };
-
     public Question(String s, List<String> j3, int i) {
     }
 
     /**
      * Permet de récupérer le thème de la question
+     *
      * @return : le thème de la question
      */
     public Theme getTheme() {
@@ -72,6 +71,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter un thème à la question
+     *
      * @param theme : est le thème de la question
      */
     public void setTheme(Theme theme) {
@@ -89,6 +89,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter un auteur à la question
+     *
      * @param createdBy : est l'auteur de la question
      */
     public void setCreatedBy(User createdBy) {
@@ -106,6 +107,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter une image à la question
+     *
      * @param imageUrl : est l'URL de l'image de la question
      */
     public void setImageUrl(String imageUrl) {
@@ -122,20 +124,21 @@ public class Question implements Parcelable {
     }
 
     /**
+     * Permet d'ajouter une question
+     *
+     * @param question : est l'énoncé de la question
+     */
+    public void setQuestion(String question) {
+        mQuestion = question;
+    }
+
+    /**
      * Retourner la question
      *
      * @return la question
      */
     public String getQuestionTitle() {
         return mQuestionTitle;
-    }
-
-    /**
-     * Permet d'ajouter une question
-     * @param question : est l'énoncé de la question
-     */
-    public void setQuestion(String question) {
-        mQuestion = question;
     }
 
     /**
@@ -149,6 +152,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter une liste de réponses possibles à la question
+     *
      * @param answerList: est la liste de réponses possibles de la question
      */
     public void setAnswerList(List<String> answerList) {
@@ -166,6 +170,7 @@ public class Question implements Parcelable {
 
     /**
      * Permet d'ajouter le numéro de la réponse correcte à la question
+     *
      * @param answerIndex : est le numéro de la réponse correcte de la question
      */
     public void setAnswerIndex(int answerIndex) {
