@@ -1,3 +1,4 @@
+import { query } from 'express';
 import Question from './question.model';
 
 const project = {
@@ -40,6 +41,16 @@ const project = {
 		},
 	},
 };
+
+export async function findQuestion(query = {}, select = '', limit = 0) {
+	const result = await Question.find(query, select).limit(limit);
+	if (limit === 1) return result[0];
+	return result;
+}
+
+export function countQuestionToValidate(query) {
+	return Question.count(query);
+}
 
 export async function createQuestion(
 	theme,
