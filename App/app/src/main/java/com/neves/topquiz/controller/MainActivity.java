@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String USER = "USER";
     public static final String USERS = "USERS";
+    private static final String ACCOUNT_CREATED = "ACCOUNT_CREATED";
 
     private MainActivity mainActivity = this;
 
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(ACCOUNT_CREATED)) {
+            Toast.makeText(mainActivity, getString(R.string.accountCreatedToast), Toast.LENGTH_SHORT).show();
+        }
 
         AndroidNetworking.initialize(getApplicationContext());
 
