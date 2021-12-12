@@ -1,6 +1,11 @@
 package com.neves.topquiz.controller;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
@@ -11,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +25,10 @@ import android.widget.LinearLayout;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,35 +56,33 @@ public class Themes extends AppCompatActivity {
         }
 
         List<Theme> themeList=new ArrayList<>();
+        
+        AndroidNetworking.get(GlobalVariable.API_URL+"/api/theme")
+                .setTag("getAllThemes")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response.has("themes")) {
+                            try {
+                                JSONArray themes = response.getJSONArray("themes");
+                                for (int i = 0 ; i < themes.length(); i++) {
+                                    JSONObject theme = themes.getJSONObject(i);
+                                    themeList.add(new Theme(GlobalVariable.API_URL + theme.getString("imageUrl"), theme.getString("title"), theme.getString("description"),theme.getInt("nbQuestion")));
+                                }
+                                createLayout(themeList);
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
-        if(mMode.equals("GAME")){
-            // Tous les thèmes jouables
-            themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-            themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
-            themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-            themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
-            themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
-            themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
-            themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-            themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
-            themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-            themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
-            themeList.add(new Theme("https://imgsrc.cineserie.com/2016/06/1884786.jpg?ver=1","BROOKLYN99","TESTLOL",5));
-            themeList.add(new Theme("https://fr.web.img6.acsta.net/pictures/19/01/31/09/49/3574048.jpg","SUITS","TESTLOL",5));
-        }else if(mMode.equals("VALIDATE_THEME")){
-            // Thèmes / questions à valider
-            themeList.add(new Theme("https://i.ibb.co/kSLD4RJ/iv-office.png","THE OFFICE","TESTLOL",5));
-            themeList.add(new Theme("https://media.senscritique.com/media/000018827756/source_big/Community.jpg","COMMUNITY","TESTLOL",5));
-            themeList.add(new Theme("https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg","BIG BANG THEORY","TESTLOL",5));
-            themeList.add(new Theme("https://www.rts.ch/2021/03/19/17/16/12059275.image?w=640&h=360","FRIENDS","TESTLOL",5));
-        }
-
-
-        try {
-            createLayout(themeList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    @Override
+                    public void onError(ANError error) {
+                        Log.d("themesError", error.toString());
+                    }
+                });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

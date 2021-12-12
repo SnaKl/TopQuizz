@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            AndroidNetworking.get("http://"+ GlobalVariable.API_URL +":"+GlobalVariable.API_PORT+"/api/auth/login")
+            AndroidNetworking.get(GlobalVariable.API_URL+"/api/auth/login")
                     .addQueryParameter("nickname", username)
                     .addQueryParameter("password", password)
                     .setTag("connect")
