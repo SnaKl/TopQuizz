@@ -154,7 +154,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
                                     JSONArray answerListJSONArray = questionJSONObject.getJSONArray("answerList");
                                     List<String> answerList = Arrays.asList(answerListJSONArray.getString(0), answerListJSONArray.getString(1), answerListJSONArray.getString(2), answerListJSONArray.getString(3));
-                                    Collections.shuffle(answerList);
+                                    //Collections.shuffle(answerList);
                                     Question question = new Question(
                                             mTheme,
                                             new User("UNKNOWN", "", "", ""),
