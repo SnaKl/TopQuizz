@@ -1,10 +1,8 @@
 package com.neves.topquiz.controller;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,28 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.neves.topquiz.GlobalVariable;
-import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.Theme;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.User;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class CreateQuestion extends AppCompatActivity {
     private EditText mQuestionInput;
@@ -49,9 +38,7 @@ public class CreateQuestion extends AppCompatActivity {
     private User mUser;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
     public static final String USER = "USER";
-    //private static final String ADDQST = "ADDQST";
     private Theme mTheme;
-    //private int mNewQstNb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
