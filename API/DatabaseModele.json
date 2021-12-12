@@ -28,6 +28,7 @@
 		"_createdBy": "ObjectId",
 		"imageUrl": "String",
 		"description": "String",
+		"questionTitle": "String",
 		"answerList": ["String"],
 		"correctAnswerIndex": "Number",
 		"validation": {

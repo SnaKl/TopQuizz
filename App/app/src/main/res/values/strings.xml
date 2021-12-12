@@ -84,4 +84,6 @@
     <string name="ensureMailRequirements">Please input a valid mail adress format !</string>
     <string name="invalidCredentials">Invalid Credentials</string>
     <string name="accountCreatedToast">Congratulations ! You just created your account. You can now connect with your credentials.</string>
+    <string name="noQuestions">No valid question for this theme</string>
+
 </resources>

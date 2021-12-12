@@ -5,6 +5,7 @@ const QuestionSchema = new Schema(
 	{
 		_themeID: { type: ObjectId, ref: 'Theme' },
 		_createdBy: { type: ObjectId, ref: 'User' },
+		questionTitle: String,
 		imageUrl: String,
 		description: String,
 		answerList: [String],

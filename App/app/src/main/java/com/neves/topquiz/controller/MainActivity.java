@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String USERS = "USERS";
     private static final String ACCOUNT_CREATED = "ACCOUNT_CREATED";
 
-    private MainActivity mainActivity = this;
-
+    private final MainActivity mMainActivity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,16 +129,16 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 JSONObject errorJsonObject = new JSONObject(error.getErrorBody());
                                 if(errorJsonObject.has("error")){
-                                    Toast.makeText(mainActivity, getString(R.string.invalidCredentials), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mMainActivity, getString(R.string.invalidCredentials), Toast.LENGTH_SHORT).show();
                                 }
                                 else if(errorJsonObject.has("errors")){
                                     JSONObject errors =  errorJsonObject.getJSONObject("errors");
 
                                     if(errors.has("password")){
-                                        Toast.makeText(mainActivity, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mMainActivity, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
                                     }
                                     else if(errors.has("nickname")){
-                                        Toast.makeText(mainActivity, getString(R.string.ensureUsername), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mMainActivity, getString(R.string.ensureUsername), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }catch (JSONException err){
