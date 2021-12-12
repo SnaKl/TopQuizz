@@ -40,6 +40,7 @@ import com.neves.topquiz.model.QuestionBank;
 import com.neves.topquiz.model.User;
 
 public class CreateTheme extends AppCompatActivity {
+    public static final String USER = "USER";
     private static final String BUNDLE_STATE_QUESTION_BANK = "BUNDLE_STATE_QUESTION_BANK";
     private static final String BUNDLE_STATE_THEME_NAME = "BUNDLE_STATE_THEME_NAME" ;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
@@ -53,6 +54,7 @@ public class CreateTheme extends AppCompatActivity {
     private String mThemeName;
     private ViewGroup.LayoutParams btnParams;
     private Theme mTheme;
+    private User mUser;
     List<Theme> spinnerArray;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -60,6 +62,8 @@ public class CreateTheme extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_theme);
+
+
         findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
         mThemeInput = findViewById(R.id.autoCompleteTextView);
         mAddQuestionBtn = findViewById(R.id.create_theme_addQuestion_btn);
@@ -95,6 +99,9 @@ public class CreateTheme extends AppCompatActivity {
             System.out.println(getSpinnerIndex(mThemeInput,mTheme));*/
             mThemeInput.setText(mTheme.getTitle());
             questionsDisplay(mTheme);
+        }
+        if (intent.hasExtra(USER)) {
+            mUser = intent.getParcelableExtra(USER);
         }
 
         mThemeInput.setOnItemClickListener(new AdapterView.OnItemClickListener()  {

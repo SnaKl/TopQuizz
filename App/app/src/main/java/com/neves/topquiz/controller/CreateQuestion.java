@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +14,26 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.neves.topquiz.GlobalVariable;
+import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.Theme;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.User;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CreateQuestion extends AppCompatActivity {
     private EditText mQuestionInput;
@@ -25,11 +41,14 @@ public class CreateQuestion extends AppCompatActivity {
     private EditText mAnswer2Input;
     private EditText mAnswer3Input;
     private EditText mAnswer4Input;
+    private EditText mQstTitle;
     private ImageButton mEditImgBtn;
     private Button mSubmitQuestion;
     private LinearLayout mThemeNewQuestionContainer;
     private LayoutInflater flater;
+    private User mUser;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
+    public static final String USER = "USER";
     //private static final String ADDQST = "ADDQST";
     private Theme mTheme;
     //private int mNewQstNb;
@@ -37,11 +56,15 @@ public class CreateQuestion extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
+        if (intent.hasExtra(USER)) {
+            mUser = intent.getParcelableExtra(USER);
+        }
         if (intent.hasExtra(CHOSEN_THEME)) {
             mTheme = intent.getParcelableExtra(CHOSEN_THEME);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
+        mQstTitle = findViewById(R.id.create_question_title);
         mQuestionInput = findViewById(R.id.create_question_question_tv);
         mAnswer1Input = findViewById(R.id.create_question_answer1_input);
         mAnswer2Input = findViewById(R.id.create_question_answer2_input);
@@ -57,14 +80,7 @@ public class CreateQuestion extends AppCompatActivity {
             public void onClick(View v) {
                 System.out.println(mTheme.getTitle());
                 updateDB();
-                //mNewQstNb = mTheme.getQuestionNB()+1;
-                Intent CreateThemeActivity = new Intent(CreateQuestion.this, CreateTheme.class);
-                //CreateThemeActivity.putExtra(ADDQST, mNewQstNb);
-                //addQst to ThemeDB
-                CreateThemeActivity.putExtra(CHOSEN_THEME,mTheme);
-                startActivity(CreateThemeActivity);
-                //onCreateView();
-                finish();
+
             }
         });
 
@@ -77,32 +93,51 @@ public class CreateQuestion extends AppCompatActivity {
     }
 
     void updateDB(){
+        Theme theme = mTheme;
+        User userCreatedBy = new User(" ", " ", " ", " ");
+        String imgUrl = "";
+        String question = mQuestionInput.getText().toString();
+        String answer1 = mAnswer1Input.getText().toString();
+        String answer2 = mAnswer2Input.getText().toString();
+        String answer3 = mAnswer3Input.getText().toString();
+        String answer4 = mAnswer4Input.getText().toString();
+        String questionTitle = mQstTitle.getText().toString();
 
-        mTheme.setQuestionNB(mTheme.getQuestionNB()+1);
+        JSONObject answers = new JSONObject();
+        JSONArray answerList = new JSONArray();
+        answerList.put(answer1);
+        answerList.put(answer2);
+        answerList.put(answer3);
+        answerList.put(answer4);
+        AndroidNetworking.post(GlobalVariable.API_URL + "/api/question/")
+                        .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
+                        .addBodyParameter("theme",mTheme.getTitle())
+                        .addBodyParameter("description",question)
+                        .addBodyParameter("questionTitle",questionTitle)
+                        .addBodyParameter("correctAnswerIndex","0")
+                        .addBodyParameter("answerList", answerList.toString())
+                        //.setTag("setQuestions")
+                        .setPriority(Priority.LOW)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                goBackToThemeCreation();
+                            }
+
+                            @Override
+                            public void onError(ANError anError) {
+                                Log.d("getQuestions", anError.toString());
+                            }
+                        });
     }
-    /*@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private View onCreateView() {
-        flater = CreateQuestion.this.getLayoutInflater();
-        View rowView = flater.inflate(R.layout.activity_create_theme, null,true);
 
-        Button btn = (Button) rowView.findViewById(R.id.create_theme_question1_btn);
-        btn.setText("new");
-
-                *//*return rowView;
-                LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(CreateQuestion.LAYOUT_INFLATER_SERVICE);
-                View vi = inflater.inflate(R.layout.activity_create_theme, null); //log.xml is your file.
-                Button btn = (Button)vi.findViewById(R.id.create_theme_question1_btn);
-                btn.setText("new");
-                //findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
-                //Button myButton = new Button(CreateTheme.class);*//*
-        btn.setLayoutParams(findViewById(R.id.create_theme_question1_btn).getLayoutParams());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            btn.setTextColor(getColor(R.color.colorBlack));
-        }
-        btn.setBackground(getDrawable(R.drawable.container_answer_button_correct));
-
-        mThemeNewQuestionContainer.addView(btn);
-        return rowView;
-    }*/
+    private void goBackToThemeCreation(){
+        Intent CreateThemeActivity = new Intent(CreateQuestion.this, CreateTheme.class);
+        CreateThemeActivity.putExtra(CHOSEN_THEME,mTheme);
+        startActivity(CreateThemeActivity);
+        finish();
+    }
 
 }

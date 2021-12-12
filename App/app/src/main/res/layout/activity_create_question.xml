@@ -9,13 +9,13 @@
     android:orientation="vertical"
     tools:context="com.neves.topquiz.controller.GameActivity">
 
-    <TextView
-        android:id="@+id/create_question_title_tv"
+    <EditText
+        android:id="@+id/create_question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:autoSizeTextType="uniform"
-        android:text="@string/create_question_title"
+        android:hint="@string/create_question_title"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@+id/create_question_answers_lt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_question_title_tv">
+        app:layout_constraintTop_toBottomOf="@+id/create_question_title">
 
         <FrameLayout
             android:id="@+id/create_question_editImage_lt"
