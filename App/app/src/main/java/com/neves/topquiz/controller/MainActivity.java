@@ -23,11 +23,14 @@ import com.google.gson.Gson;
 import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Score;
+import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 mUser = new User(username, response.getString("token"), "", "");
+                                //getUser(response.getString("token"));
+                                //getUser(username, response.getString("token"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -148,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         });
+
 
         mAccountCreationBtn.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, CreateAccount.class));
