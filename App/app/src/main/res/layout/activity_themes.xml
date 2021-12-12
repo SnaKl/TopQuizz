@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_basic_gradient"
@@ -43,6 +44,7 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/themes_left_btn"
+                    android:visibility="invisible"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -52,15 +54,16 @@
                     android:elevation="8sp"
                     android:focusable="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/iv_office"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/themes_right_btn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
+                    app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/themes_right_btn"
+                    android:visibility="invisible"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -70,7 +73,6 @@
                     android:elevation="8sp"
                     android:focusable="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/iv_friends"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/themes_left_btn"
