@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -74,6 +75,7 @@ public class Themes extends AppCompatActivity {
                                 for (int i = 0 ; i < themes.length(); i++) {
                                     JSONObject theme = themes.getJSONObject(i);
                                     themeList.add(new Theme(GlobalVariable.API_URL + theme.getString("imageUrl"), theme.getString("title"), theme.getString("description"),theme.getInt("nbQuestion")));
+
                                 }
                                 createLayout(themeList);
                             } catch (JSONException | IOException e) {
@@ -87,6 +89,7 @@ public class Themes extends AppCompatActivity {
                         Log.d("themesError", error.toString());
                     }
                 });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -112,9 +115,12 @@ public class Themes extends AppCompatActivity {
             themeButton.setElevation(8);
             themeTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             themeTitle.setTypeface(themeTitle.getTypeface(), Typeface.BOLD);
-
+            themeTitle.setElevation(16);
             if(left && theme.equals(themeList.get(themeList.size() - 1))){
-
+                themeButton.setLayoutParams(new ViewGroup.LayoutParams(
+                        0,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+                themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 ConstraintLayout constraintLayout = row;
                 int rowId = View.generateViewId();
                 int themeButtonId = View.generateViewId();
@@ -130,8 +136,8 @@ public class Themes extends AppCompatActivity {
                 constraintSet.connect(titleId,ConstraintSet.BOTTOM,themeButtonId,ConstraintSet.BOTTOM,8);
                 constraintSet.connect(titleId,ConstraintSet.START,themeButtonId,ConstraintSet.START,0);
                 constraintSet.connect(titleId,ConstraintSet.END,themeButtonId,ConstraintSet.END,0);
-                constraintSet.connect(themeButtonId,ConstraintSet.START,rowId,constraintSet.START,32);
-                constraintSet.connect(themeButtonId,ConstraintSet.END,rowId,constraintSet.END,32);
+                constraintSet.connect(themeButtonId,ConstraintSet.START,rowId,constraintSet.START,96);
+                constraintSet.connect(themeButtonId,ConstraintSet.END,rowId,constraintSet.END,96);
                 constraintSet.applyTo(constraintLayout);
                 buttonList.add(themeButton);
                 listLayout.addView(row);
