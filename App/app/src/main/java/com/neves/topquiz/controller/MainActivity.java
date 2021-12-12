@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent mainMenuActivity = new Intent(MainActivity.this, MainMenu.class);
                             mainMenuActivity.putExtra(USER, mUser);
                             startActivity(mainMenuActivity);
+                            Log.d("token" , mUser.getJwtToken());
                             finish();
                         }
 
