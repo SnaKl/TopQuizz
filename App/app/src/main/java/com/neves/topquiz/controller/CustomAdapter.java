@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.neves.topquiz.model.Theme;
@@ -15,7 +16,7 @@ import com.neves.topquiz.model.Theme;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomAdapter extends ArrayAdapter {
+public class CustomAdapter extends BaseAdapter implements Filterable {
 
     private LayoutInflater flater;
     //private List<Theme> list;
@@ -29,7 +30,7 @@ public class CustomAdapter extends ArrayAdapter {
     public CustomAdapter(Activity context, int listItemLayoutResource,
                          int textViewItemNameId,
                          List<Theme> list) {
-        super(context, listItemLayoutResource, list);
+
         this.listItemLayoutResource = listItemLayoutResource;
         this.textViewItemNameId = textViewItemNameId;
         this.list = list;
@@ -72,9 +73,9 @@ public class CustomAdapter extends ArrayAdapter {
         protected void publishResults(CharSequence constraint, FilterResults results) {
             List<Theme> filteredList = (List<Theme>) results.values;
             if (results != null && results.count > 0) {
-                clear();
+                list.clear();
                 for (Theme t : filteredList) {
-                    add(t);
+                    list.add(t);
                     notifyDataSetChanged();
                 }
 
