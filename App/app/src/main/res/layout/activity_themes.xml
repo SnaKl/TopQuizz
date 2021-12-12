@@ -61,6 +61,16 @@
                     app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay"
                     tools:ignore="SpeakableTextPresentCheck" />
 
+                <TextView
+                    android:id="@+id/themes_leftThemeTitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="@+id/themes_left_btn"
+                    app:layout_constraintEnd_toEndOf="@+id/themes_left_btn"
+                    app:layout_constraintStart_toStartOf="@+id/themes_left_btn" />
+
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/themes_right_btn"
                     android:visibility="invisible"
@@ -78,6 +88,17 @@
                     app:layout_constraintStart_toEndOf="@id/themes_left_btn"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ImageAppearanceOverlay" />
+
+                <TextView
+                    android:id="@+id/themes_rightThemeTitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+
+                    android:textColor="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="@+id/themes_right_btn"
+                    app:layout_constraintEnd_toEndOf="@+id/themes_right_btn"
+                    app:layout_constraintStart_toStartOf="@+id/themes_right_btn" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
