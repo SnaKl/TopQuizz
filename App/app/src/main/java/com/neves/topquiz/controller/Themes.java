@@ -27,6 +27,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Themes extends AppCompatActivity {
     public static final String USER = "USER";
@@ -110,10 +112,31 @@ public class Themes extends AppCompatActivity {
             themeButton.setElevation(8);
             themeTitle.setTextColor(getResources().getColor(R.color.colorWhite));
             themeTitle.setTypeface(themeTitle.getTypeface(), Typeface.BOLD);
-            themeTitle.setElevation(16);
-            //
 
-            if(left) {
+            if(left && theme.equals(themeList.get(themeList.size() - 1))){
+
+                ConstraintLayout constraintLayout = row;
+                int rowId = View.generateViewId();
+                int themeButtonId = View.generateViewId();
+                int titleId = View.generateViewId();
+                row.setId(rowId);
+                row.addView(themeButton);
+                row.addView(themeTitle);
+                themeTitle.setShadowLayer(0.7f,1.5f,1.5f,R.color.colorBlack);
+                themeButton.setId(themeButtonId);
+                themeTitle.setId(titleId);
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                constraintSet.connect(titleId,ConstraintSet.BOTTOM,themeButtonId,ConstraintSet.BOTTOM,8);
+                constraintSet.connect(titleId,ConstraintSet.START,themeButtonId,ConstraintSet.START,0);
+                constraintSet.connect(titleId,ConstraintSet.END,themeButtonId,ConstraintSet.END,0);
+                constraintSet.connect(themeButtonId,ConstraintSet.START,rowId,constraintSet.START,32);
+                constraintSet.connect(themeButtonId,ConstraintSet.END,rowId,constraintSet.END,32);
+                constraintSet.applyTo(constraintLayout);
+                buttonList.add(themeButton);
+                listLayout.addView(row);
+            }
+            else if(left) {
                 themeButton.setLayoutParams(left_btn_mockup.getLayoutParams());
                 themeButton.setId(R.id.themes_left_btn);
                 themeButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -137,9 +160,7 @@ public class Themes extends AppCompatActivity {
                 row=createRow(row_mockup);
                 buttonList.add(themeButton);
             }
-        }
-        if(!left){
-            listLayout.addView(row);
+
         }
 
     }
@@ -175,27 +196,4 @@ public class Themes extends AppCompatActivity {
                 .setBottomLeftCornerSize(25)
                 .build());
     }
-
-    /*private class DownLoadImageTask extends AsyncTask<String,Void,Bitmap>{
-        ShapeableImageView imageView;
-
-        public DownLoadImageTask(ShapeableImageView imageView){
-            this.imageView = imageView;
-        }
-        protected Bitmap doInBackground(String...urls){
-            String urlOfImage = urls[0];
-            Bitmap logo = null;
-            try{
-                InputStream is = new URL(urlOfImage).openStream();
-                logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
-                e.printStackTrace();
-            }
-            return logo;
-        }
-        protected void onPostExecute(Bitmap result){
-            imageView.setImageBitmap(result);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        }
-    }*/
 }
