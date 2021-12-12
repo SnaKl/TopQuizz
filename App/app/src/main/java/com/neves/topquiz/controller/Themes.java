@@ -7,6 +7,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
 
@@ -182,20 +183,53 @@ public class Themes extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent GameActivity;
+
+                final Intent[] GameActivity = new Intent[1];
                 if(theme.getQuestionNB() == 0){
                     Toast.makeText(mThemes, getString(R.string.noQuestions), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(mMode.equals("GAME")){
-                    GameActivity = new Intent(Themes.this, GameActivity.class);
+                    GameActivity[0] = new Intent(Themes.this, GameActivity.class);
+                    GameActivity[0].putExtra(USER, mUser);
+                    GameActivity[0].putExtra(THEME, theme);
+                    startActivity(GameActivity[0]);
                 }else{
-                    GameActivity = new Intent(Themes.this, ValidateQuestion.class);
+                    AndroidNetworking.get(GlobalVariable.API_URL+"/api/question/vote/"+theme.getTitle()+"/nb")
+                            .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
+                            .setTag("getQuestionNbToValidate")
+                            .setPriority(Priority.HIGH)
+                            .build()
+                            .getAsJSONObject(new JSONObjectRequestListener() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        Integer nbQuestion = response.getInt("questionNb");
+                                        if(nbQuestion == 0 ){
+                                            Toast.makeText(mThemes, getString(R.string.noQuestionsToValidate), Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            theme.setQuestionNB(nbQuestion);
+                                            GameActivity[0] = new Intent(Themes.this, ValidateQuestion.class);
+                                            GameActivity[0].putExtra(USER, mUser);
+                                            GameActivity[0].putExtra(THEME, theme);
+                                            startActivity(GameActivity[0]);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(ANError error) {
+                                    Log.d("getQuestionNbToValidate", error.getErrorBody().toString());
+                                }
+                            });
+
+
                 }
-                GameActivity.putExtra(USER, mUser);
-                GameActivity.putExtra(THEME, theme);
-                startActivity(GameActivity);
+
             }
         });
     }

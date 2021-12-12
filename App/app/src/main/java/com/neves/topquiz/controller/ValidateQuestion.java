@@ -3,30 +3,41 @@ package com.neves.topquiz.controller;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
-import com.neves.topquiz.model.Score;
+import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
 
-import java.io.IOException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ValidateQuestion extends AppCompatActivity {
     public static final String USER = "USER";
+    public static final String THEME = "THEME";
 
     private User mUser;
+    private Theme mTheme;
     private Button mApprove;
     private Button mReject;
     private QuestionBank mQuestionBank;
@@ -39,8 +50,12 @@ public class ValidateQuestion extends AppCompatActivity {
     private Button mAnswerButton4;
     private ShapeableImageView mQuestionImageView;
 
-    private int mRemainingQuestionCount;
+    private String mCurrentQuestionId;
+
     private boolean mEnableTouchEvents;
+
+    private final ValidateQuestion mValidateQuestion = this;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,19 +64,16 @@ public class ValidateQuestion extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.hasExtra(USER)) {
-            mUser = intent.getParcelableExtra(USER);
+        if (!intent.hasExtra(USER)) {
+            this.finish();
         }
+        mUser = intent.getParcelableExtra(USER);
+        //mUser.initLastQuestionRecap();
 
-        mUser.initLastQuestionRecap();
-
-        try {
-            mQuestionBank = this.generateQuestions();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!intent.hasExtra(THEME)) {
+            this.finish();
         }
-
-        mRemainingQuestionCount = mQuestionBank.getSize();
+        mTheme = intent.getParcelableExtra(THEME);
 
         mEnableTouchEvents = true;
 
@@ -75,64 +87,23 @@ public class ValidateQuestion extends AppCompatActivity {
         mAnswerButton3 = findViewById(R.id.validate_question_answer3_btn);
         mAnswerButton4 = findViewById(R.id.validate_question_answer4_btn);
 
+        generateQuestion();
+
         //utiliser le principe de game activity pour faire défiler les questions
         mApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mettre à jour bdd questions bank + supprimer des questions à valider
-
-                mUser.addQuestionToQuestionRecap(mCurrentQuestion,true);
-
-                mEnableTouchEvents = false;
-                mRemainingQuestionCount--;
-
-                new Handler().postDelayed(() -> {
-                    mEnableTouchEvents = true;
-                    System.out.println(mRemainingQuestionCount);
-                    if (mRemainingQuestionCount > 0) {
-                        // If this is the last question, ends the game.
-                        // Else, display the next question.
-                        mCurrentQuestion = mQuestionBank.getNextQuestion();
-                        displayQuestion(mCurrentQuestion);
-                    } else {
-                        // No questions left, end the game
-                        //DELETE THIS THEME FROM THE ARRAY
-                        finish();
-                    }
-                }, 2000);
+                vote("upVote");
             }
         });
 
         mReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //supprimer des questions à valider
+                vote("downVote");
             }
         });
 
-        mCurrentQuestion = mQuestionBank.getNextQuestion();
-        this.displayQuestion(mCurrentQuestion);
-    }
-
-    //à enlever
-    private QuestionBank generateQuestions() throws IOException {
-
-        Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
-                Arrays.asList(getString(R.string.response11), getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)),
-                2);
-
-        Question question2 = new Question(null, null, null, "Question layout",(getString(R.string.question2)),
-                Arrays.asList(getString(R.string.response21), getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)),
-                2);
-
-        Question question3 = new Question(null, null, "https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg", "Question graphique",(getString(R.string.question3)),
-                Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
-                1);
-
-        return new QuestionBank(Arrays.asList(question1,
-                question2,
-                question3));
-        //return loadQuestions();
     }
 
     @Override
@@ -149,6 +120,71 @@ public class ValidateQuestion extends AppCompatActivity {
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
         new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+    }
+
+    private void vote(String choice){
+        AndroidNetworking.put(GlobalVariable.API_URL + "/api/question/vote/" + mCurrentQuestionId)
+                .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
+                .addBodyParameter("vote", choice)
+                .setTag("putQuestionToValidate")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        generateQuestion();
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        mValidateQuestion.finish();
+                    }
+                });
+    }
+
+    private void generateQuestion(){
+        AndroidNetworking.get(GlobalVariable.API_URL + "/api/question/vote/" + mTheme.getTitle())
+                .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
+                .setTag("getQuestionToValidate")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if(!response.has("question")){
+                                mValidateQuestion.finish();
+                                return;
+                            }
+
+                            JSONObject questionJSONObject = response.getJSONObject("question");
+                            JSONArray answerListJSONArray = questionJSONObject.getJSONArray("answerList");
+                            List<String> answerList = Arrays.asList(answerListJSONArray.getString(0), answerListJSONArray.getString(1), answerListJSONArray.getString(2), answerListJSONArray.getString(3));
+                            Collections.shuffle(answerList);
+                            Question question = new Question(
+                                    mTheme,
+                                    new User("UNKNOWN", "", "", ""),
+                                    questionJSONObject.getString("_id"),
+                                    questionJSONObject.getString("imageUrl"),
+                                    questionJSONObject.getString("questionTitle"),
+                                    questionJSONObject.getString("description"),
+                                    answerList,
+                                    questionJSONObject.getInt("correctAnswerIndex"));
+
+                            mCurrentQuestionId = question.getQuestionId();
+                            displayQuestion(question);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.d("validateQuestion", error.getErrorBody().toString());
+                    }
+                });
     }
 }
 

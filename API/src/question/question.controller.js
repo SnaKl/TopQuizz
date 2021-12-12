@@ -104,8 +104,10 @@ export async function putVoteQuestionById(req, res) {
 
 	if (vote === 'upVote') {
 		question.Validation.upVoteByUsers.push(userId);
+		question.Validation.totalUpVote += 1;
 	} else {
 		question.Validation.downVoteByUsers.push(userId);
+		question.Validation.totalDownVote += 1;
 	}
 	question.save();
 
