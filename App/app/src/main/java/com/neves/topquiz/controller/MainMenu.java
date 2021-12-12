@@ -85,8 +85,9 @@ public class MainMenu extends AppCompatActivity {
         mCreateQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent MyAccount = new Intent(MainMenu.this, CreateTheme.class);
-                startActivity(MyAccount);
+                Intent CreateTheme = new Intent(MainMenu.this, CreateTheme.class);
+                CreateTheme.putExtra(USER,mUser);
+                startActivity(CreateTheme);
             }
         });
 

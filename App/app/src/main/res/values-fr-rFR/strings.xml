@@ -61,7 +61,7 @@
     <string name="themes">Thèmes</string>
     <string name="validate_themes_title">Quiz à valider</string>
     <string name="create_question_title">Nouvelle question</string>
-    <string name="option1">Choix 1</string>
+    <string name="option1">Choix 1, mettez la bonne réponse dans ce champ</string>
     <string name="option2">Choix 2</string>
     <string name="option3">Choix 3</string>
     <string name="option4">Choix 4</string>

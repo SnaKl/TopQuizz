@@ -9,13 +9,13 @@
     android:orientation="vertical"
     tools:context="com.neves.topquiz.controller.GameActivity">
 
-    <TextView
-        android:id="@+id/create_question_title_tv"
+    <EditText
+        android:id="@+id/create_question_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:autoSizeTextType="uniform"
-        android:text="@string/create_question_title"
+        android:hint="@string/create_question_title"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@+id/create_question_answers_lt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_question_title_tv">
+        app:layout_constraintTop_toBottomOf="@+id/create_question_title">
 
         <FrameLayout
             android:id="@+id/create_question_editImage_lt"
@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_baseline_image"
+                app:srcCompat="@drawable/iv_image_not_found"
                 app:shapeAppearanceOverlay="@style/ImageHalfAppearanceOverlay" />
             <ImageButton
                 android:id="@+id/create_question_editImage_btn"
@@ -103,11 +103,10 @@
         android:layout_height="wrap_content"
         app:flexDirection="column"
         app:justifyContent="space_around"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/create_questions_submitQuestion_btn"
         app:layout_constraintEnd_toEndOf="@+id/create_question_imageAndQuestion_lt"
         app:layout_constraintStart_toStartOf="@+id/create_question_imageAndQuestion_lt"
         app:layout_constraintTop_toBottomOf="@+id/create_question_imageAndQuestion_lt">
-
         <EditText
             android:id="@+id/create_question_answer1_input"
             android:layout_width="match_parent"
@@ -123,6 +122,7 @@
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorHint" />
+
 
         <EditText
             android:id="@+id/create_question_answer2_input"
