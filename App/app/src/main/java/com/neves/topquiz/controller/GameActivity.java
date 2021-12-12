@@ -34,6 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -186,14 +189,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             } else {
                                 for (int i = 0; i < questionsJSONArray.length(); i++) {
                                     JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
-                                    JSONArray answerList = questionJSONObject.getJSONArray("answerList");
+                                    JSONArray answerListJSONArray = questionJSONObject.getJSONArray("answerList");
+                                    List<String> answerList = Arrays.asList(answerListJSONArray.getString(0), answerListJSONArray.getString(1), answerListJSONArray.getString(2), answerListJSONArray.getString(3));
+                                    Collections.shuffle(answerList);
                                     Question question = new Question(
                                             mTheme,
                                             mUser,
                                             questionJSONObject.getString("imageUrl"),
                                             questionJSONObject.getString("questionTitle"),
                                             questionJSONObject.getString("description"),
-                                            Arrays.asList(answerList.getString(0), answerList.getString(1), answerList.getString(2), answerList.getString(3)),
+                                            answerList,
                                             questionJSONObject.getInt("correctAnswerIndex"));
                                     mQuestionBank.addQuestion(question);
                                 }
@@ -201,7 +206,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                 mGameActivity.displayQuestion(mCurrentQuestion);
                             }
                         } catch (JSONException jsonException) {
-                            jsonException.printStackTrace();
                             Log.d("getQuestions", jsonException.toString());
                         }
                     }
