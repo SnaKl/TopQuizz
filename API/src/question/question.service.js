@@ -6,6 +6,7 @@ const project = {
 	description: 1,
 	answerList: 1,
 	correctAnswerIndex: 1,
+	questionTitle: 1,
 	Vote: {
 		$let: {
 			vars: {
@@ -44,6 +45,7 @@ export async function createQuestion(
 	theme,
 	_createdBy,
 	description,
+	questionTitle,
 	answerList,
 	correctAnswerIndex,
 	imageUrl,
@@ -55,6 +57,7 @@ export async function createQuestion(
 		_createdBy,
 		imageUrl,
 		description,
+		questionTitle,
 		answerList,
 		correctAnswerIndex,
 	});

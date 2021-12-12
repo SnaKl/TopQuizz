@@ -6,7 +6,13 @@ import * as ThemeService from '../theme/theme.service';
 export async function createQuestion(req, res) {
 	const file = req.file;
 
-	var { themeTitle, description, answerList, correctAnswerIndex } = req.body;
+	var {
+		themeTitle,
+		description,
+		questionTitle,
+		answerList,
+		correctAnswerIndex,
+	} = req.body;
 
 	if (!themeTitle) {
 		if (file) fs.unlinkSync(file.path);
@@ -26,6 +32,11 @@ export async function createQuestion(req, res) {
 	if (!description) {
 		if (file) fs.unlinkSync(file.path);
 		return res.status(400).send('you need to provide a description');
+	}
+
+	if (!questionTitle) {
+		if (file) fs.unlinkSync(file.path);
+		return res.status(400).send('you need to provide a question title');
 	}
 
 	if (!answerList) {
@@ -60,6 +71,7 @@ export async function createQuestion(req, res) {
 			theme,
 			req.user.id,
 			description,
+			questionTitle,
 			answerList,
 			correctAnswerIndex,
 			path,
