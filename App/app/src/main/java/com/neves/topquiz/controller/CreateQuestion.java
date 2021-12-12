@@ -121,6 +121,7 @@ public class CreateQuestion extends AppCompatActivity {
     private void goBackToThemeCreation(){
         Intent CreateThemeActivity = new Intent(CreateQuestion.this, CreateTheme.class);
         CreateThemeActivity.putExtra(CHOSEN_THEME,mTheme);
+        CreateThemeActivity.putExtra(USER,mUser);
         startActivity(CreateThemeActivity);
         finish();
     }

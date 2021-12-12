@@ -317,6 +317,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateTheme extends AppCompatActivity {
+    private static final String USER = "USER";
     private static final String BUNDLE_STATE_QUESTION_BANK = "BUNDLE_STATE_QUESTION_BANK";
     private static final String BUNDLE_STATE_THEME_NAME = "BUNDLE_STATE_THEME_NAME" ;
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
@@ -332,6 +333,7 @@ public class CreateTheme extends AppCompatActivity {
     private Theme mTheme;
     List<Theme> spinnerArray;
     List<Theme> themeList= new ArrayList<>();
+    User mUser;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -370,6 +372,9 @@ public class CreateTheme extends AppCompatActivity {
             System.out.println(getSpinnerIndex(mThemeInput,mTheme));*/
             mThemeInput.setText(mTheme.getTitle());
             questionsDisplay(mTheme);
+        }
+        if(intent.hasExtra(USER)){
+            mUser=intent.getParcelableExtra(USER);
         }
 
         mThemeInput.setOnTouchListener(new View.OnTouchListener(){
@@ -430,6 +435,7 @@ public class CreateTheme extends AppCompatActivity {
             public void onClick(View v) {
                 Intent AddQuestion = new Intent(CreateTheme.this, CreateQuestion.class);
                 AddQuestion.putExtra(CHOSEN_THEME, mTheme);
+                AddQuestion.putExtra(USER,mUser);
                 startActivity(AddQuestion);
                 finish();
             }
