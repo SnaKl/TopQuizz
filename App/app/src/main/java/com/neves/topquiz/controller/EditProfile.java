@@ -2,19 +2,33 @@ package com.neves.topquiz.controller;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,14 +72,17 @@ public class EditProfile extends AppCompatActivity {
         new DownLoadImageTask(mProfPic).execute(mUser.getAvatar());
 
         mValidateBtn.setOnClickListener(v -> {
+            Log.d("test button", "BUTTON CLICK");
             String username = mUsername.getText().toString();
             String mail = mMail.getText().toString();
             String confirmMail = mMail.getText().toString();
             String password = mPassword.getText().toString();
             String confirmPassword = mConfirmPassword.getText().toString();
+            // GET USER NAME
+
             if(username.length()==0 || mail.length()==0 || confirmMail.length()==0 || password.length()==0 || confirmPassword.length() == 0){
                 Toast.makeText(this, getString(R.string.ensureInput), Toast.LENGTH_SHORT).show();
-            }else if(!mail.equals(confirmMail)){
+          /*  }else if(!mail.equals(confirmMail)){
                 Toast.makeText(this, getString(R.string.ensureMail), Toast.LENGTH_SHORT).show();
             }else if(!password.equals(confirmPassword)){
                 Toast.makeText(this, getString(R.string.ensurePassword), Toast.LENGTH_SHORT).show();
@@ -74,12 +91,38 @@ public class EditProfile extends AppCompatActivity {
             }else if(password.length()<4 || password.length()>30){
                 Toast.makeText(this, getString(R.string.ensurePasswordLength), Toast.LENGTH_SHORT).show();
             }else if(!checkPassWordRequirements(password)){
-                Toast.makeText(this, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();*/
             }else{
                 //MODIFIER LE USER AVEC LES INFOS
+                //selectionne image gallerie
+                AndroidNetworking.put(GlobalVariable.API_URL+"/api/user/")
+                        .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
+                        .addBodyParameter("email", mMail.getText().toString())
+                        .setPriority(Priority.HIGH)
+                        .build()
+                        .getAsJSONObject(new JSONObjectRequestListener() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // do anything with response
+                                Log.d("in respnse ", "WE'RE IN");
+                                try {
+                                    Log.d("email", response.getJSONObject("user").getString("nickname"));
+                                } catch (JSONException jsonException) {
+                                    jsonException.printStackTrace();
+                                }
+
+                            }
+                            @Override
+                            public void onError(ANError error) {
+                                // handle error
+                                Log.d("In error", error.getErrorBody());
+                            }
+                        });
                 Intent ProfileIntent = new Intent(EditProfile.this, Profile.class);
+                ProfileIntent.putExtra(USER,mUser);
                 startActivity(ProfileIntent);
                 finish();
+
             }
         });
 
@@ -87,8 +130,6 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImg();
-                //selectionne image gallerie
-                //mettre Ã  jour bdd
             }
         });
 
@@ -114,6 +155,7 @@ public class EditProfile extends AppCompatActivity {
         return m.find();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -123,6 +165,21 @@ public class EditProfile extends AppCompatActivity {
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
                     mProfPic.setImageURI(selectedImageUri);
+                    AndroidNetworking.put(GlobalVariable.API_URL+"/api/avatar")
+                            .addBodyParameter("avatar", mProfPic.getTransitionName())
+                            .setPriority(Priority.HIGH)
+                            .build()
+                            .getAsJSONObject(new JSONObjectRequestListener() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    // do anything with response
+
+                                }
+                                @Override
+                                public void onError(ANError error) {
+                                    // handle error
+                                }
+                            });
                 }
             }
         }
