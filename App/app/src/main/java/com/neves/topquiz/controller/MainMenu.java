@@ -110,7 +110,6 @@ public class MainMenu extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject user = response.getJSONObject("user");
-                            System.out.println(user.getString("avatar"));
                             String email = user.getString("email");
                             String avatar = user.getString("avatar");
                             if(email!=null){
@@ -119,7 +118,6 @@ public class MainMenu extends AppCompatActivity {
                             if(avatar!=null){
                                 mUser.setAvatar(avatar);
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
