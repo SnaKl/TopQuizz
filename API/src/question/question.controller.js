@@ -84,6 +84,82 @@ export async function createQuestion(req, res) {
 	res.status(201).end();
 }
 
+export async function putVoteQuestionById(req, res) {
+	const { vote } = req.body;
+	const { questionId } = req.params;
+	const userId = req.user.id;
+
+	var question = await QuestionService.findQuestion(
+		{
+			_id: questionId,
+			_createdBy: { $ne: userId },
+			'Validation.upVoteByUsers': { $ne: userId },
+			'Validation.downVoteByUsers': { $ne: userId },
+		},
+		'',
+		1,
+	);
+
+	if (!question) return res.status(400).end();
+
+	if (vote === 'upVote') {
+		question.Validation.upVoteByUsers.push(userId);
+	} else {
+		question.Validation.downVoteByUsers.push(userId);
+	}
+	question.save();
+
+	res.json(question);
+}
+
+export async function getQuestionToValidate(req, res) {
+	const userId = req.user.id;
+
+	const theme = await ThemeService.findTheme(
+		{ title: req.params.theme },
+		'_id',
+		1,
+	);
+
+	if (!theme)
+		return res.status(400).send('You need to provide a valide theme');
+
+	const question = await QuestionService.findQuestion(
+		{
+			_themeID: theme._id,
+			_createdBy: { $ne: userId },
+			'Validation.upVoteByUsers': { $ne: userId },
+			'Validation.downVoteByUsers': { $ne: userId },
+		},
+		'',
+		1,
+	);
+
+	res.json({ question });
+}
+
+export async function getQuestionNbToValidate(req, res) {
+	const userId = req.user.id;
+
+	const theme = await ThemeService.findTheme(
+		{ title: req.params.theme },
+		'_id',
+		1,
+	);
+
+	if (!theme)
+		return res.status(400).send('You need to provide a valide theme');
+
+	const questionNb = await QuestionService.countQuestionToValidate({
+		_themeID: theme._id,
+		_createdBy: { $ne: userId },
+		'Validation.upVoteByUsers': { $ne: userId },
+		'Validation.downVoteByUsers': { $ne: userId },
+	});
+
+	res.json({ questionNb });
+}
+
 //TODO getQuestionById
 export async function getQuestionById(req, res) {
 	throw new Error('Function not implemented.');

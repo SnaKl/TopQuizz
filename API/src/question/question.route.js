@@ -44,6 +44,30 @@ router.get(
 	QuestionController.getRandomQuestionsByTheme,
 );
 
+router.put(
+	'/vote/:questionId',
+	Auth,
+	QuestionValidator.putVoteQuestionById(),
+	Validator,
+	QuestionController.putVoteQuestionById,
+);
+
+router.get(
+	'/vote/:theme',
+	Auth,
+	QuestionValidator.getQuestionToValidate(),
+	Validator,
+	QuestionController.getQuestionToValidate,
+);
+
+router.get(
+	'/vote/:theme/nb',
+	Auth,
+	QuestionValidator.getQuestionToValidate(),
+	Validator,
+	QuestionController.getQuestionNbToValidate,
+);
+
 /**
  * @route DELETE api/question/:themeID
  * @desc delete question by theme
