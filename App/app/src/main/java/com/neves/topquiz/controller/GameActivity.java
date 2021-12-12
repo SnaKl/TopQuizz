@@ -12,13 +12,19 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
@@ -26,10 +32,16 @@ import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.User;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -67,8 +79,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mUser.setScore(new Score(null,0));
         mUser.initLastQuestionRecap();
 
-        deleteFile();
-
         if (savedInstanceState != null) {
             mUser.setScore(new Score(null, savedInstanceState.getInt(BUNDLE_STATE_SCORE)));
             mRemainingQuestionCount = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
@@ -77,11 +87,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             mUser.setScore(new Score(null, 0));
             mRemainingQuestionCount = 4; // A AUGMENTER ICI POUR AUGMENTER LE NOMBRE DE QUESTIONS PAR PARTIE
+            /*
             try {
                 mQuestionBank = this.generateQuestions();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            */
+
+            generateQuestions();
         }
 
         mEnableTouchEvents = true;
@@ -132,7 +146,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * Créer la banque de question
      *
      * @return une liste de question
-     */
     private QuestionBank generateQuestions() throws IOException {
 
         Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
@@ -166,6 +179,50 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 question5,
                 question6));
         //return loadQuestions();
+    }
+    */
+
+    public void generateQuestions(){
+        List<Question> questionList = new ArrayList<>();
+
+        AndroidNetworking.get(GlobalVariable.API_URL+"/api/question/randomQuestion/Colin/5")
+                .setTag("test")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            JSONArray jsonArray = response.getJSONArray("questions");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                // Log.d("getQuestions", jsonArray.getJSONObject(i).toString());
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                List<String> answerList = new ArrayList<>();
+                                JSONArray array = object.getJSONArray("answerList");
+                                questionList.add(new Question(
+                                        "Colin",
+                                        null,
+                                        object.getString("imageUrl"),
+                                        object.getString("description"),
+                                        Arrays.asList(array.getString(0), array.getString(1), array.getString(2), array.getString(3)),
+                                        object.getInt("correctAnswerIndex")
+                                ));
+                                Log.d("QuestionItem", questionList.get(i).getAnswerList().get(2) + " - " +questionList.get(i).getAnswerList().get(0));
+                            }
+                            mQuestionBank = new QuestionBank(questionList);
+                            // Log.d("QUESTIONBANK", String.valueOf(mQuestionBank.getSize()));
+                        }catch (JSONException jsonException){
+                            jsonException.printStackTrace();
+                        }
+
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        Log.d("callAPI", anError.toString());
+                        Log.d("callAPI", "ERROR");
+                    }
+                });
+        //return new QuestionBank(questionList);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
