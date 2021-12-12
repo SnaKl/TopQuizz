@@ -2,30 +2,51 @@ package com.neves.topquiz.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class QuestionBank implements Parcelable{
+public class QuestionBank implements Parcelable {
 
-    private List<Question> mQuestionList;
+    public static final Parcelable.Creator<QuestionBank> CREATOR
+            = new Parcelable.Creator<QuestionBank>() {
+        public QuestionBank createFromParcel(Parcel in) {
+            return new QuestionBank(in);
+        }
 
-    private int mNextQuestionIndex;
-
+        public QuestionBank[] newArray(int size) {
+            return new QuestionBank[size];
+        }
+    };
     private static final int mSize = 10;
+    private List<Question> mQuestionList;
+    private int mNextQuestionIndex;
 
     /**
      * Constructeur
+     *
      * @param questionList : Liste de questions
      */
     public QuestionBank(List<Question> questionList) {
         mQuestionList = questionList;
-        Collections.shuffle(mQuestionList);
+        //Collections.shuffle(mQuestionList);
         mNextQuestionIndex = 0;
     }
 
+    public QuestionBank() {
+        mQuestionList = new ArrayList<>();
+        mNextQuestionIndex = 0;
+    }
+
+    private QuestionBank(Parcel in) {
+        mQuestionList = new ArrayList<>();
+        in.readList(mQuestionList, Question.class.getClassLoader());
+        mNextQuestionIndex = in.readInt();
+    }
+
+    public void addQuestion(Question question) {
+        mQuestionList.add(question);
+    }
 
     /**
      * Implémentation de Parcelable
@@ -39,25 +60,9 @@ public class QuestionBank implements Parcelable{
         out.writeInt(mNextQuestionIndex);
     }
 
-    public static final Parcelable.Creator<QuestionBank> CREATOR
-            = new Parcelable.Creator<QuestionBank>() {
-        public QuestionBank createFromParcel(Parcel in) {
-            return new QuestionBank(in);
-        }
-
-        public QuestionBank[] newArray(int size) {
-            return new QuestionBank[size];
-        }
-    };
-
-    private QuestionBank(Parcel in) {
-        mQuestionList = new ArrayList<>();
-        in.readList(mQuestionList, Question.class.getClassLoader());
-        mNextQuestionIndex = in.readInt();
-    }
-
     /**
      * Permet de récupérer la liste de questions
+     *
      * @return : la liste de questions
      */
     public List<Question> getQuestionList() {
@@ -70,6 +75,7 @@ public class QuestionBank implements Parcelable{
 
     /**
      * Permet de récupérer l'indice de la prochaine question
+     *
      * @return : l'indice de la prochaine question
      */
     public int getNextQuestionIndex() {
@@ -78,6 +84,7 @@ public class QuestionBank implements Parcelable{
 
     /**
      * Permet d'ajouter un  au score
+     *
      * @param nextQuestionIndex : est le thème du score
      */
     public void setNextQuestionIndex(int nextQuestionIndex) {
@@ -86,6 +93,7 @@ public class QuestionBank implements Parcelable{
 
     /**
      * Permet de récupérer la taille de la banque de questions
+     *
      * @return : la taille de la banque de questions
      */
     public int getSize() {
@@ -94,6 +102,7 @@ public class QuestionBank implements Parcelable{
 
     /**
      * Renvoie la question actuelle de la liste
+     *
      * @return : la question actuelle de la liste
      */
     public Question getCurrentQuestion() {
@@ -102,6 +111,7 @@ public class QuestionBank implements Parcelable{
 
     /**
      * Renvoie la question suivante de la liste
+     *
      * @return : la question suivante de la liste
      */
     public Question getNextQuestion() {
@@ -114,9 +124,10 @@ public class QuestionBank implements Parcelable{
 
     /**
      * Permet l'ajout d'une question à la banque
+     *
      * @param question : est la question à ajouter
      */
-    public void setQuestion(Question question){
+    public void setQuestion(Question question) {
         mQuestionList.add(question);
         mNextQuestionIndex++;
     }

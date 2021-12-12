@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
@@ -47,6 +48,8 @@ public class Themes extends AppCompatActivity {
     private static final String MODE = "MODE";
     private User mUser;
     private String mMode;
+
+    private final Themes mThemes = this;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -75,7 +78,6 @@ public class Themes extends AppCompatActivity {
                                 for (int i = 0 ; i < themes.length(); i++) {
                                     JSONObject theme = themes.getJSONObject(i);
                                     themeList.add(new Theme(GlobalVariable.API_URL + theme.getString("imageUrl"), theme.getString("title"), theme.getString("description"),theme.getInt("nbQuestion")));
-
                                 }
                                 createLayout(themeList);
                             } catch (JSONException | IOException e) {
@@ -181,6 +183,11 @@ public class Themes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent GameActivity;
+                if(theme.getQuestionNB() == 0){
+                    Toast.makeText(mThemes, getString(R.string.noQuestions), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(mMode.equals("GAME")){
                     GameActivity = new Intent(Themes.this, GameActivity.class);
                 }else{

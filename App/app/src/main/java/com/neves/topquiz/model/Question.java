@@ -37,26 +37,6 @@ public class Question implements Parcelable {
         }
     }
 
-    /**
-     * Constructeur
-     * @param themeTitle : le thème de la question
-     * @param author : l'auteur de la question
-     * @param image : l'image de la question
-     * @param question : la question
-     * @param answerList : la liste des réponses possibles
-     * @param answerIndex : le numéro de la réponse correcte
-     */
-    public Question(String themeTitle, User author, String image, String question, List<String> answerList, int answerIndex) {
-        if ((answerIndex >= 0 && answerIndex < 4) && (answerList.size() != 0) && question.length() > 0) {
-            mThemeTitle = themeTitle;
-            mCreatedBy = author;
-            mImageUrl = image;
-            mQuestion = question;
-            mAnswerList = answerList;
-            mAnswerIndex = answerIndex;
-        }
-    }
-
     protected Question(Parcel in) {
         mTheme = in.readParcelable(Theme.class.getClassLoader());
         mCreatedBy = in.readParcelable(User.class.getClassLoader());

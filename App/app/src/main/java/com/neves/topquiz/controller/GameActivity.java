@@ -1,14 +1,8 @@
 package com.neves.topquiz.controller;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -29,30 +26,26 @@ import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
 import com.neves.topquiz.model.Score;
+import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String BUNDLE_STATE_SCORE = "BUNDLE_STATE_SCORE";
     public static final String BUNDLE_STATE_QUESTION = "BUNDLE_STATE_QUESTION";
     public static final String BUNDLE_QUESTION_BANK = "BUNDLE_QUESTION_BANK";
-    public static final String MY_FILE_NAME = "questions.txt";
     public static final String USER = "USER";
-
+    public static final String THEME = "THEME";
+    private final GameActivity mGameActivity = this;
     private User mUser;
-    private QuestionBank mQuestionBank;
+    private Theme mTheme;
+    private final QuestionBank mQuestionBank = new QuestionBank();
     private Question mCurrentQuestion;
     private TextView mQuestionTitle;
     private TextView mQuestionTextView;
@@ -61,7 +54,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button mAnswerButton3;
     private Button mAnswerButton4;
     private ShapeableImageView mQuestionImageView;
-
     private int mRemainingQuestionCount;
     private boolean mEnableTouchEvents;
 
@@ -73,27 +65,27 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
 
-        if (intent.hasExtra(USER)) {
-            mUser = intent.getParcelableExtra(USER);
+        if (!intent.hasExtra(USER)) {
+            this.finish();
         }
-        mUser.setScore(new Score(null,0));
+        mUser = intent.getParcelableExtra(USER);
+        mUser.setScore(new Score(null, 0));
         mUser.initLastQuestionRecap();
+
+        if (!intent.hasExtra(THEME)) {
+            this.finish();
+        }
+        mTheme = intent.getParcelableExtra(THEME);
+
 
         if (savedInstanceState != null) {
             mUser.setScore(new Score(null, savedInstanceState.getInt(BUNDLE_STATE_SCORE)));
             mRemainingQuestionCount = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
-            mQuestionBank = savedInstanceState.getParcelable(BUNDLE_QUESTION_BANK);
-            mQuestionBank.setNextQuestionIndex(mQuestionBank.getSize() - mRemainingQuestionCount);
+            //mQuestionBank = savedInstanceState.getParcelable(BUNDLE_QUESTION_BANK);
+            //mQuestionBank.setNextQuestionIndex(mQuestionBank.getSize() - mRemainingQuestionCount);
         } else {
             mUser.setScore(new Score(null, 0));
             mRemainingQuestionCount = 4; // A AUGMENTER ICI POUR AUGMENTER LE NOMBRE DE QUESTIONS PAR PARTIE
-            /*
-            try {
-                mQuestionBank = this.generateQuestions();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            */
 
             generateQuestions();
         }
@@ -118,8 +110,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton3.setTag(2);
         mAnswerButton4.setTag(3);
 
-        mCurrentQuestion = mQuestionBank.getNextQuestion();
-        this.displayQuestion(mCurrentQuestion);
+        //mCurrentQuestion = mQuestionBank.getNextQuestion();
+        //this.displayQuestion(mCurrentQuestion);
     }
 
     /**
@@ -128,7 +120,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * @param question : object question
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void displayQuestion(final Question question) {
+    public final void displayQuestion(final Question question) {
         mQuestionTitle.setText(question.getQuestionTitle());
         mQuestionTextView.setText(question.getQuestion());
         mAnswerButton1.setText(question.getAnswerList().get(0));
@@ -138,91 +130,88 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
     }
 
-    private void deleteFile() {
-        deleteFile(MY_FILE_NAME);
-    }
 
     /**
      * Créer la banque de question
      *
      * @return une liste de question
-    private QuestionBank generateQuestions() throws IOException {
+     * private QuestionBank generateQuestions() throws IOException {
+     * <p>
+     * Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
+     * Arrays.asList(getString(R.string.response11), getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)),
+     * 2);
+     * <p>
+     * Question question2 = new Question(null, null, null, "Question layout",(getString(R.string.question2)),
+     * Arrays.asList(getString(R.string.response21), getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)),
+     * 2);
+     * <p>
+     * Question question3 = new Question(null, null, "https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg", "Question graphique",(getString(R.string.question3)),
+     * Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
+     * 1);
+     * <p>
+     * Question question4 = new Question(null, null, null, "Question XML",(getString(R.string.question4)),
+     * Arrays.asList(getString(R.string.response41), getString(R.string.response42), getString(R.string.response43), getString(R.string.response44)),
+     * 0);
+     * <p>
+     * Question question5 = new Question(null, null, null,"Question architecture" ,(getString(R.string.question5)),
+     * Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
+     * 0);
+     * <p>
+     * Question question6 = new Question(null, null, null, "Question de beauté" ,("Qui est le plus beau de la classe"),
+     * Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
+     * 0);
+     * <p>
+     * return new QuestionBank(Arrays.asList(question1,
+     * question2,
+     * question3,
+     * question4,
+     * question5,
+     * question6));
+     * //return loadQuestions();
+     * }
+     */
 
-        Question question1 = new Question(null, null, "https://i.ibb.co/kSLD4RJ/iv-office.png", "Question historique",(getString(R.string.question1)),
-                Arrays.asList(getString(R.string.response11), getString(R.string.response12), getString(R.string.response13), getString(R.string.response14)),
-                2);
-
-        Question question2 = new Question(null, null, null, "Question layout",(getString(R.string.question2)),
-                Arrays.asList(getString(R.string.response21), getString(R.string.response22), getString(R.string.response23), getString(R.string.response24)),
-                2);
-
-        Question question3 = new Question(null, null, "https://i.ibb.co/ys7B1MW/iv-bigbangtheory.jpg", "Question graphique",(getString(R.string.question3)),
-                Arrays.asList(getString(R.string.response31), getString(R.string.response32), getString(R.string.response33), getString(R.string.response34)),
-                1);
-
-        Question question4 = new Question(null, null, null, "Question XML",(getString(R.string.question4)),
-                Arrays.asList(getString(R.string.response41), getString(R.string.response42), getString(R.string.response43), getString(R.string.response44)),
-                0);
-
-        Question question5 = new Question(null, null, null,"Question architecture" ,(getString(R.string.question5)),
-                Arrays.asList(getString(R.string.response51), getString(R.string.response52), getString(R.string.response53), getString(R.string.response54)),
-                0);
-
-        Question question6 = new Question(null, null, null, "Question de beauté" ,("Qui est le plus beau de la classe"),
-                Arrays.asList("Richard", "Rochard", "Ricardo", "Abarna"),
-                0);
-
-        return new QuestionBank(Arrays.asList(question1,
-                question2,
-                question3,
-                question4,
-                question5,
-                question6));
-        //return loadQuestions();
-    }
-    */
-
-    public void generateQuestions(){
-        List<Question> questionList = new ArrayList<>();
-
-        AndroidNetworking.get(GlobalVariable.API_URL+"/api/question/randomQuestion/Colin/5")
-                .setTag("test")
+    public void generateQuestions() {
+        AndroidNetworking.get(GlobalVariable.API_URL + "/api/question/randomQuestion/" + mTheme.getTitle() + "/"+mRemainingQuestionCount)
+                .setTag("getQuestions")
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onResponse(JSONObject response) {
-                        try{
-                            JSONArray jsonArray = response.getJSONArray("questions");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                // Log.d("getQuestions", jsonArray.getJSONObject(i).toString());
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                List<String> answerList = new ArrayList<>();
-                                JSONArray array = object.getJSONArray("answerList");
-                                questionList.add(new Question(
-                                        "Colin",
-                                        null,
-                                        object.getString("imageUrl"),
-                                        object.getString("description"),
-                                        Arrays.asList(array.getString(0), array.getString(1), array.getString(2), array.getString(3)),
-                                        object.getInt("correctAnswerIndex")
-                                ));
-                                Log.d("QuestionItem", questionList.get(i).getAnswerList().get(2) + " - " +questionList.get(i).getAnswerList().get(0));
+                        try {
+                            JSONArray questionsJSONArray = response.getJSONArray("questions");
+                            if (questionsJSONArray.length() == 0) {
+                                Toast.makeText(mGameActivity, getString(R.string.noQuestions), Toast.LENGTH_SHORT).show();
+                                mGameActivity.finish();
+                            } else {
+                                for (int i = 0; i < questionsJSONArray.length(); i++) {
+                                    JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
+                                    JSONArray answerList = questionJSONObject.getJSONArray("answerList");
+                                    Question question = new Question(
+                                            mTheme,
+                                            mUser,
+                                            questionJSONObject.getString("imageUrl"),
+                                            questionJSONObject.getString("questionTitle"),
+                                            questionJSONObject.getString("description"),
+                                            Arrays.asList(answerList.getString(0), answerList.getString(1), answerList.getString(2), answerList.getString(3)),
+                                            questionJSONObject.getInt("correctAnswerIndex"));
+                                    mQuestionBank.addQuestion(question);
+                                }
+                                mGameActivity.displayQuestion(mQuestionBank.getCurrentQuestion());
                             }
-                            mQuestionBank = new QuestionBank(questionList);
-                            // Log.d("QUESTIONBANK", String.valueOf(mQuestionBank.getSize()));
-                        }catch (JSONException jsonException){
+                        } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
+                            Log.d("getQuestions", jsonException.toString());
                         }
-
                     }
+
                     @Override
                     public void onError(ANError anError) {
-                        Log.d("callAPI", anError.toString());
-                        Log.d("callAPI", "ERROR");
+                        Log.d("getQuestions", anError.toString());
                     }
                 });
-        //return new QuestionBank(questionList);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -233,11 +222,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (responseIndex == mCurrentQuestion.getAnswerIndex()) {
             mUser.incrementScore();
             handleButtonColor(responseIndex, true);
-            mUser.addQuestionToQuestionRecap(mCurrentQuestion,true);
+            mUser.addQuestionToQuestionRecap(mCurrentQuestion, true);
             Toast.makeText(this, getString(R.string.rightAnswer), Toast.LENGTH_SHORT).show();
         } else {
             handleButtonColor(responseIndex, false);
-            mUser.addQuestionToQuestionRecap(mCurrentQuestion,false);
+            mUser.addQuestionToQuestionRecap(mCurrentQuestion, false);
             Toast.makeText(this, getString(R.string.wrongAnswer), Toast.LENGTH_SHORT).show();
         }
 
@@ -331,9 +320,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void finish() {
         Intent intent = getIntent();
-        if (intent != null){
+        if (intent != null) {
             User user = intent.getParcelableExtra(USER);
-            if (user != null){
+            if (user != null) {
                 user.setScore(mUser.getScore());
                 intent.putExtra(USER, user);
             }

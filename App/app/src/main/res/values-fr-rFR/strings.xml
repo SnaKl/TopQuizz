@@ -83,5 +83,6 @@
     <string name="ensurePasswordRequirements">Le mot de passe doit avoir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</string>
     <string name="ensureMailRequirements">Insérez un format d\'adresse mail valide !</string>
     <string name="invalidCredentials">Informations d\'identification invalides</string>
+    <string name="noQuestions">Aucune questions valide pour ce thème</string>
 
 </resources>
