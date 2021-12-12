@@ -75,4 +75,13 @@
     <string name="wrongMail">Les mails ne sont pas les mêmes</string>
     <string name="wrongPassword">Les mots de passe ne sont pas les mêmes</string>
     <string name="newThemeCreation">Un nouveau thème a été crée</string>
+    <string name="ensureInput">Assurez-vous que tous les champs soient remplis !</string>
+    <string name="ensureUsername">Le pseudo doit tenir entre 3 et 20 caractères.</string>
+    <string name="ensureMail">Les mails ne correspondent pas !</string>
+    <string name="ensurePassword">Les mots de passe ne correspondent pas !</string>
+    <string name="ensurePasswordLength">Le mot de passe doit être entre 4 et 30 caractères !</string>
+    <string name="ensurePasswordRequirements">Le mot de passe doit avoir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.</string>
+    <string name="ensureMailRequirements">Insérez un format d\'adresse mail valide !</string>
+    <string name="invalidCredentials">Informations d\'identification invalides</string>
+
 </resources>

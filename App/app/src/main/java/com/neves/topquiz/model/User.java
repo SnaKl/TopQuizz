@@ -14,8 +14,6 @@ import java.util.List;
 public class User implements Parcelable {
 
     private String mNickname;
-    private String mPassword;
-    private String mSalt;
     private String mJwtToken;
     private String mEmail;
     private LocalDate mSignUpDate;
@@ -33,16 +31,12 @@ public class User implements Parcelable {
     /**
      * Constructeur
      * @param nickname : est le nom de l'utilisateur
-     * @param password : est le mot de passe de l'utilisateur
-     * @param salt : est le salt de l'utilisateur
      * @param jwtToken : est le jwt token de l'utilisateur
      * @param email : est l'email de l'utilisateur
      * @param avatar : est l'avatar de l'utilisateur
      */
-    public User(String nickname, String password, String salt, String jwtToken, String email, String avatar) {
+    public User(String nickname, String jwtToken, String email, String avatar) {
         mNickname = nickname;
-        mPassword = password;
-        mSalt = salt;
         mJwtToken = jwtToken;
         mEmail = email;
         mTotalScore = 0;
@@ -73,8 +67,6 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(mNickname);
-        out.writeString(mPassword);
-        out.writeString(mSalt);
         out.writeString(mJwtToken);
         out.writeString(mEmail);
         out.writeInt(mTotalScore);
@@ -88,8 +80,6 @@ public class User implements Parcelable {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private User(Parcel in) {
         mNickname = in.readString();
-        mPassword = in.readString();
-        mSalt = in.readString();
         mJwtToken = in.readString();
         mEmail = in.readString();
         mTotalScore = in.readInt();
@@ -120,38 +110,6 @@ public class User implements Parcelable {
      */
     public void setNickname(String nickname) {
         mNickname = nickname;
-    }
-
-    /**
-     * Permet de récupérer le mot de passe de l'utilisateur
-     * @return : le mot de passe de l'utilisateur
-     */
-    public String getPassword() {
-        return mPassword;
-    }
-
-    /**
-     * Permet d'ajouter un mot de passe à l'utilisateur
-     * @param password : est le mot de passe de l'utilisateur
-     */
-    public void setPassword(String password) {
-        mPassword = password;
-    }
-
-    /**
-     * Permet de récupérer le salt de l'utilisateur
-     * @return : le salt de l'utilisateur
-     */
-    public String getSalt() {
-        return mSalt;
-    }
-
-    /**
-     * Permet d'ajouter un salt à l'utilisateur
-     * @param salt: est le salt de l'utilisateur
-     */
-    public void setSalt(String salt) {
-        mSalt = salt;
     }
 
     /**

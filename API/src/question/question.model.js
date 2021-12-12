@@ -7,7 +7,7 @@ const QuestionSchema = new Schema(
 		_createdBy: { type: ObjectId, ref: 'User' },
 		imageUrl: String,
 		description: String,
-		anwserList: [String],
+		answerList: [String],
 		correctAnswerIndex: { type: Number, min: 0, max: 3 },
 		Validation: {
 			totalUpVote: { type: Number, default: 0 },

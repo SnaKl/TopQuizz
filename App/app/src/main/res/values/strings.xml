@@ -53,7 +53,7 @@
     <string name="my_account">My account</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="create_quiz">Create a quiz</string>
-    <string name="validate_quiz">Validate quizzes</string>
+    <string name="validate_quiz">Validate quiz</string>
     <string name="answers_title">ANSWERS</string>
     <string name="themes_title">THEMES</string>
     <string name="leaderboard_title">LEADERBOARD</string>
@@ -75,4 +75,12 @@
     <string name="wrongMail">Mails are not the same</string>
     <string name="wrongPassword">Passwords are not the same</string>
     <string name="newThemeCreation">A new theme has been created</string>
+    <string name="ensureInput">Check that all fields are completed !</string>
+    <string name="ensureUsername">Username must be between 3 and 20 characters.</string>
+    <string name="ensureMail">Mails are not the same !</string>
+    <string name="ensurePassword">Passwords are not the same !</string>
+    <string name="ensurePasswordLength">Password must be between 4 and 30 characters !</string>
+    <string name="ensurePasswordRequirements">Password needs at least one uppercase letter, one lowercase letter, one number and one special character.</string>
+    <string name="ensureMailRequirements">Please input a valid mail adress format !</string>
+    <string name="invalidCredentials">Invalid Credentials</string>
 </resources>

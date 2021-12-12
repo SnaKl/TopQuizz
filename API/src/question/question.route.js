@@ -47,8 +47,9 @@ router.get(
 /**
  * @route DELETE api/question/:themeID
  * @desc delete question by theme
- * @access Private
+ * @access Admin
  */
+//TODO rajouter vérification du role
 router.delete('/theme/:theme', QuestionController.deleteQuestionsByTheme);
 
 /**
@@ -61,15 +62,17 @@ router.get('/id/:questionID', QuestionController.getQuestionById);
 /**
  * @route PUT api/question
  * @desc update question by id
- * @access Private
+ * @access Admin
  */
+//TODO rajouter vérification du role
 router.put('/id/:questionID', QuestionController.updateQuestionById);
 
 /**
  * @route DELETE api/question/:id
  * @desc delete question by id
- * @access Public
+ * @access Admin
  */
+//TODO rajouter vérification du role
 router.delete('/id/:questionsID', QuestionController.deleteQuestionById);
 
 export default router;

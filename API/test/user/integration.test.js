@@ -5,6 +5,7 @@ const route = '/api/user/';
 import { matchers } from 'jest-json-schema';
 expect.extend(matchers);
 
+// exemple de test non appliqué
 import userSchema from './user.schema';
 describe('Test user integration ', () => {
 	test('Create user', async () => {
