@@ -94,7 +94,6 @@ public class CreateQuestion extends AppCompatActivity {
 
     void updateDB(){
         Theme theme = mTheme;
-        User userCreatedBy = new User(" ", " ", " ", " ");
         String imgUrl = "";
         String question = mQuestionInput.getText().toString();
         String answer1 = mAnswer1Input.getText().toString();
@@ -124,7 +123,6 @@ public class CreateQuestion extends AppCompatActivity {
                             @Override
                             public void onError(ANError anError) {
                                 if(anError.getErrorBody()==null){
-                                    System.out.println("EYO");
                                     goBackToThemeCreation();
                                 }else {
                                     Log.d("getQuestions", anError.getErrorBody());

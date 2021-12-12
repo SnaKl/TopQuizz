@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_baseline_image"
+                app:srcCompat="@drawable/iv_image_not_found"
                 app:shapeAppearanceOverlay="@style/ImageHalfAppearanceOverlay" />
             <ImageButton
                 android:id="@+id/create_question_editImage_btn"
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         app:flexDirection="column"
         app:justifyContent="space_around"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/create_questions_submitQuestion_btn"
         app:layout_constraintEnd_toEndOf="@+id/create_question_imageAndQuestion_lt"
         app:layout_constraintStart_toStartOf="@+id/create_question_imageAndQuestion_lt"
         app:layout_constraintTop_toBottomOf="@+id/create_question_imageAndQuestion_lt">
