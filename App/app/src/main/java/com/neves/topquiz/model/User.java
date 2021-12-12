@@ -7,6 +7,8 @@ import android.util.Pair;
 
 import androidx.annotation.RequiresApi;
 
+import com.neves.topquiz.GlobalVariable;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -205,7 +207,7 @@ public class User implements Parcelable {
      * @param avatar : est l'avatar de l'utilisateur
      */
     public void setAvatar(String avatar) {
-        this.mAvatar = avatar;
+        this.mAvatar = GlobalVariable.API_URL + avatar;
     }
 
     /**
