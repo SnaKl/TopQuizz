@@ -43,10 +43,10 @@ const project = {
 export async function createQuestion(
 	theme,
 	_createdBy,
-	imageUrl,
 	description,
 	answerList,
 	correctAnswerIndex,
+	imageUrl,
 ) {
 	theme.addQuestion();
 

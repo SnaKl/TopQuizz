@@ -1,19 +1,17 @@
 import fs from 'fs';
-import { Types } from 'mongoose';
 
-import { serverUrl } from '../server';
 import * as QuestionService from './question.service';
 import * as ThemeService from '../theme/theme.service';
 
 export async function createQuestion(req, res) {
 	const file = req.file;
-	if (!file)
-		return res.status(400).send('You need to provide an image question');
+	// if (!file)
+	// 	return res.status(400).send('You need to provide an image question');
 
 	var { themeTitle, description, answerList, correctAnswerIndex } = req.body;
 
 	if (!themeTitle) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res.status(400).send('you need to provide a theme');
 	}
 
@@ -23,17 +21,17 @@ export async function createQuestion(req, res) {
 		1,
 	);
 	if (!theme) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res.status(400).send('you need to provide a valide theme');
 	}
 
 	if (!description) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res.status(400).send('you need to provide a description');
 	}
 
 	if (!answerList) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res
 			.status(400)
 			.send(
@@ -43,7 +41,7 @@ export async function createQuestion(req, res) {
 
 	answerList = answerList.split('///');
 	if (answerList.length !== 4) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res
 			.status(400)
 			.send(
@@ -52,23 +50,24 @@ export async function createQuestion(req, res) {
 	}
 	correctAnswerIndex = parseInt(correctAnswerIndex);
 	if (correctAnswerIndex < 0 || correctAnswerIndex > 3) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res
 			.status(400)
 			.send('you need to provide the index of the right answer');
 	}
 
+	const path = file != null ? file.path.slice(14, file.path.length) : null;
 	if (
 		!QuestionService.createQuestion(
 			theme,
 			req.user.id,
-			serverUrl + file.path.slice(14, file.path.length),
 			description,
 			answerList,
 			correctAnswerIndex,
+			path,
 		)
 	) {
-		fs.unlinkSync(file.path);
+		if (file) fs.unlinkSync(file.path);
 		return res.status(500).send('Server error');
 	}
 

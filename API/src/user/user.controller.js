@@ -1,8 +1,6 @@
 import fs from 'fs';
 import fsPromises from 'fs/promises';
 
-import { serverUrl } from '../server';
-
 import User from './user.model';
 import * as UserService from './user.service';
 
@@ -46,9 +44,7 @@ export async function updateUserAvatar(req, res) {
 	user = user.toObject();
 
 	if (user.avatar) {
-		const path =
-			'public/uploads' +
-			user.avatar.slice(serverUrl.length, user.avatar.length);
+		const path = 'public/uploads' + user.avatar;
 
 		try {
 			// supprime l'ancien avatar
@@ -65,7 +61,7 @@ export async function updateUserAvatar(req, res) {
 		}
 	}
 
-	const url = serverUrl + file.path.slice(14, file.path.length);
+	const url = file.path.slice(14, file.path.length);
 
 	const newUser = await UserService.updateUser(
 		{ nickname: req.user.nickname },
