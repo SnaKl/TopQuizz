@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
         if(question.getImageUrl()!=null){
-            new GameActivity.DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+            new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
         }else{
             mQuestionImageView.setImageDrawable(getDrawable(R.drawable.iv_image_not_found));
         }
@@ -288,38 +288,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setResult(RESULT_OK, intent);
         super.finish();
     }
-    private class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
+    /*private class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
         ShapeableImageView imageView;
 
         public DownLoadImageTask(ShapeableImageView imageView){
             this.imageView = imageView;
         }
-        /*
-            doInBackground(Params... params)
-                Override this method to perform a computation on a background thread.
-         */
         protected Bitmap doInBackground(String...urls){
             String urlOfImage = urls[0];
             Bitmap logo = null;
             try{
                 InputStream is = new URL(urlOfImage).openStream();
-                /*
-                    decodeStream(InputStream is)
-                        Decode an input stream into a bitmap.
-                 */
                 logo = BitmapFactory.decodeStream(is);
             }catch(Exception e){ // Catch the download exception
                 e.printStackTrace();
             }
             return logo;
         }
-        /*
-            onPostExecute(Result result)
-                Runs on the UI thread after doInBackground(Params...).
-         */
         protected void onPostExecute(Bitmap result){
             imageView.setImageBitmap(result);
         }
-    }
+    }*/
 
 }
