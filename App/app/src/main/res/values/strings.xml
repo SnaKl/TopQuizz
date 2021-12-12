@@ -69,8 +69,12 @@
     <string name="theme">Theme</string>
     <string name="AddQuestion">+ Add a question</string>
     <string name="SubmitQuiz">Submit quiz</string>
+    <string name="Enter">Enter</string>
     <string name="WrongID">Username or Password is incorrect !</string>
     <string name="returnMenu">Return to main menu</string>
+    <string name="wrongMail">Mails are not the same</string>
+    <string name="wrongPassword">Passwords are not the same</string>
+    <string name="newThemeCreation">A new theme has been created</string>
     <string name="ensureInput">Check that all fields are completed !</string>
     <string name="ensureUsername">Username must be between 3 and 20 characters.</string>
     <string name="ensureMail">Mails are not the same !</string>

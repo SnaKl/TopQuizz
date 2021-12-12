@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Themes extends AppCompatActivity {
-    private static final String USER = "USER";
+    public static final String USER = "USER";
     private static final String THEME = "THEME";
     private static final String MODE = "MODE";
     private User mUser;
