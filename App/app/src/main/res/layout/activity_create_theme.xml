@@ -42,7 +42,7 @@
             android:padding="12sp"
             android:textColor="@color/colorBlack"
             android:inputType="text|textShortMessage"
-            android:background="@drawable/container_spinner"
+            android:background="@drawable/container_autocompletetextview"
             android:popupBackground="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/create_theme_submitTheme_btn"
             app:layout_constraintStart_toStartOf="parent"
