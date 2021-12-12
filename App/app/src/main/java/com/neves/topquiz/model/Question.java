@@ -3,6 +3,8 @@ package com.neves.topquiz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.neves.topquiz.GlobalVariable;
+
 import java.util.List;
 
 public class Question implements Parcelable {
@@ -39,7 +41,7 @@ public class Question implements Parcelable {
     public Question(Theme theme, User author, String image, String questionTitle, String question, List<String> answerList, int answerIndex) {
         mTheme = theme;
         mCreatedBy = author;
-        mImageUrl = image;
+        mImageUrl = GlobalVariable.API_URL + image;
         mQuestionTitle = questionTitle;
         mQuestion = question;
         mAnswerList = answerList;
@@ -110,7 +112,7 @@ public class Question implements Parcelable {
      * @param imageUrl : est l'URL de l'image de la question
      */
     public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
+        mImageUrl = GlobalVariable.API_URL + imageUrl;
     }
 
     /**
@@ -184,7 +186,7 @@ public class Question implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeParcelable(mTheme, flags);
-        out.writeParcelable(mCreatedBy, flags);
+        out.writeParcelable(mCreatedBy,  flags);
         out.writeString(mImageUrl);
         out.writeString(mQuestion);
         out.writeString(mQuestionTitle);

@@ -77,7 +77,7 @@ public class Themes extends AppCompatActivity {
                                 JSONArray themes = response.getJSONArray("themes");
                                 for (int i = 0 ; i < themes.length(); i++) {
                                     JSONObject theme = themes.getJSONObject(i);
-                                    themeList.add(new Theme(GlobalVariable.API_URL + theme.getString("imageUrl"), theme.getString("title"), theme.getString("description"),theme.getInt("nbQuestion")));
+                                    themeList.add(new Theme( theme.getString("imageUrl"), theme.getString("title"), theme.getString("description"),theme.getInt("nbQuestion")));
                                 }
                                 createLayout(themeList);
                             } catch (JSONException | IOException e) {

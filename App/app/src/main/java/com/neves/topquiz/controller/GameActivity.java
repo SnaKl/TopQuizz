@@ -127,7 +127,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
-        new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+        if(question.getImageUrl()!=""){
+            new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+        }else{
+            new DownLoadImageTask(mQuestionImageView).execute(mTheme.getImage());
+        }
+
     }
 
 
@@ -194,13 +199,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     Collections.shuffle(answerList);
                                     Question question = new Question(
                                             mTheme,
-                                            mUser,
+                                            new User("UNKNOWN","","",""),
                                             questionJSONObject.getString("imageUrl"),
                                             questionJSONObject.getString("questionTitle"),
                                             questionJSONObject.getString("description"),
                                             answerList,
                                             questionJSONObject.getInt("correctAnswerIndex"));
                                     mQuestionBank.addQuestion(question);
+                                    System.out.println(questionJSONObject.getString("imageUrl"));
                                 }
                                 mCurrentQuestion = mQuestionBank.getCurrentQuestion();
                                 mGameActivity.displayQuestion(mCurrentQuestion);
@@ -333,26 +339,5 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setResult(RESULT_OK, intent);
         super.finish();
     }
-    /*private class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
-        ShapeableImageView imageView;
-
-        public DownLoadImageTask(ShapeableImageView imageView){
-            this.imageView = imageView;
-        }
-        protected Bitmap doInBackground(String...urls){
-            String urlOfImage = urls[0];
-            Bitmap logo = null;
-            try{
-                InputStream is = new URL(urlOfImage).openStream();
-                logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
-                e.printStackTrace();
-            }
-            return logo;
-        }
-        protected void onPostExecute(Bitmap result){
-            imageView.setImageBitmap(result);
-        }
-    }*/
 
 }

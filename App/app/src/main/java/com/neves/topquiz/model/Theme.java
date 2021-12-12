@@ -3,6 +3,8 @@ package com.neves.topquiz.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.neves.topquiz.GlobalVariable;
+
 public class Theme implements Parcelable {
 
     private String mImageUrl;
@@ -26,7 +28,7 @@ public class Theme implements Parcelable {
      * @param questionNB : est le nombre de questions du thème
      */
     public Theme(String imageUrl, String title, String description, int questionNB) {
-        mImageUrl = imageUrl;
+        mImageUrl = GlobalVariable.API_URL +  imageUrl;
         mTitle = title;
         mDescription = description;
         mQuestionNB = questionNB;
@@ -64,7 +66,7 @@ public class Theme implements Parcelable {
      * @param imageUrl : est l'URL de l'image du thème
      */
     public void setImage(String imageUrl) {
-        mImageUrl = imageUrl;
+        mImageUrl = GlobalVariable.API_URL + imageUrl;
     }
 
     /**
