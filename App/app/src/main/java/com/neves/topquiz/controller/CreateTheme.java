@@ -1,11 +1,16 @@
 package com.neves.topquiz.controller;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +28,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.google.android.material.imageview.ShapeableImageView;
+import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
@@ -38,6 +45,10 @@ import java.util.List;
 import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
 import com.neves.topquiz.model.User;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CreateTheme extends AppCompatActivity {
     public static final String USER = "USER";
@@ -55,7 +66,7 @@ public class CreateTheme extends AppCompatActivity {
     private ViewGroup.LayoutParams btnParams;
     private Theme mTheme;
     private User mUser;
-    List<Theme> spinnerArray;
+    private List<Theme> spinnerArray;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -63,34 +74,13 @@ public class CreateTheme extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_theme);
 
-
-        findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
-        mThemeInput = findViewById(R.id.autoCompleteTextView);
-        mAddQuestionBtn = findViewById(R.id.create_theme_addQuestion_btn);
-        mSubmitQuiz = findViewById(R.id.create_theme_submitQuiz_btn);
-        mEnterBtn = findViewById(R.id.create_theme_submitTheme_btn);
-        //themeList = ThemeDB.getTheme();
-        btnParams = findViewById(R.id.create_theme_question1_btn).getLayoutParams();
-        spinnerArray =  new ArrayList<>();
-        spinnerArray.add(new Theme("", "hello", "TropLol", 5));
-        spinnerArray.add(new Theme("", "FRIENDS", "TropLol", 5));
-        spinnerArray.add(new Theme("", "COMMUNITY", "TropLol", 5));
-
-        CustomAdapter adapter = new CustomAdapter(this,
-                R.layout.spinner_item_layout_resource,
-                R.id.textView_item_name,
-                spinnerArray);
-        mThemeInput.setThreshold(1);
-        mThemeInput.setAdapter(adapter);
-
-
         mThemeQuestionsListContainer = (LinearLayout) findViewById(R.id.create_theme_questionsList_lt);
         if (savedInstanceState != null) {
             mThemeName = savedInstanceState.getString(BUNDLE_STATE_THEME_NAME);
             System.out.println(mThemeName+"!!!!!!!!!!!!!");
             questionsDisplay(mTheme);
         } else {
-            mThemeName = spinnerArray.get(0).getTitle();
+            //mThemeName = spinnerArray.get(0).getTitle();
         }
         Intent intent = getIntent();
         if (intent.hasExtra(CHOSEN_THEME)) {
@@ -103,6 +93,55 @@ public class CreateTheme extends AppCompatActivity {
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
         }
+
+        findViewById(R.id.create_theme_question1_btn).setVisibility(View.GONE);
+        mThemeInput = findViewById(R.id.autoCompleteTextView);
+        mAddQuestionBtn = findViewById(R.id.create_theme_addQuestion_btn);
+        mSubmitQuiz = findViewById(R.id.create_theme_submitQuiz_btn);
+        mEnterBtn = findViewById(R.id.create_theme_submitTheme_btn);
+        //List<Theme> themeList = new ArrayList<>();
+        btnParams = findViewById(R.id.create_theme_question1_btn).getLayoutParams();
+        spinnerArray =  new ArrayList<>();
+        //spinnerArray.add(new Theme("", "hello", "TropLol", 5));
+        spinnerArray.add(new Theme("", "FRIENDS", "TropLol", 5));
+        spinnerArray.add(new Theme("", "COMMUNITY", "TropLol", 5));
+        AndroidNetworking.get(GlobalVariable.API_URL+"/api/theme")
+                .setTag("getAllThemes")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response.has("themes")) {
+                            try {
+                                JSONArray themes = response.getJSONArray("themes");
+                                for (int i = 0 ; i < themes.length(); i++) {
+                                    JSONObject theme = themes.getJSONObject(i);
+                                    spinnerArray.add(new Theme( theme.getString("imageUrl"), theme.getString("title"), theme.getString("description"),theme.getInt("nbQuestion")));
+                                }
+                                //createLayout(themeList);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.d("themesError", error.toString());
+                    }
+                });
+
+
+        CustomAdapter adapter = new CustomAdapter(this,
+                R.layout.spinner_item_layout_resource,
+                R.id.textView_item_name,
+                spinnerArray);
+        mThemeInput.setThreshold(1);
+        mThemeInput.setAdapter(adapter);
+
+
+
 
         mThemeInput.setOnItemClickListener(new AdapterView.OnItemClickListener()  {
             @Override
@@ -159,6 +198,7 @@ public class CreateTheme extends AppCompatActivity {
             public void onClick(View v) {
                 Intent AddQuestion = new Intent(CreateTheme.this, CreateQuestion.class);
                 AddQuestion.putExtra(CHOSEN_THEME, mTheme);
+                AddQuestion.putExtra(USER,mUser);
                 startActivity(AddQuestion);
                 finish();
             }

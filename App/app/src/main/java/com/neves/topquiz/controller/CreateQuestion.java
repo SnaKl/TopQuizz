@@ -102,21 +102,16 @@ public class CreateQuestion extends AppCompatActivity {
         String answer3 = mAnswer3Input.getText().toString();
         String answer4 = mAnswer4Input.getText().toString();
         String questionTitle = mQstTitle.getText().toString();
+        String answers = answer1+"///"+answer2+"///"+answer3+"///"+answer4;
 
-        JSONObject answers = new JSONObject();
-        JSONArray answerList = new JSONArray();
-        answerList.put(answer1);
-        answerList.put(answer2);
-        answerList.put(answer3);
-        answerList.put(answer4);
         AndroidNetworking.post(GlobalVariable.API_URL + "/api/question/")
                         .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
-                        .addBodyParameter("theme",mTheme.getTitle())
+                        .addBodyParameter("themeTitle",mTheme.getTitle())
                         .addBodyParameter("description",question)
                         .addBodyParameter("questionTitle",questionTitle)
                         .addBodyParameter("correctAnswerIndex","0")
-                        .addBodyParameter("answerList", answerList.toString())
-                        //.setTag("setQuestions")
+                        .addBodyParameter("answerList", answers)
+                        .setTag("setQuestions")
                         .setPriority(Priority.LOW)
                         .build()
                         .getAsJSONObject(new JSONObjectRequestListener() {
@@ -128,7 +123,12 @@ public class CreateQuestion extends AppCompatActivity {
 
                             @Override
                             public void onError(ANError anError) {
-                                Log.d("getQuestions", anError.toString());
+                                if(anError.getErrorBody()==null){
+                                    System.out.println("EYO");
+                                    goBackToThemeCreation();
+                                }else {
+                                    Log.d("getQuestions", anError.getErrorBody());
+                                }
                             }
                         });
     }
