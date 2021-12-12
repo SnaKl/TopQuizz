@@ -16,7 +16,8 @@ export async function getUsers(req, res) {
 }
 
 export async function getUser(req, res) {
-	res.send('getUser not implemented');
+	const user = await UserService.findUser({ _id: req.user.id }, '', 1);
+	res.json({ user });
 }
 export async function updateUser(req, res) {
 	var update = _.pick(req.body, ['email']);
