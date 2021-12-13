@@ -1,7 +1,5 @@
 package com.neves.topquiz.controller;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -23,14 +23,11 @@ import com.google.gson.Gson;
 import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.Score;
-import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,11 +74,10 @@ public class MainActivity extends AppCompatActivity {
 
         mAccountCreationBtn = findViewById(R.id.login_createAccount_btn);
 
-
-
         mPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -89,24 +85,25 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         mConnectionBtn.setOnClickListener(v -> {
             String username = mUsername.getText().toString();
             String password = mPassword.getText().toString();
 
-            if(username.isEmpty() || password.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, getString(R.string.ensureInput), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if(!checkPassWordRequirements(password)) {
+            if (!checkPassWordRequirements(password)) {
                 Toast.makeText(this, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            AndroidNetworking.get(GlobalVariable.API_URL+"/api/auth/login")
+            AndroidNetworking.get(GlobalVariable.API_URL + "/api/auth/login")
                     .addQueryParameter("nickname", username)
                     .addQueryParameter("password", password)
                     .setTag("connect")
@@ -117,16 +114,14 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             try {
                                 mUser = new User(username, response.getString("token"), "", "");
-                                //getUser(response.getString("token"));
-                                //getUser(username, response.getString("token"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             mUser.setScore(new Score(null, 0));
-                            Intent mainMenuActivity = new Intent(MainActivity.this, MainMenu.class);
+                            Intent mainMenuActivity = new Intent(MainActivity.this, MainMenuActivity.class);
                             mainMenuActivity.putExtra(USER, mUser);
                             startActivity(mainMenuActivity);
-                            Log.d("token" , mUser.getJwtToken());
+                            Log.d("token", mUser.getJwtToken());
                             finish();
                         }
 
@@ -134,29 +129,26 @@ public class MainActivity extends AppCompatActivity {
                         public void onError(ANError error) {
                             try {
                                 JSONObject errorJsonObject = new JSONObject(error.getErrorBody());
-                                if(errorJsonObject.has("error")){
+                                if (errorJsonObject.has("error")) {
                                     Toast.makeText(mMainActivity, getString(R.string.invalidCredentials), Toast.LENGTH_SHORT).show();
-                                }
-                                else if(errorJsonObject.has("errors")){
-                                    JSONObject errors =  errorJsonObject.getJSONObject("errors");
+                                } else if (errorJsonObject.has("errors")) {
+                                    JSONObject errors = errorJsonObject.getJSONObject("errors");
 
-                                    if(errors.has("password")){
+                                    if (errors.has("password")) {
                                         Toast.makeText(mMainActivity, getString(R.string.ensurePasswordRequirements), Toast.LENGTH_SHORT).show();
-                                    }
-                                    else if(errors.has("nickname")){
+                                    } else if (errors.has("nickname")) {
                                         Toast.makeText(mMainActivity, getString(R.string.ensureUsername), Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }catch (JSONException err){
+                            } catch (JSONException err) {
                                 Log.d("Error", err.toString());
                             }
                         }
                     });
         });
 
-
         mAccountCreationBtn.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, CreateAccount.class));
+            startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
             finish();
         });
     }
@@ -202,20 +194,19 @@ public class MainActivity extends AppCompatActivity {
             Gson gson = new Gson();
             mPreferences.edit().putString(USER, gson.toJson(mUser)).apply();
             mPreferences.edit().putString(USERS, gson.toJson(users)).apply();
-            //greetUser();
         }
     }
 
     /**
-     * Check requirment for password
+     * Check requirements for password
+     *
      * @param password
      * @return
      */
-    private Boolean checkPassWordRequirements(String password){
+    private Boolean checkPassWordRequirements(String password) {
         Pattern p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{4,20}$");
         Matcher m = p.matcher(password);
         return m.find();
     }
-
 
 }

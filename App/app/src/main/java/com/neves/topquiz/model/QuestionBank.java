@@ -18,6 +18,7 @@ public class QuestionBank implements Parcelable {
             return new QuestionBank[size];
         }
     };
+
     private static final int mSize = 10;
     private List<Question> mQuestionList;
     private int mNextQuestionIndex;
@@ -29,7 +30,6 @@ public class QuestionBank implements Parcelable {
      */
     public QuestionBank(List<Question> questionList) {
         mQuestionList = questionList;
-        //Collections.shuffle(mQuestionList);
         mNextQuestionIndex = 0;
     }
 

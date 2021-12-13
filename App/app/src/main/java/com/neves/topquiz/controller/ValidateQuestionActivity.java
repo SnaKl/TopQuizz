@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -32,7 +31,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ValidateQuestion extends AppCompatActivity {
+public class ValidateQuestionActivity extends AppCompatActivity {
+
     public static final String USER = "USER";
     public static final String THEME = "THEME";
 
@@ -54,7 +54,7 @@ public class ValidateQuestion extends AppCompatActivity {
 
     private boolean mEnableTouchEvents;
 
-    private final ValidateQuestion mValidateQuestion = this;
+    private final ValidateQuestionActivity mValidateQuestionActivity = this;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -68,7 +68,6 @@ public class ValidateQuestion extends AppCompatActivity {
             this.finish();
         }
         mUser = intent.getParcelableExtra(USER);
-        //mUser.initLastQuestionRecap();
 
         if (!intent.hasExtra(THEME)) {
             this.finish();
@@ -89,20 +88,9 @@ public class ValidateQuestion extends AppCompatActivity {
 
         generateQuestion();
 
-        //utiliser le principe de game activity pour faire défiler les questions
-        mApprove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vote("upVote");
-            }
-        });
+        mApprove.setOnClickListener(v -> vote("upVote"));
 
-        mReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vote("downVote");
-            }
-        });
+        mReject.setOnClickListener(v -> vote("downVote"));
 
     }
 
@@ -122,7 +110,7 @@ public class ValidateQuestion extends AppCompatActivity {
         new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
     }
 
-    private void vote(String choice){
+    private void vote(String choice) {
         AndroidNetworking.put(GlobalVariable.API_URL + "/api/question/vote/" + mCurrentQuestionId)
                 .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
                 .addBodyParameter("vote", choice)
@@ -137,12 +125,12 @@ public class ValidateQuestion extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError error) {
-                        mValidateQuestion.finish();
+                        mValidateQuestionActivity.finish();
                     }
                 });
     }
 
-    private void generateQuestion(){
+    private void generateQuestion() {
         AndroidNetworking.get(GlobalVariable.API_URL + "/api/question/vote/" + mTheme.getTitle())
                 .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
                 .setTag("getQuestionToValidate")
@@ -153,8 +141,8 @@ public class ValidateQuestion extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if(!response.has("question")){
-                                mValidateQuestion.finish();
+                            if (!response.has("question")) {
+                                mValidateQuestionActivity.finish();
                                 return;
                             }
 
@@ -182,7 +170,7 @@ public class ValidateQuestion extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError error) {
-                        Log.d("validateQuestion", error.getErrorBody().toString());
+                        Log.d("validateQuestion", error.getErrorBody());
                     }
                 });
     }

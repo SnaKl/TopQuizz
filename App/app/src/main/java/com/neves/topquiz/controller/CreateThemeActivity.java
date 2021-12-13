@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,11 +21,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-
-import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
-import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.QuestionBank;
 import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
@@ -37,20 +32,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-
-import com.neves.topquiz.model.Question;
-import com.neves.topquiz.model.QuestionBank;
-import com.neves.topquiz.model.User;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class CreateTheme extends AppCompatActivity {
+public class CreateThemeActivity extends AppCompatActivity {
     private static final String USER = "USER";
     private static final String BUNDLE_STATE_QUESTION_BANK = "BUNDLE_STATE_QUESTION_BANK";
     private static final String BUNDLE_STATE_THEME_NAME = "BUNDLE_STATE_THEME_NAME";
@@ -92,8 +76,6 @@ public class CreateTheme extends AppCompatActivity {
                 themeList);
         mThemeInput.setThreshold(1);
         mThemeInput.setAdapter(adapter);
-        //adapter.getFilter().filter(null);
-
 
         Intent intent = getIntent();
         if (intent.hasExtra(USER)) {
@@ -106,39 +88,26 @@ public class CreateTheme extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.questionAdded), Toast.LENGTH_SHORT).show();
         }
 
-
-        mThemeInput.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mThemeInput.showDropDown();
-                return false;
-            }
+        mThemeInput.setOnTouchListener((v, event) -> {
+            mThemeInput.showDropDown();
+            return false;
         });
 
-        mThemeInput.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                mThemeInput.showDropDown();
-                return false;
-            }
+        mThemeInput.setOnTouchListener((v, event) -> {
+            mThemeInput.showDropDown();
+            return false;
         });
 
-        mThemeInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                mTheme = (Theme) themeList.get(position);
-                questionsDisplay(mTheme);
-                mEnterBtn.setEnabled(mTheme.getTitle().length() != 0);
-            }
+        mThemeInput.setOnItemClickListener((parentView, selectedItemView, position, id) -> {
+            mTheme = themeList.get(position);
+            questionsDisplay(mTheme);
+            mEnterBtn.setEnabled(mTheme.getTitle().length() != 0);
         });
         mThemeInput.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateListSpinner();
-                for (Theme i : themeList) {
-                    System.out.println(i.getTitle());
-                }
                 mEnterBtn.setEnabled(mThemeInput.getText().toString().length() != 0);
             }
 
@@ -150,39 +119,29 @@ public class CreateTheme extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        mEnterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isInArray(mThemeInput.getText().toString())) {
-                    //adapter.notifyDataSetChanged();
-                    questionsDisplay(mTheme);
-                    mEnterBtn.setEnabled(false);
-                } else {
-                    Theme newTheme = new Theme("", mThemeInput.getText().toString(), "TropLol", 0);
-                    themeList.add(newTheme);
-                    //modif api
-                    adapter.updateList(themeList);
-                    updateListSpinner();
-                    questionsDisplay(newTheme);
-                    Toast.makeText(CreateTheme.this, R.string.newThemeCreation, Toast.LENGTH_SHORT).show();
-                }
+        mEnterBtn.setOnClickListener(v -> {
+            if (isInArray(mThemeInput.getText().toString())) {
+                questionsDisplay(mTheme);
+                mEnterBtn.setEnabled(false);
+            } else {
+                Theme newTheme = new Theme("", mThemeInput.getText().toString(), "TropLol", 0);
+                themeList.add(newTheme);
+                // Update API
+                adapter.updateList(themeList);
+                updateListSpinner();
+                questionsDisplay(newTheme);
+                Toast.makeText(CreateThemeActivity.this, R.string.newThemeCreation, Toast.LENGTH_SHORT).show();
             }
         });
-        mAddQuestionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent AddQuestion = new Intent(CreateTheme.this, CreateQuestion.class);
-                AddQuestion.putExtra(CHOSEN_THEME, mTheme);
-                AddQuestion.putExtra(USER, mUser);
-                startActivity(AddQuestion);
-                finish();
-            }
+        mAddQuestionBtn.setOnClickListener(v -> {
+            Intent AddQuestion = new Intent(CreateThemeActivity.this, CreateQuestionActivity.class);
+            AddQuestion.putExtra(CHOSEN_THEME, mTheme);
+            AddQuestion.putExtra(USER, mUser);
+            startActivity(AddQuestion);
+            finish();
         });
-        mSubmitQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mettre à jour la bdd
-            }
+        mSubmitQuiz.setOnClickListener(v -> {
+            // Update DB
         });
 
     }
@@ -247,7 +206,7 @@ public class CreateTheme extends AppCompatActivity {
                             JSONArray questionsJSONArray = response.getJSONArray("questions");
                             for (int i = 0; i < questionsJSONArray.length(); i++) {
                                 JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
-                                Button myButton = new Button(CreateTheme.this);
+                                Button myButton = new Button(CreateThemeActivity.this);
                                 myButton.setLayoutParams(btnParams);
                                 myButton.setText(questionJSONObject.getString("questionTitle"));
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -278,7 +237,7 @@ public class CreateTheme extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject questionJSONObject = response.getJSONObject("question");
-                            Button myButton = new Button(CreateTheme.this);
+                            Button myButton = new Button(CreateThemeActivity.this);
                             myButton.setLayoutParams(btnParams);
                             myButton.setText(questionJSONObject.getString("questionTitle"));
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -294,7 +253,7 @@ public class CreateTheme extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError error) {
-                        Log.d("validateQuestion", error.getErrorBody().toString());
+                        Log.d("validateQuestion", error.getErrorBody());
                     }
                 });
     }

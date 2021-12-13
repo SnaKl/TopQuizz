@@ -1,11 +1,9 @@
 package com.neves.topquiz.controller;
 
 import android.app.Activity;
-import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -18,13 +16,12 @@ import java.util.List;
 
 public class CustomAdapter extends BaseAdapter implements Filterable {
 
-    private LayoutInflater flater;
-    //private List<Theme> list;
+    private final LayoutInflater flater;
     private List<Theme> list;
-    private List<Theme> temp;
-    private List<Theme> suggestions;
-    private int listItemLayoutResource;
-    private int textViewItemNameId;
+    private final List<Theme> temp;
+    private final List<Theme> suggestions;
+    private final int listItemLayoutResource;
+    private final int textViewItemNameId;
 
 
     public CustomAdapter(Activity context, int listItemLayoutResource,
@@ -34,10 +31,11 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
         this.listItemLayoutResource = listItemLayoutResource;
         this.textViewItemNameId = textViewItemNameId;
         this.list = list;
-        this.temp = new ArrayList<Theme>(list);
-        this.suggestions = new ArrayList<Theme>();
+        this.temp = new ArrayList<>(list);
+        this.suggestions = new ArrayList<>();
         this.flater = context.getLayoutInflater();
     }
+
     @Override
     public Filter getFilter() {
         return nameFilter;
@@ -52,7 +50,6 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
-                //notifyDataSetChanged();
                 suggestions.clear();
                 for (Theme theme : temp) {
                     if (theme.getTitle().toLowerCase()
@@ -82,18 +79,15 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
             }
         }
     };
-        @Override
+
+    @Override
     public int getCount() {
-        if(this.list == null)  {
+        if (this.list == null) {
             return 0;
         }
         return this.list.size();
     }
 
-    /*@Override
-    public Object getItem(int position) {
-        return this.list.get(position);
-    }*/
     public void updateList(List<Theme> newlist) {
         list = newlist;
         this.notifyDataSetChanged();
@@ -109,24 +103,16 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
         return 0;
     }
 
-    /*@Override
-    public long getItemId(int position) {
-        Theme theme = (Theme) this.getItem(position);
-        //return language.getId();
-        // return position; (Return position if you need).
-    }*/
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Theme t = getItem(position);
 
-        View rowView = this.flater.inflate(this.listItemLayoutResource, null,true);
+        View rowView = this.flater.inflate(this.listItemLayoutResource, null, true);
 
-        TextView textViewItemName = (TextView) rowView.findViewById(this.textViewItemNameId);
+        TextView textViewItemName = rowView.findViewById(this.textViewItemNameId);
         textViewItemName.setText(t.getTitle());
 
         return rowView;
     }
-
 
 }

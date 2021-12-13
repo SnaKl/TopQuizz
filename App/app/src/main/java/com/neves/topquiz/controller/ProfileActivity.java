@@ -1,8 +1,7 @@
 package com.neves.topquiz.controller;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,7 +11,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.R;
 import com.neves.topquiz.model.User;
 
-public class Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
+
     private User mUser;
     private ShapeableImageView mProfPic;
     private TextView mPointsNumber;
@@ -32,15 +32,15 @@ public class Profile extends AppCompatActivity {
             mUser = intent.getParcelableExtra(USER);
         }
 
-        mProfPic  = (ShapeableImageView) findViewById(R.id.profile_picture_siv);
-        mPointsNumber = (TextView) findViewById(R.id.profile_nbPoints_tv);
-        mUsername = (TextView) findViewById(R.id.profile_username_input);
-        mMail = (TextView) findViewById(R.id.profile_mail_input);
-        mPassword = (TextView) findViewById(R.id.profile_password_input);
-        mEditBtn = (ImageButton) findViewById(R.id.profile_edit_btn);
+        mProfPic = findViewById(R.id.profile_picture_siv);
+        mPointsNumber = findViewById(R.id.profile_nbPoints_tv);
+        mUsername = findViewById(R.id.profile_username_input);
+        mMail = findViewById(R.id.profile_mail_input);
+        mPassword = findViewById(R.id.profile_password_input);
+        mEditBtn = findViewById(R.id.profile_edit_btn);
 
 
-        mPointsNumber.setText(mUser.getScore().getPoints()*100+"");
+        mPointsNumber.setText(mUser.getScore().getPoints() * 100 + "");
         mUsername.setText(mUser.getNickname());
         mMail.setText(mUser.getEmail());
         mPassword.setText("●●●●●●●●●●●");
@@ -48,14 +48,11 @@ public class Profile extends AppCompatActivity {
         new DownLoadImageTask(mProfPic).execute(mUser.getAvatar());
 
 
-        mEditBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent EditAccountIntent = new Intent(Profile.this, EditProfile.class);
-                EditAccountIntent.putExtra(USER, mUser);
-                startActivity(EditAccountIntent);
-                finish();
-            }
+        mEditBtn.setOnClickListener(v -> {
+            Intent EditAccountIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+            EditAccountIntent.putExtra(USER, mUser);
+            startActivity(EditAccountIntent);
+            finish();
         });
 
     }

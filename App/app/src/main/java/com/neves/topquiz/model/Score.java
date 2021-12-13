@@ -19,7 +19,8 @@ public class Score implements Parcelable {
 
     /**
      * Constructeur
-     * @param theme : est le thème sur lequel a été fait le score
+     *
+     * @param theme  : est le thème sur lequel a été fait le score
      * @param points : est le nombre de points du joueur sur le thème
      */
     public Score(Theme theme, int points) {
@@ -46,6 +47,7 @@ public class Score implements Parcelable {
 
     /**
      * Permet de récupérer le thème du score
+     *
      * @return : le thème du score
      */
     public Theme getTheme() {
@@ -54,6 +56,7 @@ public class Score implements Parcelable {
 
     /**
      * Permet d'ajouter un thème au score
+     *
      * @param theme : est le thème du score
      */
     public void setTheme(Theme theme) {
@@ -62,6 +65,7 @@ public class Score implements Parcelable {
 
     /**
      * Permet de récupérer le nombre de points du score
+     *
      * @return : le nombre de points du score
      */
     public int getPoints() {
@@ -70,6 +74,7 @@ public class Score implements Parcelable {
 
     /**
      * Permet d'ajouter un nombre de points au score
+     *
      * @param points : est le nombre de points du score
      */
     public void setPoints(int points) {
@@ -79,7 +84,7 @@ public class Score implements Parcelable {
     /**
      * Permet d'incrémenter le score de 1
      */
-    public void incrementScore(){
+    public void incrementScore() {
         mPoints++;
     }
 
@@ -90,7 +95,7 @@ public class Score implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeParcelable(mTheme,flags);
+        out.writeParcelable(mTheme, flags);
         out.writeInt(mPoints);
     }
 }

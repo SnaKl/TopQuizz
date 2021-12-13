@@ -1,7 +1,6 @@
 package com.neves.topquiz.controller;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
@@ -63,20 +61,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         Intent intent = getIntent();
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
         }
-        mUser.setScore(new Score(null,0));
+        mUser.setScore(new Score(null, 0));
         mUser.initLastQuestionRecap();
-
 
         if (!intent.hasExtra(THEME)) {
             this.finish();
         }
         mTheme = intent.getParcelableExtra(THEME);
-
 
         if (savedInstanceState != null) {
             mUser.setScore(new Score(mTheme, savedInstanceState.getInt(BUNDLE_STATE_SCORE)));
@@ -85,8 +80,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             mQuestionBank.setNextQuestionIndex(mQuestionBank.getSize() - mRemainingQuestionCount);
         } else {
             mUser.setScore(new Score(mTheme, 0));
-            mRemainingQuestionCount = 4; // A AUGMENTER ICI POUR AUGMENTER LE NOMBRE DE QUESTIONS PAR PARTIE
-
+            mRemainingQuestionCount = 4; // TODO A AUGMENTER ICI POUR AUGMENTER LE NOMBRE DE QUESTIONS PAR PARTIE
             generateQuestions();
         }
 
@@ -127,7 +121,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
-        if (question.getImageUrl() != "") {
+        if (!question.getImageUrl().equals("")) {
             new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
         } else {
             new DownLoadImageTask(mQuestionImageView).execute(mTheme.getImage());
@@ -155,7 +149,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                     JSONObject questionJSONObject = questionsJSONArray.getJSONObject(i);
                                     JSONArray answerListJSONArray = questionJSONObject.getJSONArray("answerList");
                                     List<String> answerList = Arrays.asList(answerListJSONArray.getString(0), answerListJSONArray.getString(1), answerListJSONArray.getString(2), answerListJSONArray.getString(3));
-                                    //Collections.shuffle(answerList);
                                     Question question = new Question(
                                             mTheme,
                                             new User("UNKNOWN", "", "", ""),
@@ -166,7 +159,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                                             answerList,
                                             questionJSONObject.getInt("correctAnswerIndex"));
                                     mQuestionBank.addQuestion(question);
-                                    System.out.println(questionJSONObject.getString("imageUrl"));
                                 }
                                 mCurrentQuestion = mQuestionBank.getCurrentQuestion();
                                 mGameActivity.displayQuestion(mCurrentQuestion);
@@ -187,7 +179,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int responseIndex = (int) v.getTag();
-
         if (responseIndex == mCurrentQuestion.getAnswerIndex()) {
             mUser.incrementScore();
             handleButtonColor(responseIndex, true);
@@ -273,14 +264,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString((R.string.congrats)))
                 .setMessage(getString(R.string.messageScore) + mUser.getScore().getPoints() + getString(R.string.points))
-                .setPositiveButton(getString(R.string.OKbutton), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent AnswerRecap = new Intent(GameActivity.this, AnswerRecap.class);
-                        AnswerRecap.putExtra(USER, mUser);
-                        startActivity(AnswerRecap);
-                        //finish();
-                    }
+                .setPositiveButton(getString(R.string.OKbutton), (dialog, which) -> {
+                    Intent AnswerRecap = new Intent(GameActivity.this, AnswerRecapActivity.class);
+                    AnswerRecap.putExtra(USER, mUser);
+                    startActivity(AnswerRecap);
                 })
                 .create()
                 .show();

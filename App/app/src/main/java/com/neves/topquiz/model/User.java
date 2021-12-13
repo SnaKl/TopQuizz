@@ -3,7 +3,6 @@ package com.neves.topquiz.model;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Pair;
 
 import androidx.annotation.RequiresApi;
 
@@ -28,14 +27,16 @@ public class User implements Parcelable {
     /**
      * Constructeur vide
      */
-    public User() {}
+    public User() {
+    }
 
     /**
      * Constructeur
+     *
      * @param nickname : est le nom de l'utilisateur
      * @param jwtToken : est le jwt token de l'utilisateur
-     * @param email : est l'email de l'utilisateur
-     * @param avatar : est l'avatar de l'utilisateur
+     * @param email    : est l'email de l'utilisateur
+     * @param avatar   : est l'avatar de l'utilisateur
      */
     public User(String nickname, String jwtToken, String email, String avatar) {
         mNickname = nickname;
@@ -73,7 +74,7 @@ public class User implements Parcelable {
         out.writeString(mEmail);
         out.writeInt(mTotalScore);
         out.writeValue(mSignUpDate);
-        out.writeParcelable(mScore,flags);
+        out.writeParcelable(mScore, flags);
         out.writeString(mAvatar);
         out.writeValue(mLastQuestionRecap);
         out.writeValue(mLastAnswersRecap);
@@ -88,18 +89,13 @@ public class User implements Parcelable {
         mSignUpDate = (LocalDate) in.readValue(LocalDate.class.getClassLoader());
         mScore = in.readParcelable(Score.class.getClassLoader());
         mAvatar = in.readString();
-        /*mLastQuestionRecap = new ArrayList<Pair<Question, Boolean>>();
-        in.readList(mLastQuestionRecap,mLastQuestionRecap.getClass().getClassLoader());
-        mLastQuestionRecap = new LinkedHashMap<Question,Boolean>();
-        in.readMap(mLastQuestionRecap,getClass().getClassLoader());*/
-        mLastQuestionRecap= (List<Question>) in.readValue(Question.class.getClassLoader());
-        mLastAnswersRecap=(List<Boolean>) in.readValue(Boolean.class.getClassLoader());
-                //new ArrayList<>();
-        //in.readList(mLastAnswersRecap,mLastAnswersRecap.getClass().getClassLoader());
+        mLastQuestionRecap = (List<Question>) in.readValue(Question.class.getClassLoader());
+        mLastAnswersRecap = (List<Boolean>) in.readValue(Boolean.class.getClassLoader());
     }
 
     /**
      * Permet de récupérer le nom de l'utilisateur
+     *
      * @return : le nom de l'utilisateur
      */
     public String getNickname() {
@@ -108,6 +104,7 @@ public class User implements Parcelable {
 
     /**
      * Permet d'ajouter un nom à l'utilisateur
+     *
      * @param nickname : est le nom de l'utilisateur
      */
     public void setNickname(String nickname) {
@@ -116,6 +113,7 @@ public class User implements Parcelable {
 
     /**
      * Permet de récupérer le jwt token de l'utilisateur
+     *
      * @return : le jwt token de l'utilisateur
      */
     public String getJwtToken() {
@@ -124,6 +122,7 @@ public class User implements Parcelable {
 
     /**
      * Permet d'ajouter un jwt token à l'utilisateur
+     *
      * @param jwtToken : est le jwt token de l'utilisateur
      */
     public void setJwtToken(String jwtToken) {
@@ -132,6 +131,7 @@ public class User implements Parcelable {
 
     /**
      * Permet de récupérer l'email de l'utilisateur
+     *
      * @return : l'email de l'utilisateur
      */
     public String getEmail() {
@@ -140,6 +140,7 @@ public class User implements Parcelable {
 
     /**
      * Permet d'ajouter un email à l'utilisateur
+     *
      * @param email : est l'email de l'utilisateur
      */
     public void setEmail(String email) {
@@ -148,6 +149,7 @@ public class User implements Parcelable {
 
     /**
      * Permet de récupérer la date de création de compte de l'utilisateur
+     *
      * @return : la date de création de compte de l'utilisateur
      */
     public LocalDate getSignUpDate() {
@@ -156,6 +158,7 @@ public class User implements Parcelable {
 
     /**
      * Permet d'ajouter une date de création de compte à l'utilisateur
+     *
      * @param signUpDate : est la date de création de compte de l'utilisateur
      */
     public void setSignUpDate(LocalDate signUpDate) {
@@ -164,6 +167,7 @@ public class User implements Parcelable {
 
     /**
      * Retourne le score total de l'utilisateur
+     *
      * @return le score total de l'utilisateur
      */
     public int getTotalScore() {
@@ -172,6 +176,7 @@ public class User implements Parcelable {
 
     /**
      * Affecte un score total à l'utilisateur
+     *
      * @param totalScore de l'utilisateur
      */
     public void setTotalScore(int totalScore) {
@@ -180,6 +185,7 @@ public class User implements Parcelable {
 
     /**
      * Retourne le score de l'utilisateur
+     *
      * @return le score de l'utilisateur
      */
     public Score getScore() {
@@ -188,6 +194,7 @@ public class User implements Parcelable {
 
     /**
      * Affecte un score à l'utilisateur
+     *
      * @param score de l'utilisateur
      */
     public void setScore(Score score) {
@@ -196,6 +203,7 @@ public class User implements Parcelable {
 
     /**
      * Permet de récupérer l'avatar de l'utilisateur
+     *
      * @return : l'avatar de l'utilisateur
      */
     public String getAvatar() {
@@ -204,6 +212,7 @@ public class User implements Parcelable {
 
     /**
      * Permet d'ajouter un avatar à l'utilisateur
+     *
      * @param avatar : est l'avatar de l'utilisateur
      */
     public void setAvatar(String avatar) {
@@ -213,7 +222,7 @@ public class User implements Parcelable {
     /**
      * Permet d'incrémenter de 1 le score
      */
-    public void incrementScore(){
+    public void incrementScore() {
         mScore.incrementScore();
     }
 
@@ -224,25 +233,25 @@ public class User implements Parcelable {
         mTotalScore += mScore.getPoints();
     }
 
-    public void initLastQuestionRecap(){
-        mLastQuestionRecap=new ArrayList<Question>();
-        mLastAnswersRecap=new ArrayList<Boolean>();
+    public void initLastQuestionRecap() {
+        mLastQuestionRecap = new ArrayList<Question>();
+        mLastAnswersRecap = new ArrayList<Boolean>();
     }
 
-    public void addQuestionToQuestionRecap(Question question, boolean result){
+    public void addQuestionToQuestionRecap(Question question, boolean result) {
         mLastQuestionRecap.add(question);
         mLastAnswersRecap.add(result);
     }
 
-    public String getQuestionRecapQuestionTitle(int index){
+    public String getQuestionRecapQuestionTitle(int index) {
         return mLastQuestionRecap.get(index).getQuestionTitle();
     }
 
-    public Boolean getQuestionRecapResult(int index){
+    public Boolean getQuestionRecapResult(int index) {
         return mLastAnswersRecap.get(index);
     }
 
-    public int getQuestionRecapSize(){
+    public int getQuestionRecapSize() {
         return mLastQuestionRecap.size();
     }
 

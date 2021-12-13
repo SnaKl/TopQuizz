@@ -8,6 +8,7 @@ import com.neves.topquiz.GlobalVariable;
 import java.util.List;
 
 public class Question implements Parcelable {
+
     public static final Creator<Question> CREATOR = new Creator<Question>() {
         @Override
         public Question createFromParcel(Parcel in) {
@@ -19,12 +20,13 @@ public class Question implements Parcelable {
             return new Question[size];
         }
     };
+
     private Theme mTheme;
     private User mCreatedBy;
-    private String mQuestionId;
+    private final String mQuestionId;
     private String mImageUrl;
     private String mQuestion;
-    private String mQuestionTitle;
+    private final String mQuestionTitle;
     private List<String> mAnswerList;
     private int mAnswerIndex;
 
@@ -185,7 +187,7 @@ public class Question implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeParcelable(mTheme, flags);
-        out.writeParcelable(mCreatedBy,  flags);
+        out.writeParcelable(mCreatedBy, flags);
         out.writeString(mQuestionId);
         out.writeString(mImageUrl);
         out.writeString(mQuestion);

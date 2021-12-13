@@ -13,42 +13,42 @@ import com.neves.topquiz.R;
 import java.io.InputStream;
 import java.net.URL;
 
-///Classe permerttant de télécharger une image via une URL et de la convertir au format bitmap
-class DownLoadImageTask extends AsyncTask<String,Void, Bitmap> {
+// Class that allows to download an image from an URL and convert it to bitmap format
+class DownLoadImageTask extends AsyncTask<String, Void, Bitmap> {
+
     ShapeableImageView imageView;
     String urlOfImage;
     Bitmap finalImage;
 
-    public DownLoadImageTask(ShapeableImageView imageView){
+    public DownLoadImageTask(ShapeableImageView imageView) {
         this.imageView = imageView;
     }
+
     /*
-        doInBackground(Params... params)
-            Override this method to perform a computation on a background thread.
+     * doInBackground(Params... params) : override this method to perform a computation on a background thread.
      */
-    protected Bitmap doInBackground(String...urls){
+    protected Bitmap doInBackground(String... urls) {
         urlOfImage = urls[0];
         finalImage = null;
-        try{
+        try {
             InputStream is = new URL(urlOfImage).openStream();
-                /*
-                    decodeStream(InputStream is)
-                        Decode an input stream into a bitmap.
-                 */
+            /*
+             * decodeStream(InputStream is) : decode an input stream into a bitmap.
+             */
             finalImage = BitmapFactory.decodeStream(is);
-        }catch(Exception e){ // Catch the download exception
+        } catch (Exception e) { // Catch the download exception
             e.printStackTrace();
         }
         return finalImage;
     }
+
     /*
-        onPostExecute(Result result)
-            Runs on the UI thread after doInBackground(Params...).
+     * onPostExecute(Result result) : runs on the UI thread after doInBackground(Params...).
      */
-    protected void onPostExecute(Bitmap result){
-        if(finalImage==null){
+    protected void onPostExecute(Bitmap result) {
+        if (finalImage == null) {
             imageView.setImageDrawable(getDrawable(imageView.getContext(), R.drawable.iv_image_not_found));
-        }else {
+        } else {
             imageView.setImageBitmap(result);
         }
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
