@@ -79,6 +79,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     private void getUser(String token) {
+        System.out.println(token);
         AndroidNetworking.get(GlobalVariable.API_URL + "/api/user/")
                 .addHeaders("Authorization", ("Bearer " + token).trim())
                 .setPriority(Priority.LOW)

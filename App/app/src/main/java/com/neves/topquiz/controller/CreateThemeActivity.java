@@ -41,8 +41,6 @@ public class CreateThemeActivity extends AppCompatActivity {
     private static final String CHOSEN_THEME = "CHOSEN_THEME";
     private AutoCompleteTextView mThemeInput;
     private Button mAddQuestionBtn;
-    private Button mSubmitQuiz;
-    private Button mEnterBtn;
     private LinearLayout mThemeQuestionsListContainer;
     private QuestionBank mQuestionBank;
     private String mThemeName;
@@ -63,8 +61,6 @@ public class CreateThemeActivity extends AppCompatActivity {
 
         mThemeInput = findViewById(R.id.autoCompleteTextView);
         mAddQuestionBtn = findViewById(R.id.create_theme_addQuestion_btn);
-        mSubmitQuiz = findViewById(R.id.create_theme_submitQuiz_btn);
-        mEnterBtn = findViewById(R.id.create_theme_submitTheme_btn);
         btnParams = findViewById(R.id.create_theme_question1_btn).getLayoutParams();
 
         spinnerArray = new ArrayList<>();
@@ -101,14 +97,12 @@ public class CreateThemeActivity extends AppCompatActivity {
         mThemeInput.setOnItemClickListener((parentView, selectedItemView, position, id) -> {
             mTheme = themeList.get(position);
             questionsDisplay(mTheme);
-            mEnterBtn.setEnabled(mTheme.getTitle().length() != 0);
         });
         mThemeInput.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateListSpinner();
-                mEnterBtn.setEnabled(mThemeInput.getText().toString().length() != 0);
             }
 
             @Override
@@ -119,29 +113,13 @@ public class CreateThemeActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        mEnterBtn.setOnClickListener(v -> {
-            if (isInArray(mThemeInput.getText().toString())) {
-                questionsDisplay(mTheme);
-                mEnterBtn.setEnabled(false);
-            } else {
-                Theme newTheme = new Theme("", mThemeInput.getText().toString(), "TropLol", 0);
-                themeList.add(newTheme);
-                // Update API
-                adapter.updateList(themeList);
-                updateListSpinner();
-                questionsDisplay(newTheme);
-                Toast.makeText(CreateThemeActivity.this, R.string.newThemeCreation, Toast.LENGTH_SHORT).show();
-            }
-        });
+
         mAddQuestionBtn.setOnClickListener(v -> {
             Intent AddQuestion = new Intent(CreateThemeActivity.this, CreateQuestionActivity.class);
             AddQuestion.putExtra(CHOSEN_THEME, mTheme);
             AddQuestion.putExtra(USER, mUser);
             startActivity(AddQuestion);
             finish();
-        });
-        mSubmitQuiz.setOnClickListener(v -> {
-            // Update DB
         });
 
     }
