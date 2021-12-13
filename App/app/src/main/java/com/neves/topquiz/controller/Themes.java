@@ -7,6 +7,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.neves.topquiz.GlobalVariable;
 import com.neves.topquiz.R;
+import com.neves.topquiz.model.Question;
 import com.neves.topquiz.model.Score;
 import com.neves.topquiz.model.Theme;
 import com.neves.topquiz.model.User;
@@ -14,6 +15,8 @@ import com.neves.topquiz.model.User;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -40,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -113,7 +117,7 @@ public class Themes extends AppCompatActivity {
             TextView themeTitle = new TextView(this);
             themeTitle.setText(theme.getTitle());
             new DownLoadImageTask(themeButton).execute(theme.getImage());
-            manageButtonClickListener(themeButton, theme);
+            //manageButtonClickListener(themeButton, theme);
             roundButtonCorners(themeButton);
             themeButton.setElevation(8);
             themeTitle.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -169,7 +173,7 @@ public class Themes extends AppCompatActivity {
                 row=createRow(row_mockup);
                 buttonList.add(themeButton);
             }
-
+            checkQuestionAvailability(theme, themeButton);
         }
 
     }
@@ -234,6 +238,16 @@ public class Themes extends AppCompatActivity {
         });
     }
 
+    private void toastClickListener(ShapeableImageView button) {
+        button.setOnClickListener(v -> {
+            if(mMode.equals("GAME")){
+                Toast.makeText(mThemes, getString(R.string.noQuestions), Toast.LENGTH_SHORT).show();
+            }else if(mMode.equals("VALIDATE_THEME")){
+                Toast.makeText(mThemes, getString(R.string.noQuestionsToValidate), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void roundButtonCorners(ShapeableImageView button){
         button.setShapeAppearanceModel(button.getShapeAppearanceModel()
                 .toBuilder()
@@ -242,5 +256,73 @@ public class Themes extends AppCompatActivity {
                 .setBottomRightCornerSize(25)
                 .setBottomLeftCornerSize(25)
                 .build());
+    }
+
+    public void checkQuestionAvailability(Theme theme, ShapeableImageView button) {
+        if(mMode.equals("GAME")) {
+            AndroidNetworking.get(GlobalVariable.API_URL + "/api/question/randomQuestion/" + theme.getTitle() + "/" + 1)
+                    .setTag("getQuestions")
+                    .setPriority(Priority.LOW)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONArray questionsJSONArray = response.getJSONArray("questions");
+                                int RemainingQuestionCount = questionsJSONArray.length();
+                                if (RemainingQuestionCount == 0) {
+                                    desaturateButtonColor(button);
+                                    toastClickListener(button);
+                                }else{
+                                    manageButtonClickListener(button,theme);
+                                }
+                            } catch (JSONException jsonException) {
+                                Log.d("getQuestions", jsonException.toString());
+                            }
+                        }
+
+                        @Override
+                        public void onError(ANError anError) {
+                            Log.d("getQuestions", anError.toString());
+                        }
+                    });
+        }else if(mMode.equals("VALIDATE_THEME")){
+            AndroidNetworking.get(GlobalVariable.API_URL+"/api/question/vote/"+theme.getTitle()+"/nb")
+                    .addHeaders("Authorization", "Bearer " + mUser.getJwtToken())
+                    .setTag("getQuestionNbToValidate")
+                    .setPriority(Priority.HIGH)
+                    .build()
+                    .getAsJSONObject(new JSONObjectRequestListener() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Integer nbQuestion = response.getInt("questionNb");
+                                if(nbQuestion == 0 ){
+                                    desaturateButtonColor(button);
+                                    toastClickListener(button);
+                                }else{
+                                    manageButtonClickListener(button,theme);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+                            Log.d("getQuestionNbToValidate", error.getErrorBody().toString());
+                        }
+                    });
+
+        }
+    }
+
+    private void desaturateButtonColor(ShapeableImageView button){
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        button.setColorFilter(filter);
     }
 }

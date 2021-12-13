@@ -62,8 +62,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
+
 
         Intent intent = getIntent();
         if (intent.hasExtra(USER)) {
@@ -90,6 +89,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             generateQuestions();
         }
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_question);
 
         mEnableTouchEvents = true;
 
