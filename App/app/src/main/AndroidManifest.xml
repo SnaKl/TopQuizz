@@ -20,7 +20,6 @@
         <activity android:name=".controller.EditProfile"/>
         <activity android:name=".controller.CreateTheme"/>
         <activity android:name=".controller.CreateQuestion"/>
-        <activity android:name=".controller.ValidateTheme"/>
         <activity android:name=".controller.ValidateQuestion"/>
         <activity android:name=".controller.AnswerRecap"/>
         <activity android:name=".controller.MainActivity">

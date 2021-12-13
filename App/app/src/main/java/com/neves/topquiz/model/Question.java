@@ -186,6 +186,7 @@ public class Question implements Parcelable {
     public void writeToParcel(Parcel out, int flags) {
         out.writeParcelable(mTheme, flags);
         out.writeParcelable(mCreatedBy,  flags);
+        out.writeString(mQuestionId);
         out.writeString(mImageUrl);
         out.writeString(mQuestion);
         out.writeString(mQuestionTitle);

@@ -66,13 +66,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_question);
 
         Intent intent = getIntent();
-
-        if (!intent.hasExtra(USER)) {
-            this.finish();
+        if (intent.hasExtra(USER)) {
+            mUser = intent.getParcelableExtra(USER);
         }
-        mUser = intent.getParcelableExtra(USER);
-        mUser.setScore(new Score(null, 0));
+        mUser.setScore(new Score(null,0));
         mUser.initLastQuestionRecap();
+
 
         if (!intent.hasExtra(THEME)) {
             this.finish();
