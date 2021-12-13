@@ -20,13 +20,12 @@ public class Question implements Parcelable {
             return new Question[size];
         }
     };
-
+    private final String mQuestionId;
+    private final String mQuestionTitle;
     private Theme mTheme;
     private User mCreatedBy;
-    private final String mQuestionId;
     private String mImageUrl;
     private String mQuestion;
-    private final String mQuestionTitle;
     private List<String> mAnswerList;
     private int mAnswerIndex;
 
@@ -40,11 +39,11 @@ public class Question implements Parcelable {
      * @param answerList  : la liste des réponses possibles
      * @param answerIndex : le numéro de la réponse correcte
      */
-    public Question(Theme theme, User author, String questionId, String image, String questionTitle, String question, List<String> answerList, int answerIndex) {
+    public Question(Theme theme, User author, String questionId, String imageUrl, String questionTitle, String question, List<String> answerList, int answerIndex) {
         mTheme = theme;
         mCreatedBy = author;
         mQuestionId = questionId;
-        mImageUrl = GlobalVariable.API_URL + image;
+        mImageUrl = imageUrl;
         mQuestionTitle = questionTitle;
         mQuestion = question;
         mAnswerList = answerList;

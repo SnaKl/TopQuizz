@@ -121,10 +121,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
-        if (!question.getImageUrl().equals("")) {
-            new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
-        } else {
+        if (question.getImageUrl() == "null") {
             new DownLoadImageTask(mQuestionImageView).execute(mTheme.getImage());
+        } else {
+            new DownLoadImageTask(mQuestionImageView).execute(GlobalVariable.API_URL +question.getImageUrl());
         }
 
     }

@@ -107,7 +107,11 @@ public class ValidateQuestionActivity extends AppCompatActivity {
         mAnswerButton2.setText(question.getAnswerList().get(1));
         mAnswerButton3.setText(question.getAnswerList().get(2));
         mAnswerButton4.setText(question.getAnswerList().get(3));
-        new DownLoadImageTask(mQuestionImageView).execute(question.getImageUrl());
+        if (question.getImageUrl() == "null") {
+            new DownLoadImageTask(mQuestionImageView).execute(mTheme.getImage());
+        } else {
+            new DownLoadImageTask(mQuestionImageView).execute(GlobalVariable.API_URL +question.getImageUrl());
+        }
     }
 
     private void vote(String choice) {
