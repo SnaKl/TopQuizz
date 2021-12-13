@@ -44,7 +44,7 @@ TOKEN_KEY=AZERTY1234\n" >> .env
 ```
 * Sur Windows 
 ``` 
-(echo DATABASE_URL=mongodb+srv://admin:colin0412@topquizzdb.sfzet.mongodb.net/TopQuizz More? echo SERVER_ADDRESS=http://localhost More? echo SERVER_PORT=3000 More? echo TOKEN_KEY=AZERTY1234) > .env
+(echo DATABASE_URL=mongodb+srv://admin:colin0412@topquizzdb.sfzet.mongodb.net/TopQuizz & echo SERVER_ADDRESS=http://localhost & echo SERVER_PORT=3000 & echo TOKEN_KEY=AZERTY1234) > .env
 ```
 
 ### Lancement 
