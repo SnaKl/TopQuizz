@@ -39,9 +39,12 @@ public class Profile extends AppCompatActivity {
         mPassword = (TextView) findViewById(R.id.profile_password_input);
         mEditBtn = (ImageButton) findViewById(R.id.profile_edit_btn);
 
+
+        mPointsNumber.setText(mUser.getScore().getPoints()*100+"");
         mUsername.setText(mUser.getNickname());
         mMail.setText(mUser.getEmail());
         mPassword.setText("●●●●●●●●●●●");
+
         new DownLoadImageTask(mProfPic).execute(mUser.getAvatar());
 
 
