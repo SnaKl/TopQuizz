@@ -86,5 +86,6 @@
     <string name="accountCreatedToast">Félicitations ! Vous venez de créer votre compte, vous pouvez désormais vous connecter.</string>
     <string name="noQuestions">Aucune questions valide pour ce thème</string>
     <string name="noQuestionsToValidate">Vous n\'avez aucune question à valider pour ce thème</string>
+    <string name="questionAdded">Votre question a été ajoutée au vote ! Vous ne pouvez pas la voir mais les autres joueurs si. Si elle récolte plus de 3 votes, elle sera ajoutée au thème !</string>
 
 </resources>

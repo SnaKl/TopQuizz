@@ -42,6 +42,8 @@ public class CreateQuestion extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_question);
         Intent intent = getIntent();
         if (intent.hasExtra(USER)) {
             mUser = intent.getParcelableExtra(USER);
@@ -49,8 +51,7 @@ public class CreateQuestion extends AppCompatActivity {
         if (intent.hasExtra(CHOSEN_THEME)) {
             mTheme = intent.getParcelableExtra(CHOSEN_THEME);
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_question);
+
         mQstTitle = findViewById(R.id.create_question_title);
         mQuestionInput = findViewById(R.id.create_question_question_tv);
         mAnswer1Input = findViewById(R.id.create_question_answer1_input);
@@ -120,8 +121,8 @@ public class CreateQuestion extends AppCompatActivity {
 
     private void goBackToThemeCreation(){
         Intent CreateThemeActivity = new Intent(CreateQuestion.this, CreateTheme.class);
-        CreateThemeActivity.putExtra(CHOSEN_THEME,mTheme);
         CreateThemeActivity.putExtra(USER,mUser);
+        CreateThemeActivity.putExtra(CHOSEN_THEME,mTheme);
         startActivity(CreateThemeActivity);
         finish();
     }
