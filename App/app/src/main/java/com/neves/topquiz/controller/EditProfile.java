@@ -118,6 +118,7 @@ public class EditProfile extends AppCompatActivity {
                                 Log.d("In error", error.getErrorBody());
                             }
                         });
+                mUser.setEmail(mail);
                 Intent ProfileIntent = new Intent(EditProfile.this, Profile.class);
                 ProfileIntent.putExtra(USER,mUser);
                 startActivity(ProfileIntent);
