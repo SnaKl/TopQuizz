@@ -31,7 +31,7 @@
 		"jest": "^27.3.1",
 		"jest-extended": "^1.1.0",
 		"jest-json-schema": "^6.0.0",
-		"nodemon": "^2.0.15",
+		"nodemon": "^2.0.20",
 		"rimraf": "^3.0.2",
 		"superagent": "^6.1.0",
 		"supertest": "^6.1.6"
